@@ -1,0 +1,19 @@
+jhipster-prod-elasticsearch:
+  container_name: Controles-prod-elasticsearch
+  image: elasticsearch
+  # volumes:
+  # - ~/volumes/jhipster/Controles/prod-elasticsearch/:/usr/share/elasticsearch/data/
+  ports:
+  - "9200:9200"
+  - "9300:9300"
+jhipster-prod-postgresql:
+  container_name: Controles-prod-postgresql
+  image: postgres
+  # volumes:
+  # - ~/volumes/jhipster/Controles/prod-postgresql/:/var/lib/postgresql/
+  environment:
+  - POSTGRES_USER=Controles
+  - POSTGRES_PASSWORD=
+  ports:
+  - "5432:5432"
+

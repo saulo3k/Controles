@@ -1,0 +1,19 @@
+{
+    "controlesApp": {
+        "produto" : {
+            "home": {
+                "title": "Produtos",
+                "createLabel": "Créer un nouveau Produto",
+                "createOrEditLabel": "Créer ou éditer un Produto"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Produto {{ id }} ?"
+            },
+            "detail": {
+                "title": "Produto"
+            },
+            "nome": "Nome"
+        }
+    }
+}
+

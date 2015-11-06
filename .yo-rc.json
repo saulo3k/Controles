@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "Controles",
+    "packageName": "br.com.rexapps.controles",
+    "packageFolder": "br/com/rexapps/controles",
+    "authenticationType": "session",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "useSass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": true,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "0df232975e797f8858d8d27da94e9bf1f39bd216",
+    "testFrameworks": [
+      "cucumber"
+    ]
+  }
+}
