@@ -1,0 +1,10 @@
+{
+    "controlesApp": {
+        "TipoTelefone" : {
+            "null": "",
+            "celular": "celular",
+            "residencial": "residencial",
+            "comercial": "comercial"
+        }
+    }
+}

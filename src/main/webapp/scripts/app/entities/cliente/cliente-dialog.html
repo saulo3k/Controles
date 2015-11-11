@@ -1,0 +1,148 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myClienteLabel" translate="controlesApp.cliente.home.createOrEditLabel">Create or edit a Cliente</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="cliente.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.nome" for="field_nome">Nome</label>
+            <input type="text" class="form-control" name="nome" id="field_nome"
+                    ng-model="cliente.nome"
+                    required ng-maxlength="255" />
+            <div ng-show="editForm.nome.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.nome.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.nome.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.tipoTelefone" for="field_tipoTelefone">TipoTelefone</label>
+            <select class="form-control" name="tipoTelefone" ng-model="cliente.tipoTelefone" id="field_tipoTelefone">
+                <option value="celular" translate="controlesApp.TipoTelefone.celular">celular</option>
+                <option value="residencial" translate="controlesApp.TipoTelefone.residencial">residencial</option>
+                <option value="comercial" translate="controlesApp.TipoTelefone.comercial">comercial</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.telefone" for="field_telefone">Telefone</label>
+            <input type="text" class="form-control" name="telefone" id="field_telefone"
+                    ng-model="cliente.telefone"
+                    ng-pattern="/^[1-9]{2}\-[2-9][0-9]{7,8}$/" />
+            <div ng-show="editForm.telefone.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.telefone.$error.pattern" translate="entity.validation.pattern" translate-value-pattern="^[1-9]{2}\-[2-9][0-9]{7,8}$">
+                    This field should follow pattern "^[1-9]{2}\-[2-9][0-9]{7,8}$".
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.cpfCnpj" for="field_cpfCnpj">CpfCnpj</label>
+            <input type="text" class="form-control" name="cpfCnpj" id="field_cpfCnpj"
+                    ng-model="cliente.cpfCnpj"
+                    ng-maxlength="255" />
+            <div ng-show="editForm.cpfCnpj.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.cpfCnpj.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.email" for="field_email">Email</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                    ng-model="cliente.email"
+                    ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" />
+            <div ng-show="editForm.email.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.email.$error.pattern" translate="entity.validation.pattern" translate-value-pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$">
+                    This field should follow pattern "^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$".
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.cep" for="field_cep">Cep</label>
+            <input type="text" class="form-control" name="cep" id="field_cep"
+                    ng-model="cliente.cep"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.endereco" for="field_endereco">Endereco</label>
+            <input type="text" class="form-control" name="endereco" id="field_endereco"
+                    ng-model="cliente.endereco"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.estado" for="field_estado">Estado</label>
+            <select class="form-control" name="estado" ng-model="cliente.estado" id="field_estado">
+                <option value="AC" translate="controlesApp.Estado.AC">AC</option>
+                <option value="AL" translate="controlesApp.Estado.AL">AL</option>
+                <option value="AP" translate="controlesApp.Estado.AP">AP</option>
+                <option value="AM" translate="controlesApp.Estado.AM">AM</option>
+                <option value="BA" translate="controlesApp.Estado.BA">BA</option>
+                <option value="CE" translate="controlesApp.Estado.CE">CE</option>
+                <option value="DF" translate="controlesApp.Estado.DF">DF</option>
+                <option value="ES" translate="controlesApp.Estado.ES">ES</option>
+                <option value="GO" translate="controlesApp.Estado.GO">GO</option>
+                <option value="MA" translate="controlesApp.Estado.MA">MA</option>
+                <option value="MT" translate="controlesApp.Estado.MT">MT</option>
+                <option value="MS" translate="controlesApp.Estado.MS">MS</option>
+                <option value="MG" translate="controlesApp.Estado.MG">MG</option>
+                <option value="PA" translate="controlesApp.Estado.PA">PA</option>
+                <option value="PB" translate="controlesApp.Estado.PB">PB</option>
+                <option value="PR" translate="controlesApp.Estado.PR">PR</option>
+                <option value="PE" translate="controlesApp.Estado.PE">PE</option>
+                <option value="PI" translate="controlesApp.Estado.PI">PI</option>
+                <option value="RJ" translate="controlesApp.Estado.RJ">RJ</option>
+                <option value="RN" translate="controlesApp.Estado.RN">RN</option>
+                <option value="RS" translate="controlesApp.Estado.RS">RS</option>
+                <option value="RO" translate="controlesApp.Estado.RO">RO</option>
+                <option value="RR" translate="controlesApp.Estado.RR">RR</option>
+                <option value="SC" translate="controlesApp.Estado.SC">SC</option>
+                <option value="SP" translate="controlesApp.Estado.SP">SP</option>
+                <option value="SE" translate="controlesApp.Estado.SE">SE</option>
+                <option value="TO" translate="controlesApp.Estado.TO">TO</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.cidade" for="field_cidade">Cidade</label>
+            <input type="text" class="form-control" name="cidade" id="field_cidade"
+                    ng-model="cliente.cidade"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.nomeContato" for="field_nomeContato">NomeContato</label>
+            <input type="text" class="form-control" name="nomeContato" id="field_nomeContato"
+                    ng-model="cliente.nomeContato"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.cliente.informacoesParaBusca" for="field_informacoesParaBusca">InformacoesParaBusca</label>
+            <input type="text" class="form-control" name="informacoesParaBusca" id="field_informacoesParaBusca"
+                    ng-model="cliente.informacoesParaBusca"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

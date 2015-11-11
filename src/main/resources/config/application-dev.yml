@@ -41,7 +41,14 @@ spring:
                   logs: target/elasticsearch/log
                   data: target/elasticsearch/data
     mail:
-        host: localhost
+        host: smtp.gmail.com
+        port: 587
+        user: saulo3k@gmail.com
+        password: svas#2012x
+        protocol: smtp
+        auth: true
+        tls: true
+        from: rexappsbr@gmail.com                      
     messages:
         cache-seconds: 1
     thymeleaf:

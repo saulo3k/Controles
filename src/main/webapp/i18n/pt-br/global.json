@@ -5,7 +5,11 @@
         "menu": {
             "home": "Início",
             "entities": {
-                "main": "Entidades",
+                "main": "Operação",
+                "produto": "Produto",
+                "categoriaProduto": "CategoriaProduto",
+                "cliente": "Cliente",
+                "email": "Email",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
@@ -19,7 +23,7 @@
             },
             "admin": {
                 "main": "Administração",
-                "user-management": "User management",
+                "user-management": "Controle de usuário",
                 "tracker": "Rastreamento de usuário",
                 "metrics": "Métricas",
                 "health": "Estado do Sistema",

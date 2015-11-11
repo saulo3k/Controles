@@ -12,7 +12,19 @@
             "detail": {
                 "title": "Produto"
             },
-            "nome": "Nome"
+            "nome": "Nome",
+            "descricao": "Descricao",
+            "referencia": "Referencia",
+            "codigoBarras": "CodigoBarras",
+            "precoCusto": "PrecoCusto",
+            "precoVenda": "PrecoVenda",
+            "estoque": "Estoque",
+            "vendaSemEstoque": "VendaSemEstoque",
+            "promocao": "Promocao",
+            "dataCadastro": "DataCadastro",
+            "unidadeMedida": "UnidadeMedida",
+            "categoriaProduto": "CategoriaProduto",
+            "user": "User"
         }
     }
 }

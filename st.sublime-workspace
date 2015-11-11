@@ -7,6 +7,41 @@
 	},
 	"buffers":
 	[
+		{
+			"contents": "	<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0;url=pages/index.html\">\n<title>SB Admin 2</title>\n<script language=\"javascript\">\n    window.location.href = \"pages/index.html\"\n</script>\n</head>\n<body>\nGo to <a href=\"pages/index.html\">/pages/index.html</a>\n</body>\n</html>\n",
+			"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/index.html",
+			"file_size": 290,
+			"file_write_time": 130912925166418339,
+			"settings":
+			{
+				"buffer_size": 291,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages/index.html",
+			"settings":
+			{
+				"buffer_size": 52573,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "produto.xmi",
+			"settings":
+			{
+				"buffer_size": 1517,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/saulo3k/workspace/rexappssite/index.html",
+			"settings":
+			{
+				"buffer_size": 28212,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -40,7 +75,7 @@
 	},
 	"expanded_folders":
 	[
-		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2"
+		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages"
 	],
 	"file_history":
 	[
@@ -49,13 +84,14 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -63,6 +99,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"fa-comments",
+			"font-awesome",
+			"font"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -80,14 +119,131 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 291,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 52573,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4412,
+								4412
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1451.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "produto.xmi",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1517,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1517,
+								1517
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/saulo3k/workspace/rexappssite/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28212,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13888,
+								13888
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 4867.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 25.0
 	},
 	"input":
 	{
@@ -124,7 +280,7 @@
 	"project": "st.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 46.0
 	},
 	"save_all_on_build": true,
 	"select_file":

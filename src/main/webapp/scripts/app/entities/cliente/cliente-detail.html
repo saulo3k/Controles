@@ -1,0 +1,110 @@
+
+<div>
+    <h2><span translate="controlesApp.cliente.detail.title">Cliente</span> {{cliente.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.nome">Nome</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.nome}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.tipoTelefone">TipoTelefone</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'controlesApp.TipoTelefone.' + cliente.tipoTelefone}}">{{cliente.tipoTelefone}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.telefone">Telefone</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.telefone}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.cpfCnpj">CpfCnpj</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.cpfCnpj}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.email">Email</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.email}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.cep">Cep</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.cep}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.endereco">Endereco</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.endereco}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.estado">Estado</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'controlesApp.Estado.' + cliente.estado}}">{{cliente.estado}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.cidade">Cidade</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.cidade}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.nomeContato">NomeContato</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.nomeContato}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.cliente.informacoesParaBusca">InformacoesParaBusca</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{cliente.informacoesParaBusca}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

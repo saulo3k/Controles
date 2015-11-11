@@ -1,0 +1,29 @@
+{
+    "controlesApp": {
+        "cliente" : {
+            "home": {
+                "title": "Clientes",
+                "createLabel": "Créer un nouveau Cliente",
+                "createOrEditLabel": "Créer ou éditer un Cliente"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Cliente {{ id }} ?"
+            },
+            "detail": {
+                "title": "Cliente"
+            },
+            "nome": "Nome",
+            "tipoTelefone": "TipoTelefone",
+            "telefone": "Telefone",
+            "cpfCnpj": "CpfCnpj",
+            "email": "Email",
+            "cep": "Cep",
+            "endereco": "Endereco",
+            "estado": "Estado",
+            "cidade": "Cidade",
+            "nomeContato": "NomeContato",
+            "informacoesParaBusca": "InformacoesParaBusca"
+        }
+    }
+}
+

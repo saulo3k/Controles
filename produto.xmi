@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_DcXOkITBEeWPau2QE_ze0w" name="NewModel">
+  <packageImport xmi:id="_w7srkITHEeWp7uPJeh5FzQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Class" xmi:id="_O3HaoITBEeWPau2QE_ze0w" name="produto">
+    <ownedAttribute xmi:id="_v3HbYITCEeWPau2QE_ze0w" name="nome" type="_4Bk7YITCEeWPau2QE_ze0w"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4Bk7YITCEeWPau2QE_ze0w" name="String"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_PcsiAITDEeWPau2QE_ze0w" name="Integer"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_SSAiQITDEeWPau2QE_ze0w" name="Long"/>
+  <packagedElement xmi:type="uml:Enumeration" xmi:id="_ytzX0ITGEeWp7uPJeh5FzQ" name="UnidadeMedida">
+    <ownedAttribute xmi:id="_58fhMITIEeWp7uPJeh5FzQ" name="kg" type="_ytzX0ITGEeWp7uPJeh5FzQ"/>
+    <ownedAttribute xmi:id="_9V1bkITIEeWp7uPJeh5FzQ" name="un" type="_ytzX0ITGEeWp7uPJeh5FzQ"/>
+    <ownedAttribute xmi:id="_-0dVsITIEeWp7uPJeh5FzQ" name="maco" type="_ytzX0ITGEeWp7uPJeh5FzQ"/>
+    <ownedAttribute xmi:id="_MWQGwITJEeWp7uPJeh5FzQ" name="litros" type="_ytzX0ITGEeWp7uPJeh5FzQ"/>
+    <ownedAttribute xmi:id="_P41csITJEeWp7uPJeh5FzQ" name="toneladas" type="_ytzX0ITGEeWp7uPJeh5FzQ"/>
+  </packagedElement>
+</uml:Model>

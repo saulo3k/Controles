@@ -1,0 +1,631 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "Searching 23648 files for \"Entidades\"\n\n/home/saulo3k/workspace/Controles/node_modules/generator-jhipster/languages/templates/src/main/webapp/i18n/pt-br/_global.json:\n    6              \"home\": \"Início\",\n    7              \"entities\": {\n    8:                 \"main\": \"Entidades\",\n    9                  \"additionalEntity\": \"JHipster will add additional entities here (do not translate!)\"\n   10              },\n\n/home/saulo3k/workspace/Controles/node_modules/generator-jhipster/languages/templates/src/main/webapp/i18n/pt-pt/_global.json:\n    6              \"home\": \"Início\",\n    7              \"entities\": {\n    8:                 \"main\": \"Entidades\",\n    9                  \"additionalEntity\": \"JHipster will add additional entities here (do not translate!)\"\n   10              },\n\n/home/saulo3k/workspace/Controles/src/main/webapp/i18n/pt-br/global.json:\n    6              \"home\": \"Início\",\n    7              \"entities\": {\n    8:                 \"main\": \"Entidades\",\n    9                  \"additionalEntity\": \"JHipster will add additional entities here (do not translate!)\"\n   10              },\n\n3 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 1127,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "src/main/resources/i18n/messages_pt_br.properties",
+			"settings":
+			{
+				"buffer_size": 672,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/main/webapp/i18n/pt-br/global.json",
+			"settings":
+			{
+				"buffer_size": 4704,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/main/java/br/com/rexapps/controles/domain/Produto.java",
+			"settings":
+			{
+				"buffer_size": 5414,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": ".jhipster/Produto.json",
+			"settings":
+			{
+				"buffer_size": 2409,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/main/resources/config/application-dev.yml",
+			"settings":
+			{
+				"buffer_size": 2313,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/main/resources/config/liquibase/master.xml",
+			"settings":
+			{
+				"buffer_size": 1039,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Produto\n\nString Nome\nString Descricao\nString Referencia\nLong Codigo de Barras\nBigDecimal precoCusto -- Preco custo\nBigDecimal precoVenda--  Preco vendas\nEstoque Long \nvendaNoEstoque booelan -- Permite venda mesmo sem estoque?\npromocao boolean\ndataCadastro LocalDate\nusuario User \nCategoriaProduto Categoria Produto\nEnum unidadeMedida Unidade de Medida\n\nEnum\nUnidade Medida\nGrama\nQuilograma\nTonelada\nMililitro\nLitro\nMetro\nMetroQuadrado\nMetroCubico\n\nG,KG,T,ML,L,M,M2,M3\n\nCategoria do Produto\n\nnome \ndescricao\nativa\n\n\nCliente\n\nnome\ntelefone\ncpf ou cnpj\nemail\ncep\nendereco\nestado\ncidade\nnomeContato\ninformacoesParaBusca\n\n\n\n\n\nnome (String)\ndescricao (String)\nreferencia (String)\ncodigoBarras (Long)\nprecoCusto (BigDecimal)\nprecoVenda (BigDecimal)\nestoque (Long)\nvendaSemEstoque (Boolean)\npromocao (Boolean)\ndataCadastro (LocalDate)\nusuario (Integer)\nunidadeMedida (UnidadeMedida)\ncategoriaProduto (Integer)\n-------------------\nCategoriasProduto - categoriaProduto (many-to-one)\nuser - user (many-to-one)\n? Do you want to use a Data Transfer Object (DTO)? No, use the entity directly\n? Do you want pagination on your entity? Yes, with infinite scroll\nEverything is configured, generating the entity...\n   create .jhipster/Produto.json\n   create src/main/java/br/com/rexapps/controles/domain/enumeration/UnidadeMedida.java\n   create src/main/webapp/i18n/en/unidadeMedida.json\n   create src/main/webapp/i18n/pt-br/unidadeMedida.json\n conflict src/main/java/br/com/rexapps/controles/domain/Produto.java\n? Overwrite src/main/java/br/com/rexapps/controles/domain/Produto.java? overwrite\n    force src/main/java/br/com/rexapps/controles/domain/Produto.java\n conflict src/main/java/br/com/rexapps/controles/repository/ProdutoRepository.java\n? Overwrite src/main/java/br/com/rexapps/controles/repository/ProdutoRepository.java? overwrite\n    force src/main/java/br/com/rexapps/controles/repository/ProdutoRepository.java\nidentical src/main/java/br/com/rexapps/controles/repository/search/ProdutoSearchRepository.java\nidentical src/main/java/br/com/rexapps/controles/web/rest/ProdutoResource.java\n   create src/main/resources/config/liquibase/changelog/20151109194337_added_entity_Produto.xml\n conflict src/main/webapp/scripts/app/entities/produto/produtos.html\n? Overwrite src/main/webapp/scripts/app/entities/produto/produtos.html? overwrite\n    force src/main/webapp/scripts/app/entities/produto/produtos.html\n conflict src/main/webapp/scripts/app/entities/produto/produto-detail.html\n? Overwrite src/main/webapp/scripts/app/entities/produto/produto-detail.html? overwrite\n    force src/main/webapp/scripts/app/entities/produto/produto-detail.html\n conflict src/main/webapp/scripts/app/entities/produto/produto-dialog.html\n? Overwrite src/main/webapp/scripts/app/entities/produto/produto-dialog.html? overwrite\n    force src/main/webapp/scripts/app/entities/produto/produto-dialog.html\n conflict src/main/webapp/scripts/app/entities/produto/produto.js\n? Overwrite src/main/webapp/scripts/app/entities/produto/produto.js? overwrite\n    force src/main/webapp/scripts/app/entities/produto/produto.js\n conflict src/main/webapp/scripts/app/entities/produto/produto.controller.js\n? Overwrite src/main/webapp/scripts/app/entities/produto/produto.controller.js? overwrite\n    force src/main/webapp/scripts/app/entities/produto/produto.controller.js\n conflict src/main/webapp/scripts/app/entities/produto/produto-dialog.controller.js\n? Overwrite src/main/webapp/scripts/app/entities/produto/produto-dialog.controller.js? overwrite\n    force src/main/webapp/scripts/app/entities/produto/produto-dialog.controller.js\n conflict src/main/webapp/scripts/app/entities/produto/produto-detail.controller.js\n? Overwrite src/main/webapp/scripts/app/entities/produto/produto-detail.controller.js? overwrite\n    force src/main/webapp/scripts/app/entities/produto/produto-detail.controller.js\n conflict src/test/javascript/spec/app/entities/produto/produto-detail.controller.spec.js\n? Overwrite src/test/javascript/spec/app/entities/produto/produto-detail.controller.spec.js? overwrite\n    force src/test/javascript/spec/app/entities/produto/produto-detail.controller.spec.js\n conflict src/main/webapp/scripts/components/entities/produto/produto.service.js\n? Overwrite src/main/webapp/scripts/components/entities/produto/produto.service.js? overwrite\n    force src/main/webapp/scripts/components/entities/produto/produto.service.js\nidentical src/main/webapp/scripts/components/entities/produto/produto.search.service.js\n conflict src/test/java/br/com/rexapps/controles/web/rest/ProdutoResourceTest.java\n? Overwrite src/test/java/br/com/rexapps/controles/web/rest/ProdutoResourceTest.java? overwrite\n    force src/test/java/br/com/rexapps/controles/web/rest/ProdutoResourceTest.java\n conflict src/main/webapp/i18n/en/produto.json\n? Overwrite src/main/webapp/i18n/en/produto.json? overwrite\n    force src/main/webapp/i18n/en/produto.json\n conflict src/main/webapp/i18n/fr/produto.json\n? Overwrite src/main/webapp/i18n/fr/produto.json? overwrite\n    force src/main/webapp/i18n/fr/produto.json\n conflict src/main/webapp/i18n/pt-br/produto.json\n? Overwrite src/main/webapp/i18n/pt-br/produto.json? overwrite\n    force src/main/webapp/i18n/pt-br/produto.json\nsaulo3k@saulo3k-HP-Pavilion-dm4-Notebook-PC:~/workspace/Controles$ \n\n",
+			"settings":
+			{
+				"buffer_size": 5288,
+				"line_ending": "Unix",
+				"name": "Produto"
+			}
+		},
+		{
+			"contents": "\nESTADO	SIGLA	 \n 	 	 \nAC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO",
+			"settings":
+			{
+				"buffer_size": 102,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/main/java/br/com/rexapps/controles/domain/enumeration/UnidadeMedida.java",
+			"settings":
+			{
+				"buffer_size": 150,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/main/java/br/com/rexapps/controles/domain/User.java",
+			"settings":
+			{
+				"buffer_size": 5226,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/saulo3k/workspace/Controles",
+		"/home/saulo3k/workspace/Controles/.jhipster",
+		"/home/saulo3k/workspace/Controles/src",
+		"/home/saulo3k/workspace/Controles/src/main",
+		"/home/saulo3k/workspace/Controles/src/main/java",
+		"/home/saulo3k/workspace/Controles/src/main/java/br",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/config",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/config/apidoc",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/config/audit",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/config/liquibase",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/domain",
+		"/home/saulo3k/workspace/Controles/src/main/resources",
+		"/home/saulo3k/workspace/Controles/src/main/resources/config",
+		"/home/saulo3k/workspace/Controles/src/main/resources/config/liquibase",
+		"/home/saulo3k/workspace/Controles/src/main/resources/i18n",
+		"/home/saulo3k/workspace/Controles/src/main/webapp/i18n/pt-br"
+	],
+	"file_history":
+	[
+		"/home/saulo3k/workspace/rexappssite/index.html",
+		"/home/saulo3k/workspace/Controles/produto.xmi",
+		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages/index.html",
+		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/index.html",
+		"/home/saulo3k/workspace/Controles/package.json"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Entidades",
+			"fa-comments",
+			"font-awesome",
+			"font"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 7,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1127,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										268,
+										277
+									],
+									[
+										640,
+										649
+									],
+									[
+										959,
+										968
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/main/resources/i18n/messages_pt_br.properties",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 672,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								210,
+								210
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/JavaProperties.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/main/webapp/i18n/pt-br/global.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4704,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								362,
+								362
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/main/java/br/com/rexapps/controles/domain/Produto.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5414,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								986,
+								986
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 136.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": ".jhipster/Produto.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2409,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/main/resources/config/application-dev.yml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2313,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								829,
+								829
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 843.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/main/resources/config/liquibase/master.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1039,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								431,
+								431
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5288,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								591,
+								591
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Produto",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 418.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 102,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								22,
+								22
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/main/java/br/com/rexapps/controles/domain/enumeration/UnidadeMedida.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 150,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "src/main/java/br/com/rexapps/controles/domain/User.java",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5226,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2691,
+								2691
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Java/Java.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1115.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Controles.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 629.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('controlesApp').controller('ProdutoDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Produto',
-        function($scope, $stateParams, $modalInstance, entity, Produto) {
+    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Produto', 'CategoriaProduto', 'User',
+        function($scope, $stateParams, $modalInstance, entity, Produto, CategoriaProduto, User) {
 
         $scope.produto = entity;
+        $scope.categoriaprodutos = CategoriaProduto.query();
+        $scope.users = User.query();
         $scope.load = function(id) {
             Produto.get({id : id}, function(result) {
                 $scope.produto = result;

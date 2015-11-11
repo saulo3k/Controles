@@ -1,16 +1,92 @@
 {
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "categoriaProduto",
+            "otherEntityName": "categoriaProduto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "Y"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
     "fields": [
         {
             "fieldId": 1,
             "fieldName": "nome",
             "fieldType": "String",
             "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "descricao",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "referencia",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "codigoBarras",
+            "fieldType": "Long"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "precoCusto",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": [
                 "required"
             ]
-        }
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "precoVenda",
+            "fieldType": "BigDecimal",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "estoque",
+            "fieldType": "Long"
+        },
+        {
+            "fieldId": 8,
+            "fieldName": "vendaSemEstoque",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldId": 9,
+            "fieldName": "promocao",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldId": 10,
+            "fieldName": "dataCadastro",
+            "fieldType": "LocalDate"
+        },        
+        {
+            "fieldId": 12,
+            "fieldName": "unidadeMedida",
+            "fieldType": "UnidadeMedida",
+            "fieldValues": "G,KG,T,ML,L,M,M2,M3"
+        }        
     ],
-    "changelogDate": "20151102154902",
+    "changelogDate": "20151109194337",
     "dto": "no",
     "pagination": "infinite-scroll"
 }

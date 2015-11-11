@@ -1,0 +1,30 @@
+{
+    "controlesApp": {
+        "produto" : {
+            "home": {
+                "title": "Produtos",
+                "createLabel": "Criar Produto",
+                "createOrEditLabel": "Criar ou Editar Produto"
+            },
+            "delete": {
+                "question": "Tem certeza que deseja remover o Produto {{ id }}?"
+            },
+            "detail": {
+                "title": "Produto"
+            },
+            "nome": "Nome",
+            "descricao": "Descricao",
+            "referencia": "Referencia",
+            "codigoBarras": "CodigoBarras",
+            "precoCusto": "PrecoCusto",
+            "precoVenda": "PrecoVenda",
+            "estoque": "Estoque",
+            "vendaSemEstoque": "VendaSemEstoque",
+            "promocao": "Promocao",
+            "dataCadastro": "DataCadastro",
+            "unidadeMedida": "UnidadeMedida",
+            "categoriaProduto": "CategoriaProduto",
+            "user": "User"
+        }
+    }
+}

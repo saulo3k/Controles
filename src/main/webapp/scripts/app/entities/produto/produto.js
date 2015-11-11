@@ -19,6 +19,7 @@ angular.module('controlesApp')
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('produto');
+                        $translatePartialLoader.addPart('unidadeMedida');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }]
@@ -40,6 +41,7 @@ angular.module('controlesApp')
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('produto');
+                        $translatePartialLoader.addPart('unidadeMedida');
                         return $translate.refresh();
                     }],
                     entity: ['$stateParams', 'Produto', function($stateParams, Produto) {
@@ -62,6 +64,16 @@ angular.module('controlesApp')
                             entity: function () {
                                 return {
                                     nome: null,
+                                    descricao: null,
+                                    referencia: null,
+                                    codigoBarras: null,
+                                    precoCusto: null,
+                                    precoVenda: null,
+                                    estoque: null,
+                                    vendaSemEstoque: null,
+                                    promocao: null,
+                                    dataCadastro: null,
+                                    unidadeMedida: null,
                                     id: null
                                 };
                             }

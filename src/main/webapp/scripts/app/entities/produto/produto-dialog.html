@@ -17,15 +17,114 @@
             <label translate="controlesApp.produto.nome" for="field_nome">Nome</label>
             <input type="text" class="form-control" name="nome" id="field_nome"
                     ng-model="produto.nome"
-                    required />
+                    required ng-maxlength="255" />
             <div ng-show="editForm.nome.$invalid">
                 <p class="help-block"
                     ng-show="editForm.nome.$error.required" translate="entity.validation.required">
                     This field is required.
                 </p>
+                <p class="help-block"
+                    ng-show="editForm.nome.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
             </div>
         </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.descricao" for="field_descricao">Descricao</label>
+            <input type="text" class="form-control" name="descricao" id="field_descricao"
+                    ng-model="produto.descricao"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.referencia" for="field_referencia">Referencia</label>
+            <input type="text" class="form-control" name="referencia" id="field_referencia"
+                    ng-model="produto.referencia"
+                    ng-maxlength="255" />
+            <div ng-show="editForm.referencia.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.referencia.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                    This field cannot be longer than 255 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.codigoBarras" for="field_codigoBarras">CodigoBarras</label>
+            <input type="number" class="form-control" name="codigoBarras" id="field_codigoBarras"
+                    ng-model="produto.codigoBarras"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.precoCusto" for="field_precoCusto">PrecoCusto</label>
+            <input type="number" class="form-control" name="precoCusto" id="field_precoCusto"
+                    ng-model="produto.precoCusto"
+                    required />
+            <div ng-show="editForm.precoCusto.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.precoCusto.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.precoCusto.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.precoVenda" for="field_precoVenda">PrecoVenda</label>
+            <input type="number" class="form-control" name="precoVenda" id="field_precoVenda"
+                    ng-model="produto.precoVenda"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.estoque" for="field_estoque">Estoque</label>
+            <input type="number" class="form-control" name="estoque" id="field_estoque"
+                    ng-model="produto.estoque"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.vendaSemEstoque" for="field_vendaSemEstoque">VendaSemEstoque</label>
+            <input type="checkbox" class="form-control" name="vendaSemEstoque" id="field_vendaSemEstoque"
+                    ng-model="produto.vendaSemEstoque"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.promocao" for="field_promocao">Promocao</label>
+            <input type="checkbox" class="form-control" name="promocao" id="field_promocao"
+                    ng-model="produto.promocao"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.dataCadastro" for="field_dataCadastro">DataCadastro</label>
+            <input type="date" class="form-control" name="dataCadastro" id="field_dataCadastro"
+                    ng-model="produto.dataCadastro"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.unidadeMedida" for="field_unidadeMedida">UnidadeMedida</label>
+            <select class="form-control" name="unidadeMedida" ng-model="produto.unidadeMedida" id="field_unidadeMedida">
+                <option value="G" translate="controlesApp.UnidadeMedida.G">G</option>
+                <option value="KG" translate="controlesApp.UnidadeMedida.KG">KG</option>
+                <option value="T" translate="controlesApp.UnidadeMedida.T">T</option>
+                <option value="ML" translate="controlesApp.UnidadeMedida.ML">ML</option>
+                <option value="L" translate="controlesApp.UnidadeMedida.L">L</option>
+                <option value="M" translate="controlesApp.UnidadeMedida.M">M</option>
+                <option value="M2" translate="controlesApp.UnidadeMedida.M2">M2</option>
+                <option value="M3" translate="controlesApp.UnidadeMedida.M3">M3</option>
+            </select>
+        </div>
 
+        <div class="form-group">
+            <label translate="controlesApp.produto.categoriaProduto" for="field_categoriaProduto">categoriaProduto</label>
+            <select class="form-control" id="field_categoriaProduto" name="categoriaProduto" ng-model="produto.categoriaProduto" ng-options="categoriaProduto as categoriaProduto.nome for categoriaProduto in categoriaprodutos track by categoriaProduto.nome">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.produto.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="produto.user" ng-options="user as user.id for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

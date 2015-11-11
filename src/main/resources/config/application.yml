@@ -27,7 +27,7 @@ spring:
 
 security:
     basic:
-        enabled: false
+        enabled: true
 
 # ===================================================================
 # JHipster specific properties

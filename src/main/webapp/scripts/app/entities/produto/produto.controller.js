@@ -57,6 +57,16 @@ angular.module('controlesApp')
         $scope.clear = function () {
             $scope.produto = {
                 nome: null,
+                descricao: null,
+                referencia: null,
+                codigoBarras: null,
+                precoCusto: null,
+                precoVenda: null,
+                estoque: null,
+                vendaSemEstoque: null,
+                promocao: null,
+                dataCadastro: null,
+                unidadeMedida: null,
                 id: null
             };
         };

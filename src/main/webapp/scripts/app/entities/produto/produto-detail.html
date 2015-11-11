@@ -18,6 +18,102 @@
                     <span class="form-control-static">{{produto.nome}}</span>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.descricao">Descricao</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.descricao}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.referencia">Referencia</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.referencia}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.codigoBarras">CodigoBarras</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.codigoBarras}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.precoCusto">PrecoCusto</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.precoCusto}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.precoVenda">PrecoVenda</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.precoVenda}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.estoque">Estoque</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.estoque}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.vendaSemEstoque">VendaSemEstoque</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.vendaSemEstoque}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.promocao">Promocao</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.promocao}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.dataCadastro">DataCadastro</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{produto.dataCadastro | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.unidadeMedida">UnidadeMedida</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'controlesApp.UnidadeMedida.' + produto.unidadeMedida}}">{{produto.unidadeMedida}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.categoriaProduto">categoriaProduto</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="categoriaProduto.detail({id:produto.categoriaProduto.id})">{{produto.categoriaProduto.Y}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.produto.user">user</span>
+                </td>
+                <td>
+                    {{produto.user.id}}
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

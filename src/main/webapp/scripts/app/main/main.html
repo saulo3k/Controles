@@ -5,17 +5,17 @@
                      <div class="panel-heading">
                          <div class="row">
                              <div class="col-xs-3">                              
-                                 <i class="fa fa-user fa-5x"></i>
+                                 <i class="fa fa-pencil-square-o fa-5x"></i>
                              </div>
                              <div class="col-xs-9 text-right">
                                  <div class="huge">26</div>
-                                 <div>Clientes</div>
+                                 <div>Clientes que não fizeram pedido hoje</div>
                              </div>
                          </div>
                      </div>
                      <a href="#">
                          <div class="panel-footer">
-                             <span class="pull-left">Ver Detalhes</span>
+                             <span class="pull-left">Fazer Pedidos</span>
                              <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                              <div class="clearfix"></div>
                          </div>
@@ -28,17 +28,17 @@
                        <div class="panel-heading">
                            <div class="row">
                                <div class="col-xs-3">
-                                   <i class="fa fa-shopping-cart fa-5x"></i>
+                                   <i class="fa fa-check-square-o fa-5x"></i>
                                </div>
                                <div class="col-xs-9 text-right">
                                    <div class="huge">12</div>
-                                   <div>Produtos</div>
+                                   <div>Pedidos Pronto para Separação</div>
                                </div>
                            </div>
                        </div>
                        <a href="#">
                            <div class="panel-footer">
-                               <span class="pull-left">Ver Detalhes</span>
+                               <span class="pull-left">Separar Pedidos</span>
                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                <div class="clearfix"></div>
                            </div>
@@ -48,35 +48,154 @@
                
                <div class="col-lg-3 col-md-6">
                    <div class="panel panel-yellow">
-                       <div class="panel-heading">
+                       <div class="panel-heading"  style="height: 118px">
                            <div class="row">
                                <div class="col-xs-3">
                                    <i class="fa fa-truck fa-5x"></i>
                                </div>
                                <div class="col-xs-9 text-right">
-                                   <div class="huge">124</div>
-                                   <div>Pedidos</div>
+                                   <div class="huge">12</div>
+                                   <div>Prontos para entrega</div>
                                </div>
                            </div>
                        </div>
                        <a href="#">
                            <div class="panel-footer">
-                               <span class="pull-left">Ver Detalhes</span>
+                               <span class="pull-left">Fazer Entrega</span>
+                               <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                               <div class="clearfix"></div>
+                           </div>
+                       </a>
+                   </div>
+               </div>
+               
+               <div class="col-lg-3 col-md-6" >
+                   <div class="panel panel-primary">
+                       <div class="panel-heading"  style="height: 118px">
+                           <div class="row">
+                               <div class="col-xs-3">
+                                   <i class="fa fa-cubes fa-5x"></i>
+                               </div>
+                               <div class="col-xs-9 text-right">
+                                   <div class="huge">2400</div>
+                                   <div>Estoque</div>
+                               </div>
+                           </div>
+                       </div>
+                       <a href="#">
+                           <div class="panel-footer">
+                               <span class="pull-left">Controlar Estoque</span>
                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                <div class="clearfix"></div>
                            </div>
                        </a>
                    </div>
                </div>	    
+	    </div>
+	    <div class="row" has-authority="ROLE_ADMIN">
+	    	<div class="col-lg-3 col-md-6" >
+                   <div class="panel panel-green">
+                       <div class="panel-heading"  style="height: 118px">
+                           <div class="row">
+                               <div class="col-xs-3">
+                                   <i class="fa fa-leaf fa-5x"></i>
+                               </div>
+                               <div class="col-xs-9 text-right">
+                                   <div class="huge">25</div>
+                                   <div>Produtos</div>
+                               </div>
+                           </div>
+                       </div>
+                       <a href="#">
+                           <div class="panel-footer">
+                           	   <a ui-sref="produto">
+                               		<span class="pull-left">Cadastrar produtos</span>
+                               		<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                	<div class="clearfix"></div>
+                                </a>
+                           </div>
+                       </a>
+                   </div>
+               </div>
+               <div class="col-lg-3 col-md-6" >
+                   <div class="panel panel-yellow">
+                       <div class="panel-heading"  style="height: 118px">
+                           <div class="row">
+                               <div class="col-xs-3">
+                                   <i class="fa fa-male fa-5x"></i>
+                               </div>
+                               <div class="col-xs-9 text-right">
+                                   <div class="huge">30</div>
+                                   <div>Usuários/Funcionários</div>
+                               </div>
+                           </div>
+                       </div>
+                       <a href="#">
+                           <div class="panel-footer">
+                           	   <a ui-sref="user-management">
+                               		<span class="pull-left">Cadastrar usuários no sistema</span>
+                               		<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                               		<div class="clearfix"></div>
+                               </a>		
+                           </div>
+                       </a>
+                   </div>
+               </div>               
+               <div class="col-lg-3 col-md-6" >
+                   <div class="panel panel-primary">
+                       <div class="panel-heading"  style="height: 118px">
+                           <div class="row">
+                               <div class="col-xs-3">
+                                   <i class="fa fa-cog fa-5x"></i>
+                               </div>
+                               <div class="col-xs-9 text-right">
+                                   <div class="huge">5</div>
+                                   <div>Categoria de Produtos</div>
+                               </div>
+                           </div>
+                       </div>
+                       <a href="#">
+                           <div class="panel-footer">
+                           	   <a ui-sref="categoriaProduto"> 
+                               	<span class="pull-left">Cadastrar categorias de produtos </span>
+                               	<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                               	<div class="clearfix"></div>
+                               </a>
+                           </div>
+                       </a>
+                   </div>
+               </div>
                
-<!--                teste          -->
-
+               <div class="col-lg-3 col-md-6">
+                 <div class="panel panel-green">
+                     <div class="panel-heading" style="height: 118px">
+                         <div class="row">
+                             <div class="col-xs-3">                              
+                                 <i class="fa fa-user fa-5x"></i>
+                             </div>
+                             <div class="col-xs-9 text-right">
+                                 <div class="huge" >126</div>
+                                 <div>Clientes</div>
+                             </div>
+                         </div>
+                     </div>
+                     <a href="#">
+                         <div class="panel-footer">
+                         	 <a ui-sref="cliente">	
+	                             <span class="pull-left">Cadastrar Clientes</span>
+	                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+	                             <div class="clearfix"></div>
+                             </a>
+                         </div>
+                     </a>
+                 </div>
+             </div>
 	    </div>
-	                        <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Historico de Pedidos
-	    <div id="myfirstchart" style="height: 250px;"></div>
-	    </div>
-	    </div>
-	    <script src="scripts/app/graficos/morris-data.js"></script>
+<!-- 	     <div class="panel panel-default"> -->
+<!--           <div class="panel-heading"> -->
+<!--               <i class="fa fa-bar-chart-o fa-fw"></i> Historico de Pedidos -->
+<!-- 	    <div id="myfirstchart" style="height: 250px;"></div> -->
+<!-- 	    </div> -->
+<!-- 	    </div> -->
+<!-- 	    <script src="scripts/app/graficos/morris-data.js"></script> -->
 </div>

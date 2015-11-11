@@ -1,0 +1,87 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "nome",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "tipoTelefone",
+            "fieldType": "TipoTelefone",
+            "fieldValues": "celular,residencial,comercial"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "telefone",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^[1-9]{2}\\-[2-9][0-9]{7,8}$",
+            "fieldValidateRulesPatternJava": "^[1-9]{2}\\\\-[2-9][0-9]{7,8}$"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "cpfCnpj",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "email",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$",
+            "fieldValidateRulesPatternJava": "^\\\\w+@[a-zA-Z_]+?\\\\.[a-zA-Z]{2,3}$"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "cep",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "endereco",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldId": 8,
+            "fieldName": "estado",
+            "fieldType": "Estado",
+            "fieldValues": "AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO"
+        },
+        {
+            "fieldId": 9,
+            "fieldName": "cidade",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 10,
+            "fieldName": "nomeContato",
+            "fieldType": "String",
+            "fieldValidateRules": []
+        },
+        {
+            "fieldId": 11,
+            "fieldName": "informacoesParaBusca",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20151109204511",
+    "dto": "no",
+    "pagination": "infinite-scroll"
+}

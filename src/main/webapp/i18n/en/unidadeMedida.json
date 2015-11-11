@@ -1,0 +1,15 @@
+{
+    "controlesApp": {
+        "UnidadeMedida" : {
+            "null": "",
+            "G": "G",
+            "KG": "KG",
+            "T": "T",
+            "ML": "ML",
+            "L": "L",
+            "M": "M",
+            "M2": "M2",
+            "M3": "M3"
+        }
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "controlesApp": {
+        "email" : {
+            "home": {
+                "title": "Emails",
+                "createLabel": "Create a new Email",
+                "createOrEditLabel": "Create or edit a Email"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Email {{ id }}?"
+            },
+            "detail": {
+                "title": "Email"
+            }
+        }
+    }
+}

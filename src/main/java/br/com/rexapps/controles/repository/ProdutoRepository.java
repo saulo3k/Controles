@@ -11,4 +11,7 @@ import java.util.List;
  */
 public interface ProdutoRepository extends JpaRepository<Produto,Long> {
 
+    @Query("select produto from Produto produto where produto.user.login = ?#{principal.username}")
+    List<Produto> findByUserIsCurrentUser();
+
 }
