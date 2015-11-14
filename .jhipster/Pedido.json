@@ -1,0 +1,73 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "produto",
+            "otherEntityName": "produto",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "pedidos"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "dtPrevistaSeparacao",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "dtRealSeparacao",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "dtPrevistaEntrega",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "dtRealEntrega",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "periodoPedidoInicio",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "periodoPedidoFim",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "diaSemana",
+            "fieldType": "DiaSemana",
+            "fieldValues": "Segunda,Terca,Quarta,Quinta,Sexta,Sabado,Domingo"
+        },
+        {
+            "fieldId": 8,
+            "fieldName": "dataPedido",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 9,
+            "fieldName": "status",
+            "fieldType": "Status"
+            "fieldValues": "PedidoModelo,Clientenaopediu,Emprocessodepedido,Separacao,EmprocessodeSeparacao,Romaneio"
+        }
+    ],
+    "changelogDate": "20151114154243",
+    "dto": "no",
+    "pagination": "infinite-scroll"
+}

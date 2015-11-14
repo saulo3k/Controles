@@ -1,0 +1,43 @@
+<div class="panel panel-green"> 
+	<div class="panel-heading"> 					   
+		  <div class="container">
+		    <div class="row">
+		        <div class="col-xs-6">
+		            <h1>Separação</h1>
+		        </div>
+		        <div class="col-xs-6">
+		            <i class="fa fa-check-square-o fa-5x"/>
+		        </div>
+		    </div>
+		</div>
+	</div>
+				<div class="panel-body">
+
+				<div class="row" >
+					<div class="col-md-4" >
+					<h2>Pedido: 123432</h2>
+					</div>
+					<br>
+				  <div class="col-md-4" ng-repeat="produto in produtos track by produto.id" >
+				  
+							<div class="roundedOne">
+								<input type="checkbox" name="checkboxG3" id="checkboxG3_{{produto.id}}" class="css-checkbox" ng-required="true">
+								<label for="checkboxG3_{{produto.id}}" class="css-label" >{{produto.nome}} Qnt: {{produto.estoque}}</label>
+							</div>
+							
+<!-- 			            	<label for="input_{{produto.id}}">Qnt</label> -->
+<!-- 	                    	<input type"text" id="input_{{produto.id}}" ng-model="produto.estoque" size="3"/> -->
+<!-- 		                    <button type="button" id="btn_{{produto.id}}" class="btn btn-default" data-ng-init="changeColorSelect(produto.id)" ng-class="change" ng-click="changeColorSelect()"> -->
+<!-- 		            		{{produto.nome}}	 -->
+<!-- 		            		<span class="fa fa-check" ng-show="isActiveUpload" /> -->
+<!-- 		            		</button> 	  -->
+				  </div>
+				  
+				  <button class="btn btn-success"  ui-sref="produto.new">
+                    <span class="fa fa-truck fa-5x"></span> <span >Pedido pronto para Entrega</span>
+                </button>
+                
+                
+				</div>	 	 
+</div>
+

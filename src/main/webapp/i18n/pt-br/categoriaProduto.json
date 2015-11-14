@@ -12,8 +12,11 @@
             "detail": {
                 "title": "Categoria de Produto"
             },
+            "created": "Categoria de Produto criada com sucesso",
+            "deleted": "Categoria de Produto removida com sucesso",
+            "updated": "Categoria de Produto alterada com sucesso",
             "nome": "Nome",
-            "descricao": "Descricao",
+            "descricao": "Descrição",
             "ativa": "Ativa"
         }
     }

@@ -1,36 +1,36 @@
 <div>
-    <h2 translate="controlesApp.categoriaProduto.home.title">CategoriaProdutos</h2>
+    <h2 translate="controlesApp.pedido.home.title">Pedidos</h2>
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="categoriaProduto.new">
-                    <span class="fa fa-cog fa-5x"></span> <span style="font-size: 15px" translate="controlesApp.categoriaProduto.home.createLabel">Create a new CategoriaProduto</span>
+                <button class="btn btn-primary" ui-sref="pedido.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="controlesApp.pedido.home.createLabel">Create a new Pedido</span>
                 </button>
             </div>
             <div class="col-md-8">
                 <form name="searchForm" class="form-inline">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
                     </div>
-                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Buscar Categoria de Produto</span>
+                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Pedido</span>
                     </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="deleteCategoriaProdutoConfirmation">
+    <div class="modal fade" id="deletePedidoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form name="deleteForm" ng-submit="confirmDelete(categoriaProduto.id)">
+                <form name="deleteForm" ng-submit="confirmDelete(pedido.id)">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                                 ng-click="clear()">&times;</button>
                         <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
                     </div>
                     <div class="modal-body">
-                        <p translate="controlesApp.categoriaProduto.delete.question" translate-values="{id: '{{categoriaProduto.id}}'}">Are you sure you want to delete this CategoriaProduto?</p>
+                        <p translate="controlesApp.pedido.delete.question" translate-values="{id: '{{pedido.id}}'}">Are you sure you want to delete this Pedido?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -50,34 +50,47 @@
             <thead>
                 <tr>
                     <th translate="global.field.id">ID</th>
-                    <th translate="controlesApp.categoriaProduto.nome">Nome</th>
-                    <th translate="controlesApp.categoriaProduto.descricao">Descricao</th>
-                    <th translate="controlesApp.categoriaProduto.ativa">Ativa</th>
+                    <th translate="controlesApp.pedido.dtPrevistaSeparacao">DtPrevistaSeparacao</th>
+                    <th translate="controlesApp.pedido.dtRealSeparacao">DtRealSeparacao</th>
+                    <th translate="controlesApp.pedido.dtPrevistaEntrega">DtPrevistaEntrega</th>
+                    <th translate="controlesApp.pedido.dtRealEntrega">DtRealEntrega</th>
+                    <th translate="controlesApp.pedido.periodoPedidoInicio">PeriodoPedidoInicio</th>
+                    <th translate="controlesApp.pedido.periodoPedidoFim">PeriodoPedidoFim</th>
+                    <th translate="controlesApp.pedido.diaSemana">DiaSemana</th>
+                    <th translate="controlesApp.pedido.dataPedido">DataPedido</th>
+                    <th translate="controlesApp.pedido.usuarioQueFezPedido">UsuarioQueFezPedido</th>
+                    <th translate="controlesApp.pedido.user">user</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                <tr ng-repeat="categoriaProduto in categoriaProdutos track by categoriaProduto.id">
-                    <td><a ui-sref="categoriaProduto.detail({id:categoriaProduto.id})">{{categoriaProduto.id}}</a></td>
-                    <td>{{categoriaProduto.nome}}</td>
-                    <td>{{categoriaProduto.descricao}}</td>
+                <tr ng-repeat="pedido in pedidos track by pedido.id">
+                    <td><a ui-sref="pedido.detail({id:pedido.id})">{{pedido.id}}</a></td>
+                        <td>{{pedido.dtPrevistaSeparacao | date:'mediumDate'}}</td>
+                        <td>{{pedido.dtRealSeparacao | date:'mediumDate'}}</td>
+                        <td>{{pedido.dtPrevistaEntrega | date:'mediumDate'}}</td>
+                        <td>{{pedido.dtRealEntrega | date:'mediumDate'}}</td>
+                        <td>{{pedido.periodoPedidoInicio | date:'mediumDate'}}</td>
+                        <td>{{pedido.periodoPedidoFim | date:'mediumDate'}}</td>
+                    <td translate="{{'controlesApp.DiaSemana.' + pedido.diaSemana}}">{{pedido.diaSemana}}</td>
+                        <td>{{pedido.dataPedido | date:'mediumDate'}}</td>
+                    <td>{{pedido.usuarioQueFezPedido}}</td>
                     <td>
-                    	<button type="button" class="btn btn-success btn-circle" ng-show="{{categoriaProduto.ativa == true}}"></button>
-                    	<button type="button" class="btn btn-danger btn-circle" ng-show="{{categoriaProduto.ativa == false}}"></button>
+                        {{pedido.user.id}}
                     </td>
                     <td>
                         <button type="submit"
-                                ui-sref="categoriaProduto.detail({id:categoriaProduto.id})"
+                                ui-sref="pedido.detail({id:pedido.id})"
                                 class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
                         </button>
                         <button type="submit"
-                                ui-sref="categoriaProduto.edit({id:categoriaProduto.id})"
+                                ui-sref="pedido.edit({id:pedido.id})"
                                 class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
                         </button>
                         <button type="submit"
-                                ng-click="delete(categoriaProduto.id)"
+                                ng-click="delete(pedido.id)"
                                 class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
                         </button>

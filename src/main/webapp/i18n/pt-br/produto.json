@@ -13,18 +13,18 @@
                 "title": "Produto"
             },
             "nome": "Nome",
-            "descricao": "Descricao",
-            "referencia": "Referencia",
-            "codigoBarras": "CodigoBarras",
-            "precoCusto": "PrecoCusto",
-            "precoVenda": "PrecoVenda",
-            "estoque": "Estoque",
-            "vendaSemEstoque": "VendaSemEstoque",
-            "promocao": "Promocao",
-            "dataCadastro": "DataCadastro",
-            "unidadeMedida": "UnidadeMedida",
-            "categoriaProduto": "CategoriaProduto",
-            "user": "User"
+            "descricao": "Descrição",
+            "referencia": "Referência",
+            "codigoBarras": "Codigo de Barras",
+            "precoCusto": "Preco de Custo",
+            "precoVenda": "Preco de Venda",
+            "estoque": "Quantidade",
+            "vendaSemEstoque": "Permitir Venda Sem Estoque",
+            "promocao": "Promoção",
+            "dataCadastro": "Data de Cadastro",
+            "unidadeMedida": "Unidade de Medida",
+            "categoriaProduto": "Categoria do Produto",
+            "user": "Usuário"
         }
     }
 }

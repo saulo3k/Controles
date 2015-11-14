@@ -25,6 +25,29 @@ angular.module('controlesApp')
                     }]
                 }
             })
+        $stateProvider
+            .state('produto.lista', {
+                parent: 'entity',
+                url: '/produtos2',
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'controlesApp.produto.home.title'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/produto/listaProdutos.html',
+                        controller: 'ProdutoController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('produto');
+                        $translatePartialLoader.addPart('unidadeMedida');
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }]
+                }
+            })            
             .state('produto.detail', {
                 parent: 'entity',
                 url: '/produto/{id}',
@@ -49,7 +72,7 @@ angular.module('controlesApp')
                     }]
                 }
             })
-            .state('produto.new', {
+            .state('produto.new', {            	
                 parent: 'produto',
                 url: '/new',
                 data: {

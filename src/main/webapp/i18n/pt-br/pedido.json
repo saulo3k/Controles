@@ -1,0 +1,28 @@
+{
+    "controlesApp": {
+        "pedido" : {
+            "home": {
+                "title": "Pedidos",
+                "createLabel": "Create a new Pedido",
+                "createOrEditLabel": "Create or edit a Pedido"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Pedido {{ id }}?"
+            },
+            "detail": {
+                "title": "Pedido"
+            },
+            "dtPrevistaSeparacao": "DtPrevistaSeparacao",
+            "dtRealSeparacao": "DtRealSeparacao",
+            "dtPrevistaEntrega": "DtPrevistaEntrega",
+            "dtRealEntrega": "DtRealEntrega",
+            "periodoPedidoInicio": "PeriodoPedidoInicio",
+            "periodoPedidoFim": "PeriodoPedidoFim",
+            "diaSemana": "DiaSemana",
+            "dataPedido": "DataPedido",
+            "usuarioQueFezPedido": "UsuarioQueFezPedido",
+            "produto": "Produto",
+            "user": "User"
+        }
+    }
+}

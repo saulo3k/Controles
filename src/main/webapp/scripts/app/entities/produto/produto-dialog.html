@@ -93,12 +93,11 @@
                     ng-model="produto.promocao"
                      />
         </div>
-        <div class="form-group">
-            <label translate="controlesApp.produto.dataCadastro" for="field_dataCadastro">DataCadastro</label>
-            <input type="date" class="form-control" name="dataCadastro" id="field_dataCadastro"
-                    ng-model="produto.dataCadastro"
-                     />
-        </div>
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.produto.dataCadastro" for="field_dataCadastro">DataCadastro</label> -->
+<!--             <input type="date" class="form-control" name="dataCadastro" id="field_dataCadastro" -->
+<!--                     ng-model="produto.dataCadastro" /> -->
+<!--         </div> -->
         <div class="form-group">
             <label translate="controlesApp.produto.unidadeMedida" for="field_unidadeMedida">UnidadeMedida</label>
             <select class="form-control" name="unidadeMedida" ng-model="produto.unidadeMedida" id="field_unidadeMedida">
@@ -119,12 +118,12 @@
                 <option value=""></option>
             </select>
         </div>
-        <div class="form-group">
-            <label translate="controlesApp.produto.user" for="field_user">user</label>
-            <select class="form-control" id="field_user" name="user" ng-model="produto.user" ng-options="user as user.id for user in users track by user.id">
-                <option value=""></option>
-            </select>
-        </div>
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.produto.user" for="field_user">user</label> -->
+<!--             <select class="form-control" id="field_user" name="user" ng-model="produto.user" ng-options="user as user.id for user in users track by user.id"> -->
+<!--                 <option value=""></option> -->
+<!--             </select> -->
+<!--         </div> -->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">

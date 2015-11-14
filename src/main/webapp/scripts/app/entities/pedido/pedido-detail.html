@@ -1,0 +1,102 @@
+
+<div>
+    <h2><span translate="controlesApp.pedido.detail.title">Pedido</span> {{pedido.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.dtPrevistaSeparacao">DtPrevistaSeparacao</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.dtPrevistaSeparacao | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.dtRealSeparacao">DtRealSeparacao</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.dtRealSeparacao | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.dtPrevistaEntrega">DtPrevistaEntrega</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.dtPrevistaEntrega | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.dtRealEntrega">DtRealEntrega</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.dtRealEntrega | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.periodoPedidoInicio">PeriodoPedidoInicio</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.periodoPedidoInicio | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.periodoPedidoFim">PeriodoPedidoFim</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.periodoPedidoFim | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.diaSemana">DiaSemana</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'controlesApp.DiaSemana.' + pedido.diaSemana}}">{{pedido.diaSemana}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.dataPedido">DataPedido</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.dataPedido | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.usuarioQueFezPedido">UsuarioQueFezPedido</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedido.usuarioQueFezPedido}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.user">user</span>
+                </td>
+                <td>
+                    {{pedido.user.id}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

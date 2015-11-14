@@ -1,11 +1,19 @@
 package br.com.rexapps.controles.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import br.com.rexapps.controles.domain.Produto;
-import br.com.rexapps.controles.repository.ProdutoRepository;
-import br.com.rexapps.controles.repository.search.ProdutoSearchRepository;
-import br.com.rexapps.controles.web.rest.util.HeaderUtil;
-import br.com.rexapps.controles.web.rest.util.PaginationUtil;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import javax.inject.Inject;
+import javax.validation.Valid;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -14,18 +22,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import com.codahale.metrics.annotation.Timed;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import br.com.rexapps.controles.domain.Produto;
+import br.com.rexapps.controles.repository.ProdutoRepository;
+import br.com.rexapps.controles.repository.search.ProdutoSearchRepository;
+import br.com.rexapps.controles.web.rest.util.HeaderUtil;
+import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing Produto.
@@ -54,6 +63,8 @@ public class ProdutoResource {
         if (produto.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new produto cannot already have an ID").body(null);
         }
+        LocalDate dataAtual = LocalDate.now();
+        produto.setDataCadastro(dataAtual);
         Produto result = produtoRepository.save(produto);
         produtoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/produtos/" + result.getId()))

@@ -70,4 +70,19 @@ angular.module('controlesApp')
                 id: null
             };
         };
+        $scope.isActiveUpload = false;
+        $scope.changeColorSelect = function(name) {
+//        	
+            if($scope.isActiveUpload){            
+        		$scope.isActiveUpload = false;        		        		
+        		$scope.change = 'btn-primary'; 
+            }else{            
+                $scope.isActiveUpload = true;
+                $scope.change = 'btn-success';
+            }
+            
+//            $scope.change = 
+//            {'btn-primary':!$scope.isActiveUpload,  'btn-success':$scope.isActiveUpload};
+    	};
+        
     });

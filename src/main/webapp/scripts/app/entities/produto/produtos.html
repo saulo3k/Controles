@@ -1,21 +1,40 @@
-<div>	
-    <h1 translate="controlesApp.produto.home.title">Produtos</h1>
+<div class="panel panel-green"> 
+	<div class="panel-heading"> 					   
+		  <div class="container">
+		    <div class="row">
+		        <div class="col-xs-6">
+		            <h1 translate="controlesApp.produto.home.title">Produtos</h1>
+		        </div>
+		        <div class="col-xs-6">
+		            <i class="fa fa-leaf fa-5x"/>
+		        </div>
+		    </div>
+		</div>
+	</div> 	 
+</div>
+
+
+<div>		    
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="produto.new">
-                    <span class="fa fa-shopping-cart fa-5x"></span> <span translate="controlesApp.produto.home.createLabel">Create a new Produto</span>
+                <button class="btn btn-success"  ui-sref="produto.new">
+                    <span class="fa fa-plus fa-5x"></span> <span translate="controlesApp.produto.home.createLabel">Create a new Produto</span>
                 </button>
-            </div>
+                <button class="btn btn-primary"  ng-click="back()">
+                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                </button>                
+            </div>            	
             <div class="col-md-4">
+            	
             </div>
             <div class="col-md-4" style="height:84px">
                 <form name="searchForm" class="form-inline">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="Procurar Produtos">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
                         <button class="btn btn-info" ng-click="search()">
-                    		<span class="glyphicon glyphicon-search"></span>                     		
+                    		<span class="glyphicon glyphicon-search"> Procurar Produtos</span>                     		
                     	</button>
                     </div>
                 </form>
@@ -54,40 +73,22 @@
                 <tr>
                     <th translate="global.field.id">ID</th>
                     <th translate="controlesApp.produto.nome">Nome</th>
-                    <th translate="controlesApp.produto.descricao">Descricao</th>
-                    <th translate="controlesApp.produto.referencia">Referencia</th>
-                    <th translate="controlesApp.produto.codigoBarras">CodigoBarras</th>
-                    <th translate="controlesApp.produto.precoCusto">PrecoCusto</th>
                     <th translate="controlesApp.produto.precoVenda">PrecoVenda</th>
                     <th translate="controlesApp.produto.estoque">Estoque</th>
-                    <th translate="controlesApp.produto.vendaSemEstoque">VendaSemEstoque</th>
-                    <th translate="controlesApp.produto.promocao">Promocao</th>
-                    <th translate="controlesApp.produto.dataCadastro">DataCadastro</th>
-                    <th translate="controlesApp.produto.unidadeMedida">UnidadeMedida</th>
                     <th translate="controlesApp.produto.categoriaProduto">categoriaProduto</th>
-                    <th translate="controlesApp.produto.user.name">user</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
                 <tr ng-repeat="produto in produtos track by produto.id">
                     <td><a ui-sref="produto.detail({id:produto.id})">{{produto.id}}</a></td>
-                    <td>{{produto.nome}}</td>
-                    <td>{{produto.descricao}}</td>
-                    <td>{{produto.referencia}}</td>
-                    <td>{{produto.codigoBarras}}</td>
-                    <td>{{produto.precoCusto}}</td>
+                    <td>                    
+            			{{produto.nome}}		
+                    </td>
                     <td>{{produto.precoVenda}}</td>
                     <td>{{produto.estoque}}</td>
-                    <td>{{produto.vendaSemEstoque}}</td>
-                    <td>{{produto.promocao}}</td>
-                        <td>{{produto.dataCadastro | date:'mediumDate'}}</td>
-                    <td translate="{{'controlesApp.UnidadeMedida.' + produto.unidadeMedida}}">{{produto.unidadeMedida}}</td>
                     <td>
-                        <a ui-sref="categoriaProduto.detail({id:produto.categoriaProduto.id})">{{produto.categoriaProduto.Y}}</a>
-                    </td>
-                    <td>
-                        {{produto.user.id}}
+                        <a ui-sref="categoriaProduto.detail({id:produto.categoriaProduto.id})">{{produto.categoriaProduto.nome}}</a>
                     </td>
                     <td>
                         <button type="submit"

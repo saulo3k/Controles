@@ -9,6 +9,7 @@
                 "produto": "Produto",
                 "categoriaProduto": "CategoriaProduto",
                 "cliente": "Cliente",
+                "pedido": "Pedido",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

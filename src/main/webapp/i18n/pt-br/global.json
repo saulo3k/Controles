@@ -7,9 +7,10 @@
             "entities": {
                 "main": "Operação",
                 "produto": "Produto",
-                "categoriaProduto": "CategoriaProduto",
+                "categoriaProduto": "Categoria de Produto",
                 "cliente": "Cliente",
                 "email": "Email",
+                "pedido": "Pedido",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
