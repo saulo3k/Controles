@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controlesApp')
-    .controller('PedidoDetailController', function ($scope, $rootScope, $stateParams, entity, Pedido, Produto, User) {
+    .controller('PedidoDetailController', function ($scope, $rootScope, $stateParams, entity, Pedido, Produto, User, Cliente) {
         $scope.pedido = entity;
         $scope.load = function (id) {
             Pedido.get({id: id}, function(result) {

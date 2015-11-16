@@ -1,0 +1,14 @@
+{
+  "name": "xmlbuilder",
+  "homepage": "https://github.com/oozcitak/xmlbuilder-js",
+  "version": "4.1.0",
+  "_release": "4.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v4.1.0",
+    "commit": "0baca60da30af8814419fea87dc90177efc19376"
+  },
+  "_source": "git://github.com/oozcitak/xmlbuilder-js.git",
+  "_target": "*",
+  "_originalSource": "oozcitak/xmlbuilder-js"
+}

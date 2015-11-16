@@ -2,9 +2,7 @@ package br.com.rexapps.controles.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import br.com.rexapps.controles.domain.Pedido;
-import br.com.rexapps.controles.domain.Produto;
 import br.com.rexapps.controles.repository.PedidoRepository;
-import br.com.rexapps.controles.repository.ProdutoRepository;
 import br.com.rexapps.controles.repository.search.PedidoSearchRepository;
 import br.com.rexapps.controles.web.rest.util.HeaderUtil;
 import br.com.rexapps.controles.web.rest.util.PaginationUtil;
@@ -19,13 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -42,9 +37,6 @@ public class PedidoResource {
 
     @Inject
     private PedidoRepository pedidoRepository;
-    
-    @Inject
-    private ProdutoRepository produtoRepository;
 
     @Inject
     private PedidoSearchRepository pedidoSearchRepository;
@@ -56,15 +48,11 @@ public class PedidoResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Pedido> createPedido(@Valid @RequestBody Pedido pedido) throws URISyntaxException {
+    public ResponseEntity<Pedido> createPedido(@RequestBody Pedido pedido) throws URISyntaxException {
         log.debug("REST request to save Pedido : {}", pedido);
         if (pedido.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new pedido cannot already have an ID").body(null);
         }
-        Set<Produto> produtos = new HashSet<>();
-        produtos = (Set<Produto>) produtoRepository.findAll();
-        produtos.addAll(produtos);
-        pedido.setProdutos(produtos);
         Pedido result = pedidoRepository.save(pedido);
         pedidoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/pedidos/" + result.getId()))
@@ -79,7 +67,7 @@ public class PedidoResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Pedido> updatePedido(@Valid @RequestBody Pedido pedido) throws URISyntaxException {
+    public ResponseEntity<Pedido> updatePedido(@RequestBody Pedido pedido) throws URISyntaxException {
         log.debug("REST request to update Pedido : {}", pedido);
         if (pedido.getId() == null) {
             return createPedido(pedido);
@@ -114,7 +102,7 @@ public class PedidoResource {
     @Timed
     public ResponseEntity<Pedido> getPedido(@PathVariable Long id) {
         log.debug("REST request to get Pedido : {}", id);
-        return Optional.ofNullable(pedidoRepository.findOne(id))
+        return Optional.ofNullable(pedidoRepository.findOneWithEagerRelationships(id))
             .map(pedido -> new ResponseEntity<>(
                 pedido,
                 HttpStatus.OK))

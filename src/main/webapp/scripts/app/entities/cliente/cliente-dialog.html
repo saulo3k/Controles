@@ -41,7 +41,7 @@
             <label translate="controlesApp.cliente.telefone" for="field_telefone">Telefone</label>
             <input type="text" class="form-control" name="telefone" id="field_telefone"
                     ng-model="cliente.telefone"
-                    ng-pattern="/^[1-9]{2}\-[2-9][0-9]{7,8}$/" />
+                     />
             <div ng-show="editForm.telefone.$invalid">
                 <p class="help-block"
                     ng-show="editForm.telefone.$error.pattern" translate="entity.validation.pattern" translate-value-pattern="^[1-9]{2}\-[2-9][0-9]{7,8}$">

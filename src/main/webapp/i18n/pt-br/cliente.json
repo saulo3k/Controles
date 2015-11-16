@@ -3,26 +3,29 @@
         "cliente" : {
             "home": {
                 "title": "Clientes",
-                "createLabel": "Create a new Cliente",
-                "createOrEditLabel": "Create or edit a Cliente"
+                "createLabel": "Criar novo Cliente",
+                "createOrEditLabel": "Criar/Editar um Cliente"
             },
             "delete": {
-                "question": "Are you sure you want to delete Cliente {{ id }}?"
+                "question": "Tem certeza que deseja remover o Cliente {{ id }}?"
             },
             "detail": {
                 "title": "Cliente"
             },
+            "created": "Cliente criado com sucesso",
+            "deleted": "Cliente removido com sucesso",
+            "updated": "Cliente alterado com sucesso",
             "nome": "Nome",
-            "tipoTelefone": "TipoTelefone",
+            "tipoTelefone": "Tipo de Telefone",
             "telefone": "Telefone",
-            "cpfCnpj": "CpfCnpj",
-            "email": "Email",
+            "cpfCnpj": "CPF ou CNPJ",
+            "email": "E-mail",
             "cep": "Cep",
-            "endereco": "Endereco",
+            "endereco": "Endereço",
             "estado": "Estado",
             "cidade": "Cidade",
-            "nomeContato": "NomeContato",
-            "informacoesParaBusca": "InformacoesParaBusca"
+            "nomeContato": "Nome para Contato",
+            "informacoesParaBusca": "Informações para Busca"
         }
     }
 }

@@ -1,5 +1,5 @@
 
-<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+<form name="editForm" role="form" novalidate ng-submit="save()">
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -23,13 +23,7 @@
             <label translate="controlesApp.pedido.dtRealSeparacao" for="field_dtRealSeparacao">DtRealSeparacao</label>
             <input type="date" class="form-control" name="dtRealSeparacao" id="field_dtRealSeparacao"
                     ng-model="pedido.dtRealSeparacao"
-                    required />
-            <div ng-show="editForm.dtRealSeparacao.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.dtRealSeparacao.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-            </div>
+                     />
         </div>
         <div class="form-group">
             <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
@@ -56,33 +50,25 @@
                      />
         </div>
         <div class="form-group">
-            <label translate="controlesApp.pedido.diaSemana" for="field_diaSemana">DiaSemana</label>
-            <select class="form-control" name="diaSemana" ng-model="pedido.diaSemana" id="field_diaSemana">
-                <option value="Segunda" translate="controlesApp.DiaSemana.Segunda">Segunda</option>
-                <option value="Terca" translate="controlesApp.DiaSemana.Terca">Terca</option>
-                <option value="Quarta" translate="controlesApp.DiaSemana.Quarta">Quarta</option>
-                <option value="Quinta" translate="controlesApp.DiaSemana.Quinta">Quinta</option>
-                <option value="Sexta" translate="controlesApp.DiaSemana.Sexta">Sexta</option>
-                <option value="Sabado" translate="controlesApp.DiaSemana.Sabado">Sabado</option>
-                <option value="Domingo" translate="controlesApp.DiaSemana.Domingo">Domingo</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>
-            <input type="date" class="form-control" name="dataPedido" id="field_dataPedido"
+            <input type="number" class="form-control" name="dataPedido" id="field_dataPedido"
                     ng-model="pedido.dataPedido"
-                     />
-        </div>
-        <div class="form-group">
-            <label translate="controlesApp.pedido.usuarioQueFezPedido" for="field_usuarioQueFezPedido">UsuarioQueFezPedido</label>
-            <input type="number" class="form-control" name="usuarioQueFezPedido" id="field_usuarioQueFezPedido"
-                    ng-model="pedido.usuarioQueFezPedido"
                      />
         </div>
 
         <div class="form-group">
-            <label translate="controlesApp.pedido.user" for="field_user">user</label>
-            <select class="form-control" id="field_user" name="user" ng-model="pedido.user" ng-options="user as user.id for user in users track by user.id">
+            <label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label>
+            <select class="form-control" id="field_produto_has_pedido" multiple name="produto_has_pedido" ng-model="pedido.produto_has_pedidos" ng-options="produto as produto.nome for produto in produtos track by produto.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.user_pedido" for="field_user_pedido">user_pedido</label>
+            <select class="form-control" id="field_user_pedido" name="user_pedido" ng-model="pedido.user_pedido" ng-options="user as user.first_name for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
+            <select class="form-control" id="field_cliente_pedido" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id">
                 <option value=""></option>
             </select>
         </div>

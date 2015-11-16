@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('controlesApp').controller('PedidoDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Pedido', 'Produto', 'User',
-        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User) {
+    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Pedido', 'Produto', 'User', 'Cliente',
+        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente) {
 
         $scope.pedido = entity;
         $scope.produtos = Produto.query();
         $scope.users = User.query();
+        $scope.clientes = Cliente.query();
         $scope.load = function(id) {
             Pedido.get({id : id}, function(result) {
                 $scope.pedido = result;

@@ -77,10 +77,7 @@ public class Produto implements Serializable {
     private UnidadeMedida unidadeMedida;
 
     @ManyToOne
-    private CategoriaProduto categoriaProduto;
-    
-    @ManyToOne    
-    private Pedido pedido;
+    private CategoriaProduto categoriaProduto;      
 
     @ManyToOne
     private User user;

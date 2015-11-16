@@ -26,13 +26,13 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import br.com.rexapps.controles.domain.enumeration.DiaSemana;
 
 /**
  * Test class for the PedidoResource REST controller.
@@ -64,15 +64,8 @@ public class PedidoResourceTest {
     private static final LocalDate DEFAULT_PERIODO_PEDIDO_FIM = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_PERIODO_PEDIDO_FIM = LocalDate.now(ZoneId.systemDefault());
 
-
-private static final DiaSemana DEFAULT_DIA_SEMANA = DiaSemana.Segunda;
-    private static final DiaSemana UPDATED_DIA_SEMANA = DiaSemana.Terca;
-
-    private static final LocalDate DEFAULT_DATA_PEDIDO = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATA_PEDIDO = LocalDate.now(ZoneId.systemDefault());
-
-    private static final Integer DEFAULT_USUARIO_QUE_FEZ_PEDIDO = 1;
-    private static final Integer UPDATED_USUARIO_QUE_FEZ_PEDIDO = 2;
+    private static final BigDecimal DEFAULT_DATA_PEDIDO = new BigDecimal(1);
+    private static final BigDecimal UPDATED_DATA_PEDIDO = new BigDecimal(2);
 
     @Inject
     private PedidoRepository pedidoRepository;
@@ -110,9 +103,7 @@ private static final DiaSemana DEFAULT_DIA_SEMANA = DiaSemana.Segunda;
         pedido.setDtRealEntrega(DEFAULT_DT_REAL_ENTREGA);
         pedido.setPeriodoPedidoInicio(DEFAULT_PERIODO_PEDIDO_INICIO);
         pedido.setPeriodoPedidoFim(DEFAULT_PERIODO_PEDIDO_FIM);
-        pedido.setDiaSemana(DEFAULT_DIA_SEMANA);
         pedido.setDataPedido(DEFAULT_DATA_PEDIDO);
-        pedido.setUsuarioQueFezPedido(DEFAULT_USUARIO_QUE_FEZ_PEDIDO);
     }
 
     @Test
@@ -137,27 +128,7 @@ private static final DiaSemana DEFAULT_DIA_SEMANA = DiaSemana.Segunda;
         assertThat(testPedido.getDtRealEntrega()).isEqualTo(DEFAULT_DT_REAL_ENTREGA);
         assertThat(testPedido.getPeriodoPedidoInicio()).isEqualTo(DEFAULT_PERIODO_PEDIDO_INICIO);
         assertThat(testPedido.getPeriodoPedidoFim()).isEqualTo(DEFAULT_PERIODO_PEDIDO_FIM);
-        assertThat(testPedido.getDiaSemana()).isEqualTo(DEFAULT_DIA_SEMANA);
         assertThat(testPedido.getDataPedido()).isEqualTo(DEFAULT_DATA_PEDIDO);
-        assertThat(testPedido.getUsuarioQueFezPedido()).isEqualTo(DEFAULT_USUARIO_QUE_FEZ_PEDIDO);
-    }
-
-    @Test
-    @Transactional
-    public void checkDtRealSeparacaoIsRequired() throws Exception {
-        int databaseSizeBeforeTest = pedidoRepository.findAll().size();
-        // set the field null
-        pedido.setDtRealSeparacao(null);
-
-        // Create the Pedido, which fails.
-
-        restPedidoMockMvc.perform(post("/api/pedidos")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pedido)))
-                .andExpect(status().isBadRequest());
-
-        List<Pedido> pedidos = pedidoRepository.findAll();
-        assertThat(pedidos).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -177,9 +148,7 @@ private static final DiaSemana DEFAULT_DIA_SEMANA = DiaSemana.Segunda;
                 .andExpect(jsonPath("$.[*].dtRealEntrega").value(hasItem(DEFAULT_DT_REAL_ENTREGA.toString())))
                 .andExpect(jsonPath("$.[*].periodoPedidoInicio").value(hasItem(DEFAULT_PERIODO_PEDIDO_INICIO.toString())))
                 .andExpect(jsonPath("$.[*].periodoPedidoFim").value(hasItem(DEFAULT_PERIODO_PEDIDO_FIM.toString())))
-                .andExpect(jsonPath("$.[*].diaSemana").value(hasItem(DEFAULT_DIA_SEMANA.toString())))
-                .andExpect(jsonPath("$.[*].dataPedido").value(hasItem(DEFAULT_DATA_PEDIDO.toString())))
-                .andExpect(jsonPath("$.[*].usuarioQueFezPedido").value(hasItem(DEFAULT_USUARIO_QUE_FEZ_PEDIDO)));
+                .andExpect(jsonPath("$.[*].dataPedido").value(hasItem(DEFAULT_DATA_PEDIDO.intValue())));
     }
 
     @Test
@@ -199,9 +168,7 @@ private static final DiaSemana DEFAULT_DIA_SEMANA = DiaSemana.Segunda;
             .andExpect(jsonPath("$.dtRealEntrega").value(DEFAULT_DT_REAL_ENTREGA.toString()))
             .andExpect(jsonPath("$.periodoPedidoInicio").value(DEFAULT_PERIODO_PEDIDO_INICIO.toString()))
             .andExpect(jsonPath("$.periodoPedidoFim").value(DEFAULT_PERIODO_PEDIDO_FIM.toString()))
-            .andExpect(jsonPath("$.diaSemana").value(DEFAULT_DIA_SEMANA.toString()))
-            .andExpect(jsonPath("$.dataPedido").value(DEFAULT_DATA_PEDIDO.toString()))
-            .andExpect(jsonPath("$.usuarioQueFezPedido").value(DEFAULT_USUARIO_QUE_FEZ_PEDIDO));
+            .andExpect(jsonPath("$.dataPedido").value(DEFAULT_DATA_PEDIDO.intValue()));
     }
 
     @Test
@@ -227,9 +194,7 @@ private static final DiaSemana DEFAULT_DIA_SEMANA = DiaSemana.Segunda;
         pedido.setDtRealEntrega(UPDATED_DT_REAL_ENTREGA);
         pedido.setPeriodoPedidoInicio(UPDATED_PERIODO_PEDIDO_INICIO);
         pedido.setPeriodoPedidoFim(UPDATED_PERIODO_PEDIDO_FIM);
-        pedido.setDiaSemana(UPDATED_DIA_SEMANA);
         pedido.setDataPedido(UPDATED_DATA_PEDIDO);
-        pedido.setUsuarioQueFezPedido(UPDATED_USUARIO_QUE_FEZ_PEDIDO);
 
         restPedidoMockMvc.perform(put("/api/pedidos")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -246,9 +211,7 @@ private static final DiaSemana DEFAULT_DIA_SEMANA = DiaSemana.Segunda;
         assertThat(testPedido.getDtRealEntrega()).isEqualTo(UPDATED_DT_REAL_ENTREGA);
         assertThat(testPedido.getPeriodoPedidoInicio()).isEqualTo(UPDATED_PERIODO_PEDIDO_INICIO);
         assertThat(testPedido.getPeriodoPedidoFim()).isEqualTo(UPDATED_PERIODO_PEDIDO_FIM);
-        assertThat(testPedido.getDiaSemana()).isEqualTo(UPDATED_DIA_SEMANA);
         assertThat(testPedido.getDataPedido()).isEqualTo(UPDATED_DATA_PEDIDO);
-        assertThat(testPedido.getUsuarioQueFezPedido()).isEqualTo(UPDATED_USUARIO_QUE_FEZ_PEDIDO);
     }
 
     @Test

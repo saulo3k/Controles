@@ -3,7 +3,7 @@
         "categoriaProduto" : {
             "home": {
                 "title": "Categoria de Produtos",
-                "createLabel": "Criar Categoria de Produto",
+                "createLabel": "Categoria de Produto",
                 "createOrEditLabel": "Criar/Editar Categoria de Produto"
             },
             "delete": {

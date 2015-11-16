@@ -88,7 +88,14 @@ public class UserResource {
         if (user.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new user cannot already have an ID").body(null);
         }
-        User result = userRepository.save(user);
+        if (user.getPassword() == null) {
+            user.setPassword("123456");
+            user.setLangKey("pt-br");
+        }
+        User userSave = userService.createUserInformation(user.getLogin(), user.getPassword(),
+                user.getFirstName(), user.getLastName(), user.getEmail().toLowerCase(),
+                user.getLangKey());
+        User result = userRepository.save(userSave);
         return ResponseEntity.created(new URI("/api/users/" + result.getId()))
                 .headers(HeaderUtil.createEntityCreationAlert("user", result.getId().toString()))
                 .body(result);

@@ -11,6 +11,7 @@ angular.module('controlesApp')
                         return data;
                     }
                 },
-                'update': { method:'PUT' }
+                'update': { method:'PUT' },
+                'save': {method: 'POST'}
             });
         });

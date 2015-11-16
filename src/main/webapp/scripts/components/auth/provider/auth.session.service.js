@@ -19,8 +19,8 @@ angular.module('controlesApp')
                 // logout from the server
                 $http.post('api/logout').success(function (response) {
                     localStorageService.clearAll();
-                    // to get a new csrf token call the api
-                    $http.get('api/account');
+                    // to get a new csrf token call the api                    
+                    $http.get('api/login');
                     return response;
                 });
             },

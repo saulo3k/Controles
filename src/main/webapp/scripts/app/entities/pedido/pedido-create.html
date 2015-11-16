@@ -1,0 +1,84 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPedidoLabel" translate="controlesApp.pedido.home.createOrEditLabel">Create or edit a Pedido</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="pedido.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>
+            <input type="date" class="form-control" name="dtPrevistaSeparacao" id="field_dtPrevistaSeparacao"
+                    ng-model="pedido.dtPrevistaSeparacao" size="10"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtRealSeparacao" for="field_dtRealSeparacao">DtRealSeparacao</label>
+            <input type="date" class="form-control" name="dtRealSeparacao" id="field_dtRealSeparacao"
+                    ng-model="pedido.dtRealSeparacao"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+            <input type="date" class="form-control" name="dtPrevistaEntrega" id="field_dtPrevistaEntrega"
+                    ng-model="pedido.dtPrevistaEntrega"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtRealEntrega" for="field_dtRealEntrega">DtRealEntrega</label>
+            <input type="date" class="form-control" name="dtRealEntrega" id="field_dtRealEntrega"
+                    ng-model="pedido.dtRealEntrega"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.periodoPedidoInicio" for="field_periodoPedidoInicio">PeriodoPedidoInicio</label>
+            <input type="date" class="form-control" name="periodoPedidoInicio" id="field_periodoPedidoInicio"
+                    ng-model="pedido.periodoPedidoInicio"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.periodoPedidoFim" for="field_periodoPedidoFim">PeriodoPedidoFim</label>
+            <input type="date" class="form-control" name="periodoPedidoFim" id="field_periodoPedidoFim"
+                    ng-model="pedido.periodoPedidoFim"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>
+            <input type="number" class="form-control" name="dataPedido" id="field_dataPedido"
+                    ng-model="pedido.dataPedido"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label>
+            <select class="form-control" id="field_produto_has_pedido" multiple name="produto_has_pedido" ng-model="pedido.produto_has_pedidos" ng-options="produto as produto.nome for produto in produtos track by produto.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.user_pedido" for="field_user_pedido">user_pedido</label>
+            <select class="form-control" id="field_user_pedido" name="user_pedido" ng-model="pedido.user_pedido" ng-options="user as user.first_name for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
+            <select class="form-control" id="field_cliente_pedido" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,14 +1,35 @@
-<div>
-    <h2 translate="controlesApp.categoriaProduto.home.title">CategoriaProdutos</h2>
+
+<div class="panel panel-primary"> 
+	<div class="panel-heading"> 					   
+		  <div class="container">
+		    <div class="row">
+		        <div class="col-xs-6">
+					<h1 translate="controlesApp.categoriaProduto.home.title">CategoriaProdutos</h1>
+		        </div>
+		        <div class="col-xs-6">
+		            <i class="fa fa-cog fa-5x"/>
+		        </div>
+		    </div>
+		</div>
+	</div> 	 
+</div>
+
+<div>		    
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="categoriaProduto.new">
-                    <span class="fa fa-cog fa-5x"></span> <span style="font-size: 15px" translate="controlesApp.categoriaProduto.home.createLabel">Create a new CategoriaProduto</span>
+                <button class="btn btn-success" ui-sref="categoriaProduto.new">
+                    <span class="fa fa-plus fa-5x"></span> <span style="font-size: 15px" translate="controlesApp.categoriaProduto.home.createLabel">Create a new CategoriaProduto</span>
                 </button>
+                <button class="btn btn-primary"  ng-click="back()">
+                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                </button>    
+            </div>            	
+            <div class="col-md-4">
+  
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4" style="height:84px">
                 <form name="searchForm" class="form-inline">
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
@@ -19,8 +40,10 @@
             </div>
         </div>
     </div>
+	<br>
 
-    <div class="modal fade" id="deleteCategoriaProdutoConfirmation">
+<div>
+        <div class="modal fade" id="deleteCategoriaProdutoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form name="deleteForm" ng-submit="confirmDelete(categoriaProduto.id)">

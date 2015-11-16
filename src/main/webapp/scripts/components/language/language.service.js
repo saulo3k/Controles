@@ -27,8 +27,9 @@ angular.module('controlesApp')
  They are written in English to avoid character encoding issues (not a perfect solution)
  */
     .constant('LANGUAGES', [
-        'en', 'fr'
-        ,'pt-br'
+        'pt-br'
+//        'en', 'fr'
+//        ,
         //JHipster will add new languages here
     ]
 );

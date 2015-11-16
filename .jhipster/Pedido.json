@@ -2,17 +2,25 @@
     "relationships": [
         {
             "relationshipId": 1,
-            "relationshipName": "produto",
+            "relationshipName": "produto_has_pedido",
             "otherEntityName": "produto",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "pedidos"
+            "relationshipType": "many-to-many",
+            "otherEntityField": "nome",
+            "ownerSide": true
         },
         {
             "relationshipId": 2,
-            "relationshipName": "user",
+            "relationshipName": "user_pedido",
             "otherEntityName": "user",
             "relationshipType": "many-to-one",
-            "otherEntityField": "id"
+            "otherEntityField": "first_name"
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "cliente_pedido",
+            "otherEntityName": "cliente",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nome"
         }
     ],
     "fields": [
@@ -24,10 +32,7 @@
         {
             "fieldId": 2,
             "fieldName": "dtRealSeparacao",
-            "fieldType": "LocalDate",
-            "fieldValidateRules": [
-                "required"
-            ]
+            "fieldType": "LocalDate"
         },
         {
             "fieldId": 3,
@@ -51,23 +56,11 @@
         },
         {
             "fieldId": 7,
-            "fieldName": "diaSemana",
-            "fieldType": "DiaSemana",
-            "fieldValues": "Segunda,Terca,Quarta,Quinta,Sexta,Sabado,Domingo"
-        },
-        {
-            "fieldId": 8,
             "fieldName": "dataPedido",
-            "fieldType": "LocalDate"
-        },
-        {
-            "fieldId": 9,
-            "fieldName": "status",
-            "fieldType": "Status"
-            "fieldValues": "PedidoModelo,Clientenaopediu,Emprocessodepedido,Separacao,EmprocessodeSeparacao,Romaneio"
+            "fieldType": "BigDecimal"
         }
     ],
-    "changelogDate": "20151114154243",
+    "changelogDate": "20151115000138",
     "dto": "no",
     "pagination": "infinite-scroll"
 }

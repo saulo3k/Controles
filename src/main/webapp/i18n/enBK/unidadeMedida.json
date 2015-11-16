@@ -1,0 +1,15 @@
+{
+    "controlesApp": {
+        "UnidadeMedida" : {
+            "null": "",
+            "G": "Grama",
+            "KG": "Kilograma",
+            "T": "Tonelada",
+            "ML": "Mililitros",
+            "L": "Litro",
+            "M": "Metro",
+            "M2": "Metro Quadrado",
+            "M3": "Metro Cubico"
+        }
+    }
+}

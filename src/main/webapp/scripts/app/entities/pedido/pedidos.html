@@ -1,24 +1,71 @@
+
+<div class="panel panel-primary"> 
+	<div class="panel-heading"> 					   
+		  <div class="container">
+		    <div class="row">
+		        <div class="col-xs-6">
+		            <h1 ttranslate="controlesApp.pedido.home.title">Pedidos</h1>
+		        </div>
+		        <div class="col-xs-6">
+		            <i class="fa fa-pencil-square-o fa-5x"/>
+		        </div>
+		    </div>
+		</div>
+	</div> 	 
+</div>
+
+
 <div>
     <h2 translate="controlesApp.pedido.home.title">Pedidos</h2>
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="pedido.new">
-                    <span class="glyphicon glyphicon-flash"></span> <span translate="controlesApp.pedido.home.createLabel">Create a new Pedido</span>
+                <button class="btn btn-success"  ui-sref="pedido.new">
+                    <span class="fa fa-plus fa-5x"></span> <span translate="controlesApp.pedido.home.createLabel">Create a new Produto</span>
                 </button>
+                <button class="btn btn-success"  ui-sref="pedido.new1">
+                    <span class="fa fa-plus fa-5x"></span> <span translate="controlesApp.pedido.home.createLabel">oi</span>
+                </button>
+                <button class="btn btn-primary"  ng-click="back()">
+                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                </button>                
+            </div>            	
+            <div class="col-md-4">
+            	
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4" style="height:84px">
                 <form name="searchForm" class="form-inline">
                     <div class="form-group">
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
+                        <button class="btn btn-info" ng-click="search()">
+                    		<span class="glyphicon glyphicon-search"> Procurar Pedidos</span>                     		
+                    	</button>
                     </div>
-                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Pedido</span>
-                    </button>
                 </form>
             </div>
         </div>
     </div>
+	<br>
+    
+<!--     <div class="container"> -->
+<!--         <div class="row"> -->
+<!--             <div class="col-md-4"> -->
+<!--                 <button class="btn btn-primary" ui-sref="pedido.new"> -->
+<!--                     <span class="glyphicon glyphicon-flash"></span> <span translate="controlesApp.pedido.home.createLabel">Create a new Pedido</span> -->
+<!--                 </button> -->
+<!--             </div> -->
+<!--             <div class="col-md-8"> -->
+<!--                 <form name="searchForm" class="form-inline"> -->
+<!--                     <div class="form-group"> -->
+<!--                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query"> -->
+<!--                     </div> -->
+<!--                     <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Pedido</span> -->
+<!--                     </button> -->
+<!--                 </form> -->
+<!--             </div> -->
+<!--         </div> -->
+<!--     </div> -->
 
     <div class="modal fade" id="deletePedidoConfirmation">
         <div class="modal-dialog">
@@ -56,10 +103,9 @@
                     <th translate="controlesApp.pedido.dtRealEntrega">DtRealEntrega</th>
                     <th translate="controlesApp.pedido.periodoPedidoInicio">PeriodoPedidoInicio</th>
                     <th translate="controlesApp.pedido.periodoPedidoFim">PeriodoPedidoFim</th>
-                    <th translate="controlesApp.pedido.diaSemana">DiaSemana</th>
                     <th translate="controlesApp.pedido.dataPedido">DataPedido</th>
-                    <th translate="controlesApp.pedido.usuarioQueFezPedido">UsuarioQueFezPedido</th>
-                    <th translate="controlesApp.pedido.user">user</th>
+                    <th translate="controlesApp.pedido.user_pedido">user_pedido</th>
+                    <th translate="controlesApp.pedido.cliente_pedido">cliente_pedido</th>
                     <th></th>
                 </tr>
             </thead>
@@ -72,11 +118,12 @@
                         <td>{{pedido.dtRealEntrega | date:'mediumDate'}}</td>
                         <td>{{pedido.periodoPedidoInicio | date:'mediumDate'}}</td>
                         <td>{{pedido.periodoPedidoFim | date:'mediumDate'}}</td>
-                    <td translate="{{'controlesApp.DiaSemana.' + pedido.diaSemana}}">{{pedido.diaSemana}}</td>
-                        <td>{{pedido.dataPedido | date:'mediumDate'}}</td>
-                    <td>{{pedido.usuarioQueFezPedido}}</td>
+                    <td>{{pedido.dataPedido}}</td>
                     <td>
-                        {{pedido.user.id}}
+                        {{pedido.user_pedido.first_name}}
+                    </td>
+                    <td>
+                        <a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a>
                     </td>
                     <td>
                         <button type="submit"

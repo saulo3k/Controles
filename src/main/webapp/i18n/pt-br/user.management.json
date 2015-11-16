@@ -1,9 +1,9 @@
 {
     "user-management": {
         "home": {
-            "title": "Usuários",
-            "createLabel": "Adicionar",
-            "createOrEditLabel": "Criar ou editar usuário"
+            "title": "Usuários/Funcionários",
+            "createLabel": "Criar Usuário",
+            "createOrEditLabel": "Criar/Editar usuário"
         },
         "delete": {
             "question": "Você tem certeza que deseja excluir o usuário {{ id }}?"
@@ -11,6 +11,9 @@
         "detail": {
             "title": "Usuário"
         },
+        "created": "Usuário criado com sucesso",
+        "deleted": "Usuário removido com sucesso",
+        "updated": "Usuário alterado com sucesso",
         "login": "Login",
         "firstName": "Primeiro nome",
         "lastName": "Último nome",

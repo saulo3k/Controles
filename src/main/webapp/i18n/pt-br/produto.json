@@ -12,6 +12,9 @@
             "detail": {
                 "title": "Produto"
             },
+            "created": "Produto criado com sucesso",
+            "deleted": "Produto removido com sucesso",
+            "updated": "Produto alterado com sucesso",
             "nome": "Nome",
             "descricao": "Descrição",
             "referencia": "Referência",

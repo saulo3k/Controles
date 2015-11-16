@@ -1,0 +1,121 @@
+<div>
+	<div class="panel panel-yellow"> 
+		<div class="panel-heading"> 					   
+			  <div class="container">
+			    <div class="row">
+			        <div class="col-xs-6">
+			            <h1 ttranslate="controlesApp.pedido.home.titleEntrega">Entrega de Pedidos</h1>
+			        </div>
+			        <div class="col-xs-6">
+			            <i class="fa fa-truck fa-5x"/>
+			        </div>
+			    </div>
+			</div>
+		</div> 	 
+	</div>
+
+    <jh-alert></jh-alert>
+	 <div class="container">
+        <div class="row">
+            <div class="col-md-4">               
+                <button class="btn btn-primary"  ng-click="back()">
+                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                </button>                
+            </div>            	
+            <div class="col-md-4">
+            	
+            </div>
+            <div class="col-md-4" style="height:84px">
+                <form name="searchForm" class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
+                        <button class="btn btn-info" ng-click="search()">
+                    		<span class="glyphicon glyphicon-search"> Procurar Pedidos</span>                     		
+                    	</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+	<br>
+
+    <div class="modal fade" id="deletePedidoConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(pedido.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="controlesApp.pedido.delete.question" translate-values="{id: '{{pedido.id}}'}">Are you sure you want to delete this Pedido?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="controlesApp.pedido.dtPrevistaSeparacao">DtPrevistaSeparacao</th>
+                    <th translate="controlesApp.pedido.dtRealSeparacao">DtRealSeparacao</th>
+                    <th translate="controlesApp.pedido.dtPrevistaEntrega">DtPrevistaEntrega</th>
+                    <th translate="controlesApp.pedido.dtRealEntrega">DtRealEntrega</th>
+                    <th translate="controlesApp.pedido.periodoPedidoInicio">PeriodoPedidoInicio</th>
+                    <th translate="controlesApp.pedido.periodoPedidoFim">PeriodoPedidoFim</th>
+                    <th translate="controlesApp.pedido.dataPedido">DataPedido</th>
+                    <th translate="controlesApp.pedido.user_pedido">user_pedido</th>
+                    <th translate="controlesApp.pedido.cliente_pedido">cliente_pedido</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="pedido in pedidos track by pedido.id">
+                    <td><a ui-sref="pedido.detail({id:pedido.id})">{{pedido.id}}</a></td>
+                        <td>{{pedido.dtPrevistaSeparacao | date:'mediumDate'}}</td>
+                        <td>{{pedido.dtRealSeparacao | date:'mediumDate'}}</td>
+                        <td>{{pedido.dtPrevistaEntrega | date:'mediumDate'}}</td>
+                        <td>{{pedido.dtRealEntrega | date:'mediumDate'}}</td>
+                        <td>{{pedido.periodoPedidoInicio | date:'mediumDate'}}</td>
+                        <td>{{pedido.periodoPedidoFim | date:'mediumDate'}}</td>
+                    <td>{{pedido.dataPedido}}</td>
+                    <td>
+                        {{pedido.user_pedido.first_name}}
+                    </td>
+                    <td>
+                        <a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="pedido.detail({id:pedido.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="pedido.edit({id:pedido.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(pedido.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -60,34 +60,36 @@
             </tr>
             <tr>
                 <td>
-                    <span translate="controlesApp.pedido.diaSemana">DiaSemana</span>
-                </td>
-                <td>
-                    <span class="form-control-static" translate="{{'controlesApp.DiaSemana.' + pedido.diaSemana}}">{{pedido.diaSemana}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <span translate="controlesApp.pedido.dataPedido">DataPedido</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{pedido.dataPedido | date:'mediumDate'}}</span>
+                    <span class="form-control-static">{{pedido.dataPedido}}</span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="controlesApp.pedido.usuarioQueFezPedido">UsuarioQueFezPedido</span>
+                    <span translate="controlesApp.pedido.produto_has_pedido">produto_has_pedido</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{pedido.usuarioQueFezPedido}}</span>
+                    <span ng-repeat="produto_has_pedido in pedido.produto_has_pedidos">
+                        <a class="form-control-static" ui-sref="produto.detail({id: {{produto_has_pedido.id}}})">{{produto_has_pedido.nome}}</a>{{$last ? '' : ', '}}
+                    <span>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <span translate="controlesApp.pedido.user">user</span>
+                    <span translate="controlesApp.pedido.user_pedido">user_pedido</span>
                 </td>
                 <td>
-                    {{pedido.user.id}}
+                    {{pedido.user_pedido.first_name}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedido.cliente_pedido">cliente_pedido</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a>
                 </td>
             </tr>
             </tbody>

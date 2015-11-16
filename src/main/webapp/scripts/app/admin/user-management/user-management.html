@@ -1,16 +1,33 @@
 <div>
-    <div class="row">    
-        <h2 class="col-sm-6" translate="user-management.home.title">Users</h2>
-    </div>
+	<div class="panel panel-yellow"> 
+		<div class="panel-heading"> 					   
+			  <div class="container">
+			    <div class="row">
+			        <div class="col-xs-6">
+			            <h1 translate="user-management.home.title">Entrega de Pedidos</h1>
+			        </div>
+			        <div class="col-xs-6">
+			            <i class="fa fa-male fa-5x"/>
+			        </div>
+			    </div>
+			</div>
+		</div> 	 
+	</div>
+	
 
 <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <button class="btn btn-primary"  ui-sref="user.new">
-                    <span class="fa fa-shopping-cart fa-5x"></span> <span translate="controlesApp.produto.home.createLabel">Create a new Produto</span>
+                <button class="btn btn-success"  
+                ng-click="showCreate()">
+                    <span class="fa fa-plus fa-5x"></span> <span translate="user-management.home.createLabel">Create a new Produto</span>
                 </button>
+                <button class="btn btn-primary"  ng-click="back()">
+                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                </button>        
             </div>
+            
         </div>
     </div>
 	
@@ -78,6 +95,7 @@
                                 </p>
                             </div>
                         </div>
+                                                                                             
                         <div class="form-group">
                             <label translate="user-management.email">Email</label>
                             <input type="text" class="form-control" name="email"

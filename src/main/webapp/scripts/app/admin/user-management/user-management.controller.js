@@ -37,11 +37,24 @@ angular.module('controlesApp')
             });
         };
 
+        $scope.showCreate = function () {            
+                $('#saveUserModal').modal('show');            
+        };
+        
         $scope.save = function () {
-            User.update($scope.user,
-                function () {
-                    $scope.refresh();
-                });
+        	if($scope.user.id != null ){
+        		User.update($scope.user,
+        			function () {
+                    	$scope.refresh();
+                	});
+        	}else{
+        		console.log($scope.user.password);
+        		 User.save($scope.user,
+        	        function () {
+        	            $scope.refresh();
+        	        }
+        		 );
+        	}        		 
         };
 
         $scope.refresh = function () {
@@ -53,7 +66,7 @@ angular.module('controlesApp')
         $scope.clear = function () {
             $scope.user = {
                 id: null, login: null, firstName: null, lastName: null, email: null,
-                activated: null, langKey: null, createdBy: null, createdDate: null,
+                activated: null, password: null, langKey: null, createdBy: null, createdDate: null,
                 lastModifiedBy: null, lastModifiedDate: null, resetDate: null,
                 resetKey: null, authorities: null
             };

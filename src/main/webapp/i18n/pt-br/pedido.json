@@ -3,26 +3,30 @@
         "pedido" : {
             "home": {
                 "title": "Pedidos",
-                "createLabel": "Create a new Pedido",
-                "createOrEditLabel": "Create or edit a Pedido"
+                "titleSeparacao": "Separação de Pedidos",
+                "titleEntrega": "Pronto para entrega",
+                "createLabel": "Criar Pedido",
+                "createOrEditLabel": "Criar/Editar um Pedido"
             },
             "delete": {
-                "question": "Are you sure you want to delete Pedido {{ id }}?"
+                "question": "Tem certeza que deseja remover o Pedido {{ id }}?"
             },
             "detail": {
                 "title": "Pedido"
             },
+            "created": "Pedido criado com sucesso",
+            "deleted": "Pedido removido com sucesso",
+            "updated": "Pedido alterado com sucesso",
             "dtPrevistaSeparacao": "DtPrevistaSeparacao",
             "dtRealSeparacao": "DtRealSeparacao",
             "dtPrevistaEntrega": "DtPrevistaEntrega",
             "dtRealEntrega": "DtRealEntrega",
             "periodoPedidoInicio": "PeriodoPedidoInicio",
             "periodoPedidoFim": "PeriodoPedidoFim",
-            "diaSemana": "DiaSemana",
             "dataPedido": "DataPedido",
-            "usuarioQueFezPedido": "UsuarioQueFezPedido",
-            "produto": "Produto",
-            "user": "User"
+            "produto_has_pedido": "Produto_has_pedido",
+            "user_pedido": "User_pedido",
+            "cliente_pedido": "Cliente_pedido"
         }
     }
 }

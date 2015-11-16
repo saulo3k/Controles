@@ -8,7 +8,7 @@ angular.module('controlesApp')
                 url: '/pedidos',
                 data: {
                     authorities: ['ROLE_USER'],
-                    pageTitle: 'controlesApp.pedido.home.title'
+                    pageTitle: 'controlesApp.pedido.home.titleEntrega'
                 },
                 views: {
                     'content@': {
@@ -19,7 +19,48 @@ angular.module('controlesApp')
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('pedido');
-                        $translatePartialLoader.addPart('diaSemana');
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }]
+                }
+            })            
+            .state('pedido.separacao', {
+                parent: 'entity',
+                url: '/pedidos-separacao',
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'controlesApp.pedido.home.titleSeparacao'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/pedido/pedidos-separacao.html',
+                        controller: 'PedidoController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('pedido');
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }]
+                }
+            })
+            .state('pedido.entrega', {
+                parent: 'entity',
+                url: '/pedidos-entrega',
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'controlesApp.pedido.home.titleEntrega'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/pedido/pedidos-entrega.html',
+                        controller: 'PedidoController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('pedido');
                         $translatePartialLoader.addPart('global');
                         return $translate.refresh();
                     }]
@@ -41,7 +82,6 @@ angular.module('controlesApp')
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('pedido');
-                        $translatePartialLoader.addPart('diaSemana');
                         return $translate.refresh();
                     }],
                     entity: ['$stateParams', 'Pedido', function($stateParams, Pedido) {
@@ -50,6 +90,26 @@ angular.module('controlesApp')
                 }
             })
             .state('pedido.new', {
+                parent: 'pedido',
+                url: '/new',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/pedido/pedido-create.html',
+                        controller: 'PedidoDialogController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('pedido');
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }]
+                }
+            })
+            .state('pedido.new1', {
                 parent: 'pedido',
                 url: '/new',
                 data: {
@@ -69,9 +129,7 @@ angular.module('controlesApp')
                                     dtRealEntrega: null,
                                     periodoPedidoInicio: null,
                                     periodoPedidoFim: null,
-                                    diaSemana: null,
                                     dataPedido: null,
-                                    usuarioQueFezPedido: null,
                                     id: null
                                 };
                             }

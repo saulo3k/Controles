@@ -58,21 +58,12 @@
             <input type="number" class="form-control" name="precoCusto" id="field_precoCusto"
                     ng-model="produto.precoCusto"
                     required />
-            <div ng-show="editForm.precoCusto.$invalid">
-                <p class="help-block"
-                    ng-show="editForm.precoCusto.$error.required" translate="entity.validation.required">
-                    This field is required.
-                </p>
-                <p class="help-block"
-                    ng-show="editForm.precoCusto.$error.number" translate="entity.validation.number">
-                    This field should be a number.
-                </p>
-            </div>
+
         </div>
         <div class="form-group">
             <label translate="controlesApp.produto.precoVenda" for="field_precoVenda">PrecoVenda</label>
             <input type="number" class="form-control" name="precoVenda" id="field_precoVenda"
-                    ng-model="produto.precoVenda"
+                    ng-model="produto.precoVenda"                    
                      />
         </div>
         <div class="form-group">

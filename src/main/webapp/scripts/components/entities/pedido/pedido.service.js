@@ -14,7 +14,6 @@ angular.module('controlesApp')
                     data.dtRealEntrega = DateUtils.convertLocaleDateFromServer(data.dtRealEntrega);
                     data.periodoPedidoInicio = DateUtils.convertLocaleDateFromServer(data.periodoPedidoInicio);
                     data.periodoPedidoFim = DateUtils.convertLocaleDateFromServer(data.periodoPedidoFim);
-                    data.dataPedido = DateUtils.convertLocaleDateFromServer(data.dataPedido);
                     return data;
                 }
             },
@@ -27,7 +26,6 @@ angular.module('controlesApp')
                     data.dtRealEntrega = DateUtils.convertLocaleDateToServer(data.dtRealEntrega);
                     data.periodoPedidoInicio = DateUtils.convertLocaleDateToServer(data.periodoPedidoInicio);
                     data.periodoPedidoFim = DateUtils.convertLocaleDateToServer(data.periodoPedidoFim);
-                    data.dataPedido = DateUtils.convertLocaleDateToServer(data.dataPedido);
                     return angular.toJson(data);
                 }
             },
@@ -40,7 +38,6 @@ angular.module('controlesApp')
                     data.dtRealEntrega = DateUtils.convertLocaleDateToServer(data.dtRealEntrega);
                     data.periodoPedidoInicio = DateUtils.convertLocaleDateToServer(data.periodoPedidoInicio);
                     data.periodoPedidoFim = DateUtils.convertLocaleDateToServer(data.periodoPedidoFim);
-                    data.dataPedido = DateUtils.convertLocaleDateToServer(data.dataPedido);
                     return angular.toJson(data);
                 }
             }

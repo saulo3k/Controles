@@ -1,0 +1,23 @@
+{
+    "controlesApp": {
+        "categoriaProduto" : {
+            "home": {
+                "title": "Categoria de Produtos",
+                "createLabel": "Criar Categoria de Produtos",
+                "createOrEditLabel": "Create or edit a CategoriaProduto"
+            },
+            "created": "Uma nova Categoria de Produto foi criada: {{ param }}",
+            "updated": "A Categoria de Produto foi modificada: {{ param }}",
+            "deleted": "A Categoria de Produtos foi removida: {{ param }}",
+            "delete": {
+                "question": "Tem certeza que deseja remover a Categoria de Produtos {{ id }}?"
+            },
+            "detail": {
+                "title": "Categoria de Produtos"
+            },
+            "nome": "Nome",
+            "descricao": "Descrição",
+            "ativa": "Ativa"
+        }
+    }
+}

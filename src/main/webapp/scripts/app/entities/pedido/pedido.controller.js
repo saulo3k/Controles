@@ -62,9 +62,7 @@ angular.module('controlesApp')
                 dtRealEntrega: null,
                 periodoPedidoInicio: null,
                 periodoPedidoFim: null,
-                diaSemana: null,
                 dataPedido: null,
-                usuarioQueFezPedido: null,
                 id: null
             };
         };

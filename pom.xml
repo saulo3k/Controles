@@ -536,10 +536,10 @@
                     <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
                     <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost/Controles</url>
+                    <url>jdbc:postgresql://localhost/Teste</url>
                     <defaultSchemaName></defaultSchemaName>
-                    <username>Controles</username>
-                    <password></password>
+                    <username>postgres</username>
+                    <password>postgres</password>
                     <referenceUrl>hibernate:spring:br.com.rexapps.controles.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>

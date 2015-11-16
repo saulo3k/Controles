@@ -19,9 +19,9 @@ spring:
         livereload:
             enabled: false
     datasource:
+        url: jdbc:postgresql://localhost:5432/Teste
         driver-class-name: org.postgresql.ds.PGSimpleDataSource
-        url: jdbc:postgresql://localhost:5432/Controles
-        name: Controles
+        name: Teste
         username: postgres
         password: postgres
     jpa:

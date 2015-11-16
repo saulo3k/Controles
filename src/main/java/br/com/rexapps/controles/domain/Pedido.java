@@ -1,18 +1,14 @@
 package br.com.rexapps.controles.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDate;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
-
-import br.com.rexapps.controles.domain.enumeration.DiaSemana;
-import br.com.rexapps.controles.domain.enumeration.StatusPedido;
 
 /**
  * A Pedido.
@@ -29,44 +25,34 @@ public class Pedido implements Serializable {
     @Column(name = "dt_prevista_separacao")
     private LocalDate dtPrevistaSeparacao;
 
-    @NotNull
-    @Column(name = "dt_real_separacao", nullable = false)
+    @Column(name = "dt_real_separacao")
     private LocalDate dtRealSeparacao;
 
-    @Column(name = "dt_prevista_entrega", nullable = false)
+    @Column(name = "dt_prevista_entrega")
     private LocalDate dtPrevistaEntrega;
 
-    @Column(name = "dt_real_entrega", nullable = false)
+    @Column(name = "dt_real_entrega")
     private LocalDate dtRealEntrega;
 
-    @Column(name = "periodo_pedido_inicio", nullable = false)
+    @Column(name = "periodo_pedido_inicio")
     private LocalDate periodoPedidoInicio;
 
-    @Column(name = "periodo_pedido_fim", nullable = false)
+    @Column(name = "periodo_pedido_fim")
     private LocalDate periodoPedidoFim;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "dia_semana")
-    private DiaSemana diaSemana;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status_pedido")
-    private StatusPedido statusPedido;
-      
-	@Column(name = "data_pedido", nullable = false)
-    private LocalDate dataPedido;
+    @Column(name = "data_pedido", precision=10, scale=2)
+    private BigDecimal dataPedido;
 
-    @Column(name = "usuario_que_fez_pedido")
-    private Integer usuarioQueFezPedido;
-    
-    
-
-    @OneToMany(mappedBy = "pedido")
-    @JsonIgnore
-    private Set<Produto> produtos = new HashSet<>();
+    @ManyToMany    @JoinTable(name = "pedido_produto_has_pedido",
+               joinColumns = @JoinColumn(name="pedidos_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="produto_has_pedidos_id", referencedColumnName="ID"))
+    private Set<Produto> produto_has_pedidos = new HashSet<>();
 
     @ManyToOne
-    private User user;
+    private User user_pedido;
+
+    @ManyToOne
+    private Cliente cliente_pedido;
 
     public Long getId() {
         return id;
@@ -88,15 +74,6 @@ public class Pedido implements Serializable {
         return dtRealSeparacao;
     }
 
-    public StatusPedido getStatusPedido() {
-		return statusPedido;
-	}
-
-	public void setStatusPedido(StatusPedido statusPedido) {
-		this.statusPedido = statusPedido;
-	}
-
-	
     public void setDtRealSeparacao(LocalDate dtRealSeparacao) {
         this.dtRealSeparacao = dtRealSeparacao;
     }
@@ -133,44 +110,36 @@ public class Pedido implements Serializable {
         this.periodoPedidoFim = periodoPedidoFim;
     }
 
-    public DiaSemana getDiaSemana() {
-        return diaSemana;
-    }
-
-    public void setDiaSemana(DiaSemana diaSemana) {
-        this.diaSemana = diaSemana;
-    }
-
-    public LocalDate getDataPedido() {
+    public BigDecimal getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(LocalDate dataPedido) {
+    public void setDataPedido(BigDecimal dataPedido) {
         this.dataPedido = dataPedido;
     }
 
-    public Integer getUsuarioQueFezPedido() {
-        return usuarioQueFezPedido;
+    public Set<Produto> getProduto_has_pedidos() {
+        return produto_has_pedidos;
     }
 
-    public void setUsuarioQueFezPedido(Integer usuarioQueFezPedido) {
-        this.usuarioQueFezPedido = usuarioQueFezPedido;
+    public void setProduto_has_pedidos(Set<Produto> produtos) {
+        this.produto_has_pedidos = produtos;
     }
 
-    public Set<Produto> getProdutos() {
-        return produtos;
+    public User getUser_pedido() {
+        return user_pedido;
     }
 
-    public void setProdutos(Set<Produto> produtos) {
-        this.produtos = produtos;
+    public void setUser_pedido(User user) {
+        this.user_pedido = user;
     }
 
-    public User getUser() {
-        return user;
+    public Cliente getCliente_pedido() {
+        return cliente_pedido;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCliente_pedido(Cliente cliente) {
+        this.cliente_pedido = cliente;
     }
 
     @Override
@@ -204,9 +173,7 @@ public class Pedido implements Serializable {
             ", dtRealEntrega='" + dtRealEntrega + "'" +
             ", periodoPedidoInicio='" + periodoPedidoInicio + "'" +
             ", periodoPedidoFim='" + periodoPedidoFim + "'" +
-            ", diaSemana='" + diaSemana + "'" +
             ", dataPedido='" + dataPedido + "'" +
-            ", usuarioQueFezPedido='" + usuarioQueFezPedido + "'" +
             '}';
     }
 }

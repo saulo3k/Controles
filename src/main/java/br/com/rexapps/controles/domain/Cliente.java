@@ -32,7 +32,7 @@ public class Cliente implements Serializable {
     @Column(name = "tipo_telefone")
     private TipoTelefone tipoTelefone;
 
-    @Pattern(regexp = "^[1-9]{2}\\-[2-9][0-9]{7,8}$")
+//    @Pattern(regexp = "^[1-9]{2}\\-[2-9][0-9]{7,8}$")
     @Column(name = "telefone")
     private String telefone;
 
