@@ -1,0 +1,48 @@
+
+<div>
+    <h2><span translate="controlesApp.pedTeste.detail.title">PedTeste</span> {{pedTeste.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedTeste.dtPrevistaEntrega">DtPrevistaEntrega</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedTeste.dtPrevistaEntrega | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedTeste.dtPrevistaEntregaZoned">DtPrevistaEntregaZoned</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{pedTeste.dtPrevistaEntregaZoned | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.pedTeste.produtoped">produtoped</span>
+                </td>
+                <td>
+                    <span ng-repeat="produtoped in pedTeste.produtopeds">
+                        <a class="form-control-static" ui-sref="produto.detail({id: {{produtoped.id}}})">{{produtoped.nome}}</a>{{$last ? '' : ', '}}
+                    <span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

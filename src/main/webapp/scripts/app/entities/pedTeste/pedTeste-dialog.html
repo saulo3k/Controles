@@ -1,0 +1,42 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPedTesteLabel" translate="controlesApp.pedTeste.home.createOrEditLabel">Create or edit a PedTeste</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="pedTeste.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedTeste.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+            <input type="date" class="form-control" name="dtPrevistaEntrega" id="field_dtPrevistaEntrega"
+                    ng-model="pedTeste.dtPrevistaEntrega"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedTeste.dtPrevistaEntregaZoned" for="field_dtPrevistaEntregaZoned">DtPrevistaEntregaZoned</label>
+            <input type="datetime-local" class="form-control" name="dtPrevistaEntregaZoned" id="field_dtPrevistaEntregaZoned"
+                    ng-model="pedTeste.dtPrevistaEntregaZoned"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="controlesApp.pedTeste.produtoped" for="field_produtoped">produtoped</label>
+            <select class="form-control" id="field_produtoped" multiple name="produtoped" ng-model="pedTeste.produtopeds" ng-options="produto as produto.nome for produto in produtos track by produto.id"></select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

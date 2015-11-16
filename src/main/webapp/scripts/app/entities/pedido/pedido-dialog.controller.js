@@ -1,10 +1,9 @@
 'use strict';
 
-angular.module('controlesApp').controller('PedidoDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Pedido', 'Produto', 'User', 'Cliente',
-        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente) {
-
-        $scope.pedido = entity;
+angular.module('controlesApp').controller('PedidoDialogController',		
+		
+        function($scope, $rootScope, $stateParams, enity, Pedido, Produto, User, Cliente) {
+        $scope.pedido = [];
         $scope.produtos = Produto.query();
         $scope.users = User.query();
         $scope.clientes = Cliente.query();
@@ -16,18 +15,18 @@ angular.module('controlesApp').controller('PedidoDialogController',
 
         var onSaveFinished = function (result) {
             $scope.$emit('controlesApp:pedidoUpdate', result);
-            $modalInstance.close(result);
+//            $modalInstance.close(result);
         };
 
         $scope.save = function () {
             if ($scope.pedido.id != null) {
                 Pedido.update($scope.pedido, onSaveFinished);
-            } else {
+            } else {            	
                 Pedido.save($scope.pedido, onSaveFinished);
             }
         };
 
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+//            $modalInstance.dismiss('cancel');
         };
-}]);
+});

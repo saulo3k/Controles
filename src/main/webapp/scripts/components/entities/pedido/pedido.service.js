@@ -31,13 +31,12 @@ angular.module('controlesApp')
             },
             'save': {
                 method: 'POST',
-                transformRequest: function (data) {
-                    data.dtPrevistaSeparacao = DateUtils.convertLocaleDateToServer(data.dtPrevistaSeparacao);
-                    data.dtRealSeparacao = DateUtils.convertLocaleDateToServer(data.dtRealSeparacao);
+                transformRequest: function (data) {                                    
+                    data.dtPrevistaSeparacao = DateUtils.convertLocaleDateToServer(data.dtPrevistaSeparacao);                    
                     data.dtPrevistaEntrega = DateUtils.convertLocaleDateToServer(data.dtPrevistaEntrega);
-                    data.dtRealEntrega = DateUtils.convertLocaleDateToServer(data.dtRealEntrega);
                     data.periodoPedidoInicio = DateUtils.convertLocaleDateToServer(data.periodoPedidoInicio);
                     data.periodoPedidoFim = DateUtils.convertLocaleDateToServer(data.periodoPedidoFim);
+                    console.log('data tes', data);
                     return angular.toJson(data);
                 }
             }

@@ -4,7 +4,7 @@ angular.module('controlesApp')
     .service('DateUtils', function ($filter) {
       this.convertLocaleDateToServer = function(date) {
         if (date) {
-          return $filter('date')(date, 'dd-MMM-yyyy');
+          return $filter('date')(date, 'yyyy-MM-dd');
         } else {
           return null;
         }

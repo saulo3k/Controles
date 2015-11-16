@@ -11,6 +11,7 @@
                 "cliente": "Cliente",
                 "email": "Email",
                 "pedido": "Pedido",
+                "pedTeste": "PedTeste",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

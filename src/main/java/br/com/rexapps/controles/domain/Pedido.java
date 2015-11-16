@@ -3,6 +3,11 @@ package br.com.rexapps.controles.domain;
 import java.time.LocalDate;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import br.com.rexapps.controles.domain.enumeration.StatusPedido;
+import br.com.rexapps.controles.domain.enumeration.UnidadeMedida;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,6 +21,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "pedido")
 @Document(indexName = "pedido")
+@JsonIgnoreProperties( ignoreUnknown = true )
 public class Pedido implements Serializable {
 
     @Id
@@ -40,8 +46,8 @@ public class Pedido implements Serializable {
     @Column(name = "periodo_pedido_fim")
     private LocalDate periodoPedidoFim;
 
-    @Column(name = "data_pedido", precision=10, scale=2)
-    private BigDecimal dataPedido;
+    @Column(name = "data_pedido")
+    private LocalDate dataPedido;
 
     @ManyToMany    @JoinTable(name = "pedido_produto_has_pedido",
                joinColumns = @JoinColumn(name="pedidos_id", referencedColumnName="ID"),
@@ -53,8 +59,13 @@ public class Pedido implements Serializable {
 
     @ManyToOne
     private Cliente cliente_pedido;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "modelo_pedido")
+    private StatusPedido statusPedido;
 
-    public Long getId() {
+    
+	public Long getId() {
         return id;
     }
 
@@ -110,15 +121,15 @@ public class Pedido implements Serializable {
         this.periodoPedidoFim = periodoPedidoFim;
     }
 
-    public BigDecimal getDataPedido() {
-        return dataPedido;
-    }
+    public LocalDate getDataPedido() {
+		return dataPedido;
+	}
 
-    public void setDataPedido(BigDecimal dataPedido) {
-        this.dataPedido = dataPedido;
-    }
+	public void setDataPedido(LocalDate dataPedido) {
+		this.dataPedido = dataPedido;
+	}
 
-    public Set<Produto> getProduto_has_pedidos() {
+	public Set<Produto> getProduto_has_pedidos() {
         return produto_has_pedidos;
     }
 
@@ -142,6 +153,15 @@ public class Pedido implements Serializable {
         this.cliente_pedido = cliente;
     }
 
+    public StatusPedido getStatusPedido() {
+		return statusPedido;
+	}
+
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
+	}
+
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import br.com.rexapps.controles.domain.Pedido;
 import br.com.rexapps.controles.repository.PedidoRepository;
 import br.com.rexapps.controles.repository.search.PedidoSearchRepository;
+import br.com.rexapps.controles.service.PedidoService;
 import br.com.rexapps.controles.web.rest.util.HeaderUtil;
 import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -37,6 +38,9 @@ public class PedidoResource {
 
     @Inject
     private PedidoRepository pedidoRepository;
+    
+    @Inject
+    private PedidoService pedidoService;
 
     @Inject
     private PedidoSearchRepository pedidoSearchRepository;
@@ -53,7 +57,7 @@ public class PedidoResource {
         if (pedido.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new pedido cannot already have an ID").body(null);
         }
-        Pedido result = pedidoRepository.save(pedido);
+        Pedido result = pedidoService.savePedido(pedido);      
         pedidoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/pedidos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("pedido", result.getId().toString()))
