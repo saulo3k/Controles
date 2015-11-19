@@ -47,7 +47,7 @@
                     <span translate="controlesApp.produto.precoCusto">PrecoCusto</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{produto.precoCusto}}</span>
+                    <span class="form-control-static">{{produto.precoCusto | currency}}</span>
                 </td>
             </tr>
             <tr>
@@ -55,7 +55,7 @@
                     <span translate="controlesApp.produto.precoVenda">PrecoVenda</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{produto.precoVenda}}</span>
+                    <span class="form-control-static">{{produto.precoVenda  | currency}}</span>
                 </td>
             </tr>
             <tr>
@@ -64,22 +64,6 @@
                 </td>
                 <td>
                     <span class="form-control-static">{{produto.estoque}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span translate="controlesApp.produto.vendaSemEstoque">VendaSemEstoque</span>
-                </td>
-                <td>
-                    <span class="form-control-static">{{produto.vendaSemEstoque}}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span translate="controlesApp.produto.promocao">Promocao</span>
-                </td>
-                <td>
-                    <span class="form-control-static">{{produto.promocao}}</span>
                 </td>
             </tr>
             <tr>
@@ -103,7 +87,7 @@
                     <span translate="controlesApp.produto.categoriaProduto">categoriaProduto</span>
                 </td>
                 <td>
-                    <a class="form-control-static" ui-sref="categoriaProduto.detail({id:produto.categoriaProduto.id})">{{produto.categoriaProduto.Y}}</a>
+                    <a class="form-control-static" ui-sref="categoriaProduto.detail({id:produto.categoriaProduto.id})">{{produto.categoriaProduto.nome}}</a>
                 </td>
             </tr>
             <tr>
@@ -111,7 +95,7 @@
                     <span translate="controlesApp.produto.user">user</span>
                 </td>
                 <td>
-                    {{produto.user.id}}
+                    {{produto.user.login}}
                 </td>
             </tr>
             </tbody>

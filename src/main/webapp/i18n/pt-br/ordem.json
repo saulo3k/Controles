@@ -1,0 +1,27 @@
+{
+    "controlesApp": {
+        "ordem" : {
+            "home": {
+                "title": "Ordems",
+                "createLabel": "Create a new Ordem",
+                "createOrEditLabel": "Create or edit a Ordem"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Ordem {{ id }}?"
+            },
+            "detail": {
+                "title": "Ordem"
+            },
+            "periodoPedidoInicio": "PeriodoPedidoInicio",
+            "periodoPedidoFim": "PeriodoPedidoFim",
+            "dtPrevistaSeparacao": "DtPrevistaSeparacao",
+            "dtRealSeparacao": "DtRealSeparacao",
+            "dtPrevistaEntrega": "DtPrevistaEntrega",
+            "dtRealEntrega": "DtRealEntrega",
+            "dataPedido": "DataPedido",
+            "ordem_produto": "Ordem_produto",
+            "ordem_cliente": "Ordem_cliente",
+            "ordem_user": "Ordem_user"
+        }
+    }
+}

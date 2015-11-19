@@ -1,19 +1,32 @@
 package br.com.rexapps.controles.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.rexapps.controles.domain.enumeration.StatusPedido;
-import br.com.rexapps.controles.domain.enumeration.UnidadeMedida;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Pedido.
@@ -48,23 +61,32 @@ public class Pedido implements Serializable {
 
     @Column(name = "data_pedido")
     private LocalDate dataPedido;
-
-    @ManyToMany    @JoinTable(name = "pedido_produto_has_pedido",
-               joinColumns = @JoinColumn(name="pedidos_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="produto_has_pedidos_id", referencedColumnName="ID"))
-    private Set<Produto> produto_has_pedidos = new HashSet<>();
-
-    @ManyToOne
+            
+    @OneToMany(mappedBy="pedido", cascade=CascadeType.ALL)
+    private Set<ProdutosPedidos> produtosPedidos = new HashSet<>();
+    
+	@ManyToOne
     private User user_pedido;
 
     @ManyToOne
     private Cliente cliente_pedido;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "modelo_pedido")
+    @Enumerated(EnumType.ORDINAL)   
+    @Column(name = "status_pedido")
     private StatusPedido statusPedido;
+    
+    @Column(name = "pedido_modelo")
+    private boolean pedidoModelo;
 
     
+	public boolean isPedidoModelo() {
+		return pedidoModelo;
+	}
+
+	public void setPedidoModelo(boolean pedidoModelo) {
+		this.pedidoModelo = pedidoModelo;
+	}
+
 	public Long getId() {
         return id;
     }
@@ -129,13 +151,13 @@ public class Pedido implements Serializable {
 		this.dataPedido = dataPedido;
 	}
 
-	public Set<Produto> getProduto_has_pedidos() {
-        return produto_has_pedidos;
-    }
-
-    public void setProduto_has_pedidos(Set<Produto> produtos) {
-        this.produto_has_pedidos = produtos;
-    }
+//	public Set<Produto> getProduto_has_pedidos() {
+//        return produto_has_pedidos;
+//    }
+//
+//    public void setProduto_has_pedidos(Set<Produto> produtos) {
+//        this.produto_has_pedidos = produtos;
+//    }
 
     public User getUser_pedido() {
         return user_pedido;
@@ -160,6 +182,15 @@ public class Pedido implements Serializable {
 	public void setStatusPedido(StatusPedido statusPedido) {
 		this.statusPedido = statusPedido;
 	}
+	
+	public Set<ProdutosPedidos> getProdutosPedidos() {
+		return produtosPedidos;
+	}
+
+	public void setProdutosPedidos(Set<ProdutosPedidos> produtosPedidos) {
+		this.produtosPedidos = produtosPedidos;
+	}
+
 
 	
     @Override

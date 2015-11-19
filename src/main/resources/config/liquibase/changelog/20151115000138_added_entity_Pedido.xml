@@ -27,9 +27,15 @@
             <column name="dt_real_entrega" type="date"/>
             <column name="periodo_pedido_inicio" type="date"/>
             <column name="periodo_pedido_fim" type="date"/>
-            <column name="data_pedido" type="decimal(10,2)"/>
+            <column name="data_pedido" type="date"/>
+            <column name="status_pedido" type="bigint"/>
+            <column name="valor_pedido" type="decimal(10,2)"/>
             <column name="user_pedido_id" type="bigint"/>
-            <column name="cliente_pedido_id" type="bigint"/>
+            <column name="cliente_pedido_id" type="bigint"/>                      
+			<column name="pedido_modelo" type="bit" defaultValueBoolean="false">
+                <constraints nullable="false" />
+            </column>                  
+            
         </createTable>
         
         <createTable tableName="pedido_produto_has_pedido">

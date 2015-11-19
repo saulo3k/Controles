@@ -32,7 +32,10 @@ import com.codahale.metrics.annotation.Timed;
 
 import br.com.rexapps.controles.domain.Produto;
 import br.com.rexapps.controles.repository.ProdutoRepository;
+import br.com.rexapps.controles.repository.UserRepository;
 import br.com.rexapps.controles.repository.search.ProdutoSearchRepository;
+import br.com.rexapps.controles.security.SecurityUtils;
+import br.com.rexapps.controles.service.EstoqueService;
 import br.com.rexapps.controles.web.rest.util.HeaderUtil;
 import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 
@@ -50,6 +53,12 @@ public class ProdutoResource {
 
     @Inject
     private ProdutoSearchRepository produtoSearchRepository;
+    
+    @Inject
+    private EstoqueService estoqueService; 
+    
+    @Inject
+    private UserRepository userRepository;
 
     /**
      * POST  /produtos -> Create a new produto.
@@ -59,13 +68,18 @@ public class ProdutoResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<Produto> createProduto(@Valid @RequestBody Produto produto) throws URISyntaxException {
-        log.debug("REST request to save Produto : {}", produto);
+         log.debug("REST request to save Produto : {}", produto);
         if (produto.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new produto cannot already have an ID").body(null);
-        }
-        LocalDate dataAtual = LocalDate.now();
-        produto.setDataCadastro(dataAtual);
+        }       
+        
+        produto.setDataCadastro(LocalDate.now());
+        produto.setUser(userRepository.findOne(SecurityUtils.getCurrentUserId())); 
         Produto result = produtoRepository.save(produto);
+        
+        //dar entrada no estoque
+        estoqueService.adicionarProdutoEstoque(produto);
+        
         produtoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/produtos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("produto", result.getId().toString()))

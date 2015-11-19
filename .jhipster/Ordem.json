@@ -1,0 +1,66 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "ordem_produto",
+            "otherEntityName": "produto",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "nome",
+            "ownerSide": true
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "ordem_cliente",
+            "otherEntityName": "cliente",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "nome"
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "ordem_user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "periodoPedidoInicio",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "periodoPedidoFim",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "dtPrevistaSeparacao",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "dtRealSeparacao",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "dtPrevistaEntrega",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "dtRealEntrega",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "dataPedido",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "changelogDate": "20151116211747",
+    "dto": "no",
+    "pagination": "infinite-scroll"
+}

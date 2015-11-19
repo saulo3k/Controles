@@ -57,14 +57,14 @@
             <label translate="controlesApp.produto.precoCusto" for="field_precoCusto">PrecoCusto</label>
             <input type="number" class="form-control" name="precoCusto" id="field_precoCusto"
                     ng-model="produto.precoCusto"
-                    required />
+                     />{{produto.precoCusto | currency}}
 
         </div>
         <div class="form-group">
             <label translate="controlesApp.produto.precoVenda" for="field_precoVenda">PrecoVenda</label>
             <input type="number" class="form-control" name="precoVenda" id="field_precoVenda"
                     ng-model="produto.precoVenda"                    
-                     />
+                     />{{produto.precoVenda | currency}}
         </div>
         <div class="form-group">
             <label translate="controlesApp.produto.estoque" for="field_estoque">Estoque</label>
@@ -72,18 +72,18 @@
                     ng-model="produto.estoque"
                      />
         </div>
-        <div class="form-group">
-            <label translate="controlesApp.produto.vendaSemEstoque" for="field_vendaSemEstoque">VendaSemEstoque</label>
-            <input type="checkbox" class="form-control" name="vendaSemEstoque" id="field_vendaSemEstoque"
-                    ng-model="produto.vendaSemEstoque"
-                     />
-        </div>
-        <div class="form-group">
-            <label translate="controlesApp.produto.promocao" for="field_promocao">Promocao</label>
-            <input type="checkbox" class="form-control" name="promocao" id="field_promocao"
-                    ng-model="produto.promocao"
-                     />
-        </div>
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.produto.vendaSemEstoque" for="field_vendaSemEstoque">VendaSemEstoque</label> -->
+<!--             <input type="checkbox" class="form-control" name="vendaSemEstoque" id="field_vendaSemEstoque" -->
+<!--                     ng-model="produto.vendaSemEstoque" -->
+<!--                      /> -->
+<!--         </div> -->
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.produto.promocao" for="field_promocao">Promocao</label> -->
+<!--             <input type="checkbox" class="form-control" name="promocao" id="field_promocao" -->
+<!--                     ng-model="produto.promocao" -->
+<!--                      /> -->
+<!--         </div> -->
 <!--         <div class="form-group"> -->
 <!--             <label translate="controlesApp.produto.dataCadastro" for="field_dataCadastro">DataCadastro</label> -->
 <!--             <input type="date" class="form-control" name="dataCadastro" id="field_dataCadastro" -->
@@ -92,6 +92,7 @@
         <div class="form-group">
             <label translate="controlesApp.produto.unidadeMedida" for="field_unidadeMedida">UnidadeMedida</label>
             <select class="form-control" name="unidadeMedida" ng-model="produto.unidadeMedida" id="field_unidadeMedida">
+            	<option value="UN" translate="controlesApp.UnidadeMedida.UN">UN</option>
                 <option value="G" translate="controlesApp.UnidadeMedida.G">G</option>
                 <option value="KG" translate="controlesApp.UnidadeMedida.KG">KG</option>
                 <option value="T" translate="controlesApp.UnidadeMedida.T">T</option>

@@ -34,7 +34,7 @@ angular.module('controlesApp')
                 views: {
                     'content@': {
                         templateUrl: 'scripts/app/entities/pedido/pedidos-separacao.html',
-                        controller: 'PedidoController'
+                        controller: 'PedidoSeparacaoController'
                     }
                 },
                 resolve: {
@@ -55,7 +55,7 @@ angular.module('controlesApp')
                 views: {
                     'content@': {
                         templateUrl: 'scripts/app/entities/pedido/pedidos-entrega.html',
-                        controller: 'PedidoController'
+                        controller: 'PedidoEntregaController'
                     }
                 },
                 resolve: {
@@ -95,10 +95,45 @@ angular.module('controlesApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog.html',
+                        controller: 'PedidoDialogController',
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    dtPrevistaSeparacao: new Date(),
+                                    dtRealSeparacao: null,
+                                    dtPrevistaEntrega: new Date(),
+                                    dtRealEntrega: null,
+                                    periodoPedidoInicio: null,
+                                    periodoPedidoFim: null,
+                                    dataPedido: null,
+                                	produtosPedidos: [],
+                                	dataPedido: new Date(),
+                                    id: null
+                                };
+                            }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('pedido', null, { reload: true });
+                    }, function() {
+                        $state.go('pedido');
+                    })
+                }]
+            })
+           .state('pedido.modelo', {
+                parent: 'entity',
+                url: '/pedidos-modelo',
+                data: {
+                    authorities: ['ROLE_USER'],
+                    pageTitle: 'controlesApp.pedido.home.titleEntrega'
+                },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/pedido/pedido-create.html',
-                        controller: 'PedidoDialogController'
+                        templateUrl: 'scripts/app/entities/pedido/pedidos-modelo.html',
+                        controller: 'PedidoController'
                     }
                 },
                 resolve: {
@@ -108,39 +143,41 @@ angular.module('controlesApp')
                         return $translate.refresh();
                     }]
                 }
-            })
-//            .state('pedido.new1', {
-//                parent: 'pedido',
-//                url: '/new',
-//                data: {
-//                    authorities: ['ROLE_USER'],
-//                },
-//                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-//                    $modal.open({
-//                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog.html',
-//                        controller: 'PedidoDialogController',
-//                        size: 'lg',
-//                        resolve: {
-//                            entity: function () {
-//                                return {
-//                                    dtPrevistaSeparacao: null,
-//                                    dtRealSeparacao: null,
-//                                    dtPrevistaEntrega: null,
-//                                    dtRealEntrega: null,
-//                                    periodoPedidoInicio: null,
-//                                    periodoPedidoFim: null,
-//                                    dataPedido: null,
-//                                    id: null
-//                                };
-//                            }
-//                        }
-//                    }).result.then(function(result) {
-//                        $state.go('pedido', null, { reload: true });
-//                    }, function() {
-//                        $state.go('pedido');
-//                    })
-//                }]
-//            })
+            })            
+           .state('pedido.modelo.new', {
+                parent: 'pedido',
+                url: '/model',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog-model.html',
+                        controller: 'PedidoDialogModelController',
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    dtPrevistaSeparacao: new Date(),
+                                    dtRealSeparacao: null,
+                                    dtPrevistaEntrega: new Date(),
+                                    dtRealEntrega: null,
+                                    periodoPedidoInicio: null,
+                                    periodoPedidoFim: null,
+                                    dataPedido: null,
+                                	produtosPedidos: [],
+                                	dataPedido: new Date(),
+                                    id: null
+                                };
+                            }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('pedido', null, { reload: true });
+                    }, function() {
+                        $state.go('pedido');
+                    })
+                }]
+            })            
             .state('pedido.edit', {
                 parent: 'pedido',
                 url: '/{id}/edit',

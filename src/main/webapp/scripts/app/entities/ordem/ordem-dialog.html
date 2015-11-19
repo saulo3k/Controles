@@ -1,0 +1,84 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myOrdemLabel" translate="controlesApp.ordem.home.createOrEditLabel">Create or edit a Ordem</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="ordem.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.periodoPedidoInicio" for="field_periodoPedidoInicio">PeriodoPedidoInicio</label>
+            <input type="date" class="form-control" name="periodoPedidoInicio" id="field_periodoPedidoInicio"
+                    ng-model="ordem.periodoPedidoInicio"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.periodoPedidoFim" for="field_periodoPedidoFim">PeriodoPedidoFim</label>
+            <input type="date" class="form-control" name="periodoPedidoFim" id="field_periodoPedidoFim"
+                    ng-model="ordem.periodoPedidoFim"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>
+            <input type="date" class="form-control" name="dtPrevistaSeparacao" id="field_dtPrevistaSeparacao"
+                    ng-model="ordem.dtPrevistaSeparacao"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.dtRealSeparacao" for="field_dtRealSeparacao">DtRealSeparacao</label>
+            <input type="date" class="form-control" name="dtRealSeparacao" id="field_dtRealSeparacao"
+                    ng-model="ordem.dtRealSeparacao"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+            <input type="date" class="form-control" name="dtPrevistaEntrega" id="field_dtPrevistaEntrega"
+                    ng-model="ordem.dtPrevistaEntrega"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.dtRealEntrega" for="field_dtRealEntrega">DtRealEntrega</label>
+            <input type="date" class="form-control" name="dtRealEntrega" id="field_dtRealEntrega"
+                    ng-model="ordem.dtRealEntrega"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.dataPedido" for="field_dataPedido">DataPedido</label>
+            <input type="date" class="form-control" name="dataPedido" id="field_dataPedido"
+                    ng-model="ordem.dataPedido"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="controlesApp.ordem.ordem_produto" for="field_ordem_produto">ordem_produto</label>
+            <select class="form-control" id="field_ordem_produto" multiple name="ordem_produto" ng-model="ordem.ordem_produtos" ng-options="produto as produto.nome for produto in produtos track by produto.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.ordem_cliente" for="field_ordem_cliente">ordem_cliente</label>
+            <select class="form-control" id="field_ordem_cliente" name="ordem_cliente" ng-model="ordem.ordem_cliente" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.ordem.ordem_user" for="field_ordem_user">ordem_user</label>
+            <select class="form-control" id="field_ordem_user" name="ordem_user" ng-model="ordem.ordem_user" ng-options="user as user.id for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,123 @@
+<div>
+	<div class="panel panel-primary"> 
+		<div class="panel-heading"> 					   
+			  <div class="container">
+			    <div class="row">
+			        <div class="col-xs-6">
+					    <h1 translate="controlesApp.estoque.home.title">Estoques</h1>
+			        </div>
+			        <div class="col-xs-6">
+			            <i class="fa fa-cubes fa-5x"/>
+			        </div>
+			    </div>
+			</div>
+		</div> 	 
+	</div>
+
+<div>
+
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">                
+                <button class="btn btn-success"  ui-sref="estoque.new">
+                    <span class="fa fa-plus fa-5x"></span> <span translate="controlesApp.estoque.home.createLabelEntrada">Create a new Produto</span>
+                </button>
+                <button class="btn btn-success"  ui-sref="estoque.new">
+                    <span class="fa fa-minus fa-5x"></span> <span translate="controlesApp.estoque.home.createLabelSaida">Pedido Modelo</span>
+                </button>     
+   
+            </div>         
+            <div class="col-md-4">
+                            <button class="btn btn-primary"  ng-click="back()">
+                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                </button>   
+            </div>
+            <div class="col-md-4">
+<!--                <form name="searchForm" class="form-inline"> -->
+<!--                     <div class="form-group"> -->
+<!--                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query"> -->
+<!--                     </div> -->
+<!--                     <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Estoque</span> -->
+<!--                     </button> -->
+<!--                 </form> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteEstoqueConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(estoque.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="controlesApp.estoque.delete.question" translate-values="{id: '{{estoque.id}}'}">Are you sure you want to delete this Estoque?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="global.field.id">ID</th>
+                    <th translate="controlesApp.estoque.operacao">Operacao</th>
+                    <th translate="controlesApp.estoque.quantidadeAtual">QuantidadeAtual</th>
+                    <th translate="controlesApp.estoque.quantidadeAposMovimentacao">QuantidadeAposMovimentacao</th>
+                    <th translate="controlesApp.estoque.dataAtual">DataAtual</th>                    
+                    <th translate="controlesApp.estoque.motivo">Motivo</th>
+                    <th translate="controlesApp.estoque.estoque_produto">estoque_produto</th>
+                    <th translate="controlesApp.estoque.estoque_user">estoque_user</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="estoque in estoques track by estoque.id">
+                    <td><a ui-sref="estoque.detail({id:estoque.id})">{{estoque.id}}</a></td>
+                    <td translate="{{'controlesApp.OperacaoEstoque.' + estoque.operacao}}">{{estoque.operacao}}</td>
+                    <td>{{estoque.quantidadeAtual}}</td>
+                    <td>{{estoque.quantidadeAposMovimentacao}}</td>
+                        <td>{{estoque.dataAtual | date:'mediumDate'}}</td>                    
+                    <td>{{estoque.motivo}}</td>
+                    <td>
+                        <a ui-sref="produto.detail({id:estoque.estoque_produto.id})">{{estoque.estoque_produto.nome}}</a>
+                    </td>
+                    <td>
+                        {{estoque.estoque_user.login}}
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="estoque.detail({id:estoque.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="estoque.edit({id:estoque.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(estoque.id)"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

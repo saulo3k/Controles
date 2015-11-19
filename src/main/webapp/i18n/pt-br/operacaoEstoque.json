@@ -1,0 +1,9 @@
+{
+    "controlesApp": {
+        "OperacaoEstoque" : {
+            "null": "",
+            "Entrada": "Entrada",
+            "Saida": "Saida"
+        }
+    }
+}

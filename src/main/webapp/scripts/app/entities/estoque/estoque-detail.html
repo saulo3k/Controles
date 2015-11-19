@@ -1,0 +1,78 @@
+
+<div>
+    <h2><span translate="controlesApp.estoque.detail.title">Estoque</span> {{estoque.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.quantidadeAtual">QuantidadeAtual</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{estoque.quantidadeAtual}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.quantidadeAposMovimentacao">QuantidadeAposMovimentacao</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{estoque.quantidadeAposMovimentacao}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.dataAtual">DataAtual</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{estoque.dataAtual | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.operacao">Operacao</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'controlesApp.OperacaoEstoque.' + estoque.operacao}}">{{estoque.operacao}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.motivo">Motivo</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{estoque.motivo}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.estoque_produto">estoque_produto</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="produto.detail({id:estoque.estoque_produto.id})">{{estoque.estoque_produto.id}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.estoque_user">estoque_user</span>
+                </td>
+                <td>
+                    {{estoque.estoque_user.id}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

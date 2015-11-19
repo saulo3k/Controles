@@ -1,7 +1,8 @@
 package br.com.rexapps.controles.service;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.rexapps.controles.domain.Pedido;
+import br.com.rexapps.controles.domain.ProdutosPedidos;
+import br.com.rexapps.controles.domain.enumeration.StatusPedido;
 import br.com.rexapps.controles.repository.PedidoRepository;
+import br.com.rexapps.controles.repository.ProdutoRepository;
 import br.com.rexapps.controles.repository.UserRepository;
 import br.com.rexapps.controles.security.SecurityUtils;
 
@@ -28,6 +32,9 @@ public class PedidoService {
     @Inject
     private UserRepository userRepository;
     
+    @Inject
+    private ProdutoRepository produtoRepository;
+    
     public Pedido savePedido (Pedido pedido) {
         log.debug("Activating user for activation key {}", pedido);
 
@@ -40,12 +47,32 @@ public class PedidoService {
         	pedido.setDtPrevistaEntrega(LocalDate.now());
         }
         
-        
-        pedido.setDataPedido(LocalDate.now());
+        if(pedido.isPedidoModelo()){
+        	pedido.setStatusPedido(StatusPedido.PedidoModelo);
+        }
+                     
+        //Seta usuario que cadastrou o pedido
         pedido.setUser_pedido(userRepository.findOne(SecurityUtils.getCurrentUserId()));
         
+        Set<ProdutosPedidos> produtosPedidos = new HashSet<>();
+        for (ProdutosPedidos prodPedidoFor : pedido.getProdutosPedidos()) {
+        	ProdutosPedidos prodPedidoSave = new ProdutosPedidos();
+        	prodPedidoSave.setPedido(pedido);
+        	prodPedidoSave.setProduto(produtoRepository.findOne((prodPedidoFor.getProduto().getId())));
+        	prodPedidoSave.setQuantidade(prodPedidoFor.getQuantidade());
+        	produtosPedidos.add(prodPedidoSave);   
+		}
+        pedido.setProdutosPedidos(produtosPedidos);
+        
         pedidoRepository.save(pedido);
+                
+        return pedido;
+    }
+    
+    public Pedido enviarPedidoSeparacao (Pedido pedido) {
+        log.debug("Activating user for activation key {}", pedido);
         return null;
     }
+
 
 }

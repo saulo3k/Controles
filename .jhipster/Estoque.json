@@ -1,0 +1,49 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "estoque_produto",
+            "otherEntityName": "produto",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "estoque_user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "quantidadeAtual",
+            "fieldType": "Long"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "quantidadeAposMovimentacao",
+            "fieldType": "Long"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "dataAtual",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "operacao",
+            "fieldType": "OperacaoEstoque",
+            "fieldValues": "Entrada,Saida"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "motivo",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20151117114213",
+    "dto": "no",
+    "pagination": "infinite-scroll"
+}

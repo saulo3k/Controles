@@ -1,8 +1,21 @@
 package br.com.rexapps.controles.domain.enumeration;
 
 /**
- * The DiaSemana enumeration.
+ * The StatusPedido enumeration.
  */
 public enum StatusPedido {
-	PedidoModelo,ClienteNaoPediu,EmProcessoPedido,Separacao,EmSeparacao,Romaneio
+	PedidoModelo(1),
+	ClienteNaoPediu(2),
+	EmProcessoPedido(3),
+	Separacao(4),
+	EmSeparacao(5),
+	Romaneio(6);
+	
+	int codigo;
+	StatusPedido(int p) {
+	    codigo = p;
+	}
+	int showCodigo() {
+	      return codigo;
+	} 
 }

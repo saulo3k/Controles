@@ -2,6 +2,7 @@ package br.com.rexapps.controles.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import br.com.rexapps.controles.domain.Pedido;
+import br.com.rexapps.controles.repository.PedidoProdutoRepository;
 import br.com.rexapps.controles.repository.PedidoRepository;
 import br.com.rexapps.controles.repository.search.PedidoSearchRepository;
 import br.com.rexapps.controles.service.PedidoService;
@@ -40,6 +41,9 @@ public class PedidoResource {
     private PedidoRepository pedidoRepository;
     
     @Inject
+    private PedidoProdutoRepository pedidoProdutoRepository;
+    
+    @Inject
     private PedidoService pedidoService;
 
     @Inject
@@ -58,6 +62,7 @@ public class PedidoResource {
             return ResponseEntity.badRequest().header("Failure", "A new pedido cannot already have an ID").body(null);
         }
         Pedido result = pedidoService.savePedido(pedido);      
+        result.setProdutosPedidos(null);
         pedidoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/pedidos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("pedido", result.getId().toString()))
@@ -106,10 +111,10 @@ public class PedidoResource {
     @Timed
     public ResponseEntity<Pedido> getPedido(@PathVariable Long id) {
         log.debug("REST request to get Pedido : {}", id);
-        return Optional.ofNullable(pedidoRepository.findOneWithEagerRelationships(id))
-            .map(pedido -> new ResponseEntity<>(
-                pedido,
-                HttpStatus.OK))
+        Pedido pedido2 = pedidoRepository.findOne(id);
+        pedido2.setProdutosPedidos(pedidoProdutoRepository.findByIdPedidos(id));
+        return Optional.ofNullable(pedido2)
+            .map(pedido -> new ResponseEntity<>(pedido,HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -140,4 +145,26 @@ public class PedidoResource {
             .stream(pedidoSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+    
+    @RequestMapping(value = "/separacao",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<Pedido>> separacaoPedidos(Pageable pageable)
+            throws URISyntaxException {
+            Page<Pedido> page = pedidoRepository.findAllSeparacao(pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
+            return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        }
+    
+    @RequestMapping(value = "/entrega",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<Pedido>> entregaPedidos(Pageable pageable)
+            throws URISyntaxException {
+            Page<Pedido> page = pedidoRepository.findAllEntregas(pageable);
+            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
+            return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        }
 }

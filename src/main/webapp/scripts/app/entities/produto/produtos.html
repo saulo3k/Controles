@@ -85,7 +85,7 @@
                     <td>                    
             			{{produto.nome}}		
                     </td>
-                    <td>R$ {{produto.precoVenda}}</td>
+                    <td>{{produto.precoVenda | currency}}</td>
                     <td>{{produto.estoque}}</td>
                     <td>
                         <a ui-sref="categoriaProduto.detail({id:produto.categoriaProduto.id})">{{produto.categoriaProduto.nome}}</a>

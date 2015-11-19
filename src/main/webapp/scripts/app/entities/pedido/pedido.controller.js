@@ -12,6 +12,7 @@ angular.module('controlesApp')
                 }
             });
         };
+		    	
         $scope.reset = function() {
             $scope.page = 0;
             $scope.pedidos = [];

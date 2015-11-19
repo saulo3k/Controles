@@ -3,9 +3,11 @@
         "pedido" : {
             "home": {
                 "title": "Pedidos",
+                "titlemodelo": "Pedidos Modelo",
                 "titleSeparacao": "Separação de Pedidos",
                 "titleEntrega": "Pronto para entrega",
                 "createLabel": "Criar Pedido",
+                "createLabelPedido": "Pedido Modelo",
                 "createOrEditLabel": "Criar/Editar um Pedido"
             },
             "delete": {
@@ -18,15 +20,18 @@
             "deleted": "Pedido removido com sucesso",
             "updated": "Pedido alterado com sucesso",
             "dtPrevistaSeparacao": "Data Prevista para Separação",
-            "dtRealSeparacao": "Data Real de Separação",
+            "dtRealSeparacao": "Data de Separação",
             "dtPrevistaEntrega": "Data Prevista para Entrega",
-            "dtRealEntrega": "Data Real de Entrega",
+            "dtRealEntrega": "Data de Entrega",
             "periodoPedidoInicio": "Periodo Pedido Inicio",
             "periodoPedidoFim": "Periodo Pedido Fim",
             "dataPedido": "Data do Pedido",
             "produto_has_pedido": "Produtos",
             "user_pedido": "Usuário que fez o pedido",
-            "cliente_pedido": "Cliente"
+            "cliente_pedido": "Cliente",
+            "pedido_modelo": "Pedido Modelo",
+            "separacao_pedido": "Enviar Para Separacao",
+			"sep_pedido": "Separar Pedido"            
         }
     }
 }

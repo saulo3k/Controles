@@ -51,7 +51,9 @@
             <label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label>
             <select class="form-control" id="field_produto_has_pedido" multiple name="produto_has_pedido" ng-model="pedido.produto_has_pedidos" ng-options="produto as produto.nome for produto in produtos track by produto.id"></select>
         </div>
+        
     </div>
+    
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

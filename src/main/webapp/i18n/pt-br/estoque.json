@@ -1,0 +1,26 @@
+{
+    "controlesApp": {
+        "estoque" : {
+            "home": {
+                "title": "Estoques",
+                "createLabelEntrada": "Entrada",
+                "createLabelSaida": "Saida",
+                "createOrEditLabel": "Create or edit a Estoque"
+                
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Estoque {{ id }}?"
+            },
+            "detail": {
+                "title": "Estoque"
+            },
+            "quantidadeAtual": "Qnt Antes Movimentação",
+            "quantidadeAposMovimentacao": "Qnt Após Movimentação",
+            "dataAtual": "Data Atual",
+            "operacao": "Operação",
+            "motivo": "Motivo",
+            "estoque_produto": "Produto",
+            "estoque_user": "Usuário"
+        }
+    }
+}
