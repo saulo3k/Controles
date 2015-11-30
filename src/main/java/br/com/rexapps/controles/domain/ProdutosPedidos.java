@@ -1,6 +1,5 @@
 package br.com.rexapps.controles.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,12 +21,12 @@ public class ProdutosPedidos {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="produto_id")	
     private Produto produto;
     
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="pedido_id")
     private Pedido pedido;
     

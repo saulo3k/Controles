@@ -1,6 +1,7 @@
 package br.com.rexapps.controles.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,10 +21,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.rexapps.controles.domain.enumeration.StatusPedido;
@@ -77,8 +78,24 @@ public class Pedido implements Serializable {
     
     @Column(name = "pedido_modelo")
     private boolean pedidoModelo;
+    
+	@Column(name = "valor_pedido")
+    private BigDecimal total;
+
+	@ManyToMany    
+    		@JoinTable(name = "pedido_diassemana",
+            joinColumns = @JoinColumn(name="pedidos_id", referencedColumnName="ID"),
+            inverseJoinColumns = @JoinColumn(name="diasemana_id", referencedColumnName="ID"))
+    private Set<DiaSemana> diasSemana = new HashSet<>();
 
     
+    public Set<DiaSemana> getDiasSemana() {
+		return diasSemana;
+	}
+
+	public void setDiasSemana(Set<DiaSemana> diasSemana) {
+		this.diasSemana = diasSemana;
+	}
 	public boolean isPedidoModelo() {
 		return pedidoModelo;
 	}
@@ -209,7 +226,16 @@ public class Pedido implements Serializable {
         return true;
     }
 
-    @Override
+
+    public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+
+	@Override
     public int hashCode() {
         return Objects.hashCode(id);
     }

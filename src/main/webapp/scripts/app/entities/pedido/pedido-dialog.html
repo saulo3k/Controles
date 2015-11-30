@@ -58,29 +58,26 @@
         	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
 	        <ul>
 	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
-	            <a href="" ng-click="toggle($index, produto)">
-	                	<label>{{produto.nome}}</label></a>
+	            		
+	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
+	                		<label>{{produto.nome}}</label>
+	                	
 	                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label>
-	                	<input type="number" ng-if="selection.indexOf($index) != -1" size="3" ng-model="quantidade" ng-blur="setQuantidade($index, quantidade, produto)">	                	
-	                 
+	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3" ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
 	            </li>
 	        </ul>
         </div>
-        
-<!--         <div class="form-group"> -->
-<!--         	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label>  -->
-<!-- 	        <ul> -->
-<!-- 	            <li ng-repeat="produtosPedidos in pedido.produtosPedidos" ng-class="{'selected':true}"> -->
-<!-- 	            <a href="" ng-click="toggle($index, produto)"> -->
-<!-- 	                	<label>{{produtosPedidos.produto.nome}}</label></a> -->
-<!-- 	                	<label > - Quantidade: </label> -->
-<!-- 	                	<input type="number" size="3" ng-model="produtosPedidos.quantidade" ng-blur="setQuantidade($index, quantidade, produto)">	                	 -->
-	                 
-<!-- 	            </li> -->
-<!-- 	        </ul> -->
-<!--         </div>                 -->
-
-    
+        <div class="form-group" ng-if="pedido.total != 0">
+        	<label>Valor Total: </label>
+        	<label>{{pedido.total |  currency}}</label>
+        	<button type="button" has-authority="ROLE_ADMIN"
+                                 ng-click="ShowHide()"
+                                class="btn btn-primary btn-sm">
+        	<span class="glyphicon glyphicon-pencil" ></span>
+        	</button>
+        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
+        	
+        </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

@@ -38,8 +38,25 @@
             
         </createTable>
         
-        <createTable tableName="pedido_produto_has_pedido">
-            <column name="produto_has_pedidos_id" type="bigint">
+        <createTable tableName="diassemana">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+			<column name="dia" type="varchar(255)"/>
+        </createTable>
+        
+       <addPrimaryKey columnNames="id" tableName="diassemana"/>
+        
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/diasSemana.csv"
+                  separator=";"
+                  tableName="diassemana">
+            <column name="id" type="numeric"/>
+            <column name="dia" type="string"/>
+        </loadData>
+        
+        <createTable tableName="pedido_diassemana">
+            <column name="diasemana_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
             <column name="pedidos_id" type="bigint">
@@ -47,19 +64,19 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="pedidos_id, produto_has_pedidos_id" tableName="pedido_produto_has_pedido"/>
+        <addPrimaryKey columnNames="pedidos_id, diasemana_id" tableName="pedido_diassemana"/>
 
         <addForeignKeyConstraint baseColumnNames="pedidos_id"
-                                 baseTableName="pedido_produto_has_pedido"
-                                 constraintName="fk_pedido_produto_has_pedido_produto_id"
+                                 baseTableName="pedido_diassemana"
+                                 constraintName="fk_pedido_has_dia_semana"
                                  referencedColumnNames="id"
                                  referencedTableName="pedido"/>
 
-        <addForeignKeyConstraint baseColumnNames="produto_has_pedidos_id"
-                                 baseTableName="pedido_produto_has_pedido"
-                                 constraintName="fk_produto_produto_has_pedido_pedido_id"
+        <addForeignKeyConstraint baseColumnNames="diasemana_id"
+                                 baseTableName="pedido_diassemana"
+                                 constraintName="fk_dia_semana_has_pedido"
                                  referencedColumnNames="id"
-                                 referencedTableName="produto"/>
+                                 referencedTableName="diassemana"/>
         
         <addForeignKeyConstraint baseColumnNames="user_pedido_id"
                                  baseTableName="pedido"

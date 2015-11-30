@@ -354,5 +354,25 @@ table.dataTable thead .sorting:after {
 }
 
 .selected {
-    background-color: yellow;
+    background-color: #F8DEBD;
 }
+.corFonte {
+	background-color: #4cae4c;	
+}
+ul
+{
+    list-style-type: none;
+}
+/* a{  */
+/* text-decoration: none;  */
+/* }  */
+/* a:hover{ For when your mouse hovers over the element  */
+/* text-decoration: underline;  */
+/* }  */
+/* a:visited{ For links that are in the browser history (Previously visited) text-decoration: none;  */
+/* color: purple;  */
+/* }  */
+/* a:active{ For links that you are clicking on  */
+/* text-decoration: none;  */
+/* color: blue;  */
+/* } */

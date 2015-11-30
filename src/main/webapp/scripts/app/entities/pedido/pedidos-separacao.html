@@ -92,13 +92,13 @@
                         {{pedido.user_pedido.login}}
                     </td>
                     <td>
+<!--                         <button type="submit" -->
+<!--                                 ui-sref="pedido.detail({id:pedido.id})" -->
+<!--                                 class="btn btn-info btn-sm"> -->
+<!--                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span> -->
+<!--                         </button> -->
                         <button type="submit"
-                                ui-sref="pedido.detail({id:pedido.id})"
-                                class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
-                        </button>
-                        <button type="submit"
-                                ui-sref="pedido.edit({id:pedido.id})"
+                                ui-sref="pedido.separacao.edit({id:pedido.id})"
                                 class="btn btn-success btn-sm">
                             <span class="fa fa-check-square-o"></span>&nbsp;<span translate="controlesApp.pedido.sep_pedido"> Edit</span>
                         </button>

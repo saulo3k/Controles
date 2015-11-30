@@ -27,9 +27,7 @@
             <column name="descricao" type="varchar(255)"/>
             <column name="referencia" type="varchar(255)"/>
             <column name="codigo_barras" type="bigint"/>
-            <column name="preco_custo" type="decimal(10,2)">
-                <constraints nullable="false" />
-            </column>
+            <column name="preco_custo" type="decimal(10,2)"/>                            
             <column name="preco_venda" type="decimal(10,2)"/>
             <column name="estoque" type="bigint"/>
             <column name="venda_sem_estoque" type="bit"/>
@@ -51,6 +49,7 @@
                                  constraintName="fk_produto_user_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+                                                      
 
     </changeSet>
 </databaseChangeLog>

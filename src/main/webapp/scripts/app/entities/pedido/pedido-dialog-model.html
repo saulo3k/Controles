@@ -1,5 +1,4 @@
-dssdsd
-<form name="editForm" role="form" novalidate ng-submit="save()">
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -14,55 +13,35 @@ dssdsd
         </div>
         <div class="form-group">
             <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
-            <select class="form-control" id="field_cliente_pedido" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id">
+            <select class="form-control" id="field_cliente_pedido" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id" required>
                 <option value="">Selecione um Cliente</option>
             </select>
+            <p class="help-block"
+                ng-show="editForm.cliente_pedido.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
         </div>
-<!--         <div class="form-group"> -->
-<!--             <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label> -->
-<!--             <input type="date" class="form-control" name="dtPrevistaSeparacao" id="field_dtPrevistaSeparacao" -->
-<!--                     ng-model="pedido.dtPrevistaSeparacao" pattern="dd/MM/YYYY" /> -->
-<!--                     {{pedido.dtPrevistaSeparacao | date:'longDate'}} -->
-                    
-                    
-<!--         </div> -->
-<!--         <div class="form-group" ng-show="pedido.id != null"> -->
-<!--             <label translate="controlesApp.pedido.dtRealSeparacao" for="field_dtRealSeparacao">DtRealSeparacao</label> -->
-<!--             <input type="date" class="form-control"  name="dtRealSeparacao" id="field_dtRealSeparacao" -->
-<!--                     ng-model="pedido.dtRealSeparacao" -->
-<!--                      /> -->
-<!--             {{pedido.dtRealSeparacao | date:'longDate'}} -->
-<!--         </div> -->
-<!--         <div class="form-group"> -->
-<!--             <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label> -->
-<!--             <input type="date" class="form-control" name="dtPrevistaEntrega" id="field_dtPrevistaEntrega" -->
-<!--                     ng-model="pedido.dtPrevistaEntrega" -->
-<!--                      />{{pedido.dtPrevistaEntrega | date:'longDate'}} -->
-<!--         </div> -->
-<!--         <div class="form-group" ng-show="pedido.id != null"> -->
-<!--             <label translate="controlesApp.pedido.dtRealEntrega" for="field_dtRealEntrega">DtRealEntrega</label> -->
-<!--             <input type="date" class="form-control" name="dtRealEntrega" id="field_dtRealEntrega" -->
-<!--                     ng-model="pedido.dtRealEntrega" -->
-<!--                      />{{pedido.dtRealEntrega | date:'longDate'}} -->
-<!--         </div> -->
-        <div class="form-group">
-        	<label translate="controlesApp.pedido.pedido_modelo" ></label>
-            <select class="form-control" id="field_pedido_modelo" name="pedido_modelo" ng-model="pedido.pedidoModelo" 
-            ng-selected="0" ng-options="item.id as item.name for item in listaOpcoes" ></select>
-        </form>
 
  
         <div class="form-group">
             <label translate="controlesApp.pedido.periodoPedidoInicio" for="field_periodoPedidoInicio">PeriodoPedidoInicio</label>
             <input type="date" class="form-control" name="periodoPedidoInicio" id="field_periodoPedidoInicio"
-                    ng-model="pedido.periodoPedidoInicio"
+                    ng-model="pedido.periodoPedidoInicio" required
                      />{{pedido.periodoPedidoInicio | date:'longDate'}}
+             <p class="help-block"
+                ng-show="editForm.periodoPedidoInicio.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
         </div>
         <div class="form-group">
             <label translate="controlesApp.pedido.periodoPedidoFim" for="field_periodoPedidoFim">PeriodoPedidoFim</label>
             <input type="date" class="form-control" name="periodoPedidoFim" id="field_periodoPedidoFim"
-                    ng-model="pedido.periodoPedidoFim"
+                    ng-model="pedido.periodoPedidoFim" required
                      />{{pedido.periodoPedidoFim | date:'longDate'}}
+            <p class="help-block"
+                ng-show="editForm.periodoPedidoFim.$error.required" translate="entity.validation.required">
+                This field is required.
+            </p>
         </div>
         <div class="form-group" ng-show="pedido.id != null">
             <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>
@@ -71,20 +50,47 @@ dssdsd
                      />
                      {{pedido.dataPedido}}
         </div>
-        <br>
-        <div class="form-group">
+		<div class="form-group" >		
+<!-- 				<label ng-repeat="dia in diasSemanas" class="checkbox" for="{{dia.id}}" class="form-control"> -->
+<!-- 					<input type="checkbox"  name="group" id="{{dia}}"  -->
+<!-- 					ng-model="pedido.diasSemana" class="form-control"  -->
+					
+<!-- 					/>  -->
+<!-- 					{{dia.dia}} -->
+<!-- 				</label>  -->
+
+		         <select class="form-control" multiple name="diaSemana" ng-model="pedido.diasSemana" ng-options="d.dia for d in diasSemanas" ></select>
+                            	
+		</div>
+		
+
+		
+		<br>
+		<div class="form-group">
         	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
 	        <ul>
 	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
-	            <a href="" ng-click="toggle($index, produto)">
-	                	<label>{{produto.nome}}</label></a>
+	            		
+	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
+	                		<label>{{produto.nome}}</label>
+	                	
 	                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label>
-	                	<input type="number" ng-if="selection.indexOf($index) != -1" size="3" ng-model="quantidade" ng-blur="setQuantidade($index, quantidade, produto)">	                	
-	                 
+	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3" ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
 	            </li>
 	        </ul>
-        </div>        
-
+        </div>
+        <div class="form-group" ng-if="pedido.total != 0">
+        	<label>Valor Total: </label>
+        	<label>{{pedido.total |  currency}}</label>
+        	<button type="button" has-authority="ROLE_ADMIN"
+                                 ng-click="ShowHide()"
+                                class="btn btn-primary btn-sm">
+        	<span class="glyphicon glyphicon-pencil" ></span>
+        	</button>
+        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
+        	
+        </div>
+    </div>
     
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -92,9 +98,6 @@ dssdsd
         </button>
         <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
-        </button>
-        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-success">
-            <span class="fa fa-arrow-circle-right"></span>&nbsp;<span translate="controlesApp.pedido.separacao_pedido">Save</span>
         </button>
     </div>
 </form>

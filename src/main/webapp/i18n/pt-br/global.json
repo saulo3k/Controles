@@ -11,8 +11,6 @@
                 "cliente": "Cliente",
                 "email": "Email",
                 "pedido": "Pedido",
-                "pedTeste": "PedTeste",
-                "ordem": "Ordem",
                 "estoque": "Estoque",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },

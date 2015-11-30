@@ -30,11 +30,11 @@
             <column name="estoque_user_id" type="bigint"/>
         </createTable>
         
-        <addForeignKeyConstraint baseColumnNames="estoque_produto_id"
-                                 baseTableName="estoque"
-                                 constraintName="fk_estoque_estoque_produto_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="produto"/>
+<!--         <addForeignKeyConstraint baseColumnNames="estoque_produto_id" -->
+<!--                                  baseTableName="estoque" -->
+<!--                                  constraintName="fk_estoque_estoque_produto_id" -->
+<!--                                  referencedColumnNames="id" -->
+<!--                                  referencedTableName="produto"/> -->
 
         <addForeignKeyConstraint baseColumnNames="estoque_user_id"
                                  baseTableName="estoque"

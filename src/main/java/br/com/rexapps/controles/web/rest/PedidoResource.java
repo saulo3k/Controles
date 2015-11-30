@@ -1,13 +1,16 @@
 package br.com.rexapps.controles.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import br.com.rexapps.controles.domain.Pedido;
-import br.com.rexapps.controles.repository.PedidoProdutoRepository;
-import br.com.rexapps.controles.repository.PedidoRepository;
-import br.com.rexapps.controles.repository.search.PedidoSearchRepository;
-import br.com.rexapps.controles.service.PedidoService;
-import br.com.rexapps.controles.web.rest.util.HeaderUtil;
-import br.com.rexapps.controles.web.rest.util.PaginationUtil;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,17 +19,21 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import com.codahale.metrics.annotation.Timed;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import br.com.rexapps.controles.domain.Pedido;
+import br.com.rexapps.controles.repository.PedidoProdutoRepository;
+import br.com.rexapps.controles.repository.PedidoRepository;
+import br.com.rexapps.controles.repository.search.PedidoSearchRepository;
+import br.com.rexapps.controles.service.PedidoService;
+import br.com.rexapps.controles.web.rest.util.HeaderUtil;
+import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing Pedido.
@@ -66,8 +73,25 @@ public class PedidoResource {
         pedidoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/pedidos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("pedido", result.getId().toString()))
-            .body(result);
+            .body(result);    
     }
+    
+    @RequestMapping(value = "/pedidosmodelo",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<Pedido> createPedidoModelo(@RequestBody Pedido pedido) throws URISyntaxException {
+            log.debug("REST request to save Pedido : {}", pedido);
+            if (pedido.getId() != null) {
+                return ResponseEntity.badRequest().header("Failure", "A new pedido cannot already have an ID").body(null);
+            }
+            Pedido result = pedidoService.savePedidoModelo(pedido);      
+            result.setProdutosPedidos(null);
+            pedidoSearchRepository.save(result);
+            return ResponseEntity.created(new URI("/api/pedidos/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert("pedido", result.getId().toString()))
+                .body(result);
+        }
 
     /**
      * PUT  /pedidos -> Updates an existing pedido.
@@ -80,8 +104,9 @@ public class PedidoResource {
         log.debug("REST request to update Pedido : {}", pedido);
         if (pedido.getId() == null) {
             return createPedido(pedido);
-        }
-        Pedido result = pedidoRepository.save(pedido);
+        }        
+        Pedido result = pedidoService.updatePedido(pedido);
+        result.setProdutosPedidos(null);
         pedidoSearchRepository.save(pedido);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("pedido", pedido.getId().toString()))
@@ -97,7 +122,7 @@ public class PedidoResource {
     @Timed
     public ResponseEntity<List<Pedido>> getAllPedidos(Pageable pageable)
         throws URISyntaxException {
-        Page<Pedido> page = pedidoRepository.findAll(pageable);
+        Page<Pedido> page = pedidoRepository.findAllWithOutPedidoModelo(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -145,25 +170,31 @@ public class PedidoResource {
             .stream(pedidoSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
-    
-    @RequestMapping(value = "/separacao",
+
+	@RequestMapping(value = "/separacao", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<Pedido>> separacaoPedidos(Pageable pageable) throws URISyntaxException {
+		Page<Pedido> page = pedidoRepository.findAllSeparacao(pageable);
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
+		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/entregas", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<Pedido>> entregasPedidos(Pageable pageable) throws URISyntaxException {
+		Page<Pedido> page = pedidoRepository.findAllEntregas(pageable);
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
+		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
+
+	
+    @RequestMapping(value = "/pedidosmodelo",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public ResponseEntity<List<Pedido>> separacaoPedidos(Pageable pageable)
+        public ResponseEntity<List<Pedido>> modeloPedidos(Pageable pageable)
             throws URISyntaxException {
-            Page<Pedido> page = pedidoRepository.findAllSeparacao(pageable);
-            HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
-            return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-        }
-    
-    @RequestMapping(value = "/entrega",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-        @Timed
-        public ResponseEntity<List<Pedido>> entregaPedidos(Pageable pageable)
-            throws URISyntaxException {
-            Page<Pedido> page = pedidoRepository.findAllEntregas(pageable);
+            Page<Pedido> page = pedidoRepository.findAllPedidosModelos(pageable);
             HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
             return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
         }

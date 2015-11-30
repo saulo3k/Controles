@@ -1,20 +1,21 @@
 'use strict';
 
 angular.module('controlesApp')
-    .controller('OrdemController', function ($scope, Ordem, OrdemSearch, ParseLinks) {
-        $scope.ordems = [];
+    .controller('PedidoModController', function ($scope, PedidoModelo, PedidoSearch, ParseLinks) {    	
+        $scope.pedidos = [];
         $scope.page = 0;
         $scope.loadAll = function() {
-            Ordem.query({page: $scope.page, size: 20}, function(result, headers) {
+        	PedidoModelo.query({page: $scope.page, size: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
-                    $scope.ordems.push(result[i]);
+                    $scope.pedidos.push(result[i]);
                 }
             });
         };
+		    	
         $scope.reset = function() {
             $scope.page = 0;
-            $scope.ordems = [];
+            $scope.pedidos = [];
             $scope.loadAll();
         };
         $scope.loadPage = function(page) {
@@ -23,25 +24,25 @@ angular.module('controlesApp')
         };
         $scope.loadAll();
 
-        $scope.delete = function (id) {
-            Ordem.get({id: id}, function(result) {
-                $scope.ordem = result;
-                $('#deleteOrdemConfirmation').modal('show');
-            });
-        };
-
-        $scope.confirmDelete = function (id) {
-            Ordem.delete({id: id},
-                function () {
-                    $scope.reset();
-                    $('#deleteOrdemConfirmation').modal('hide');
-                    $scope.clear();
-                });
-        };
+//        $scope.delete = function (id) {
+//            Pedido.get({id: id}, function(result) {
+//                $scope.pedido = result;
+//                $('#deletePedidoConfirmation').modal('show');
+//            });
+//        };
+//
+//        $scope.confirmDelete = function (id) {
+//            Pedido.delete({id: id},
+//                function () {
+//                    $scope.reset();
+//                    $('#deletePedidoConfirmation').modal('hide');
+//                    $scope.clear();
+//                });
+//        };
 
         $scope.search = function () {
-            OrdemSearch.query({query: $scope.searchQuery}, function(result) {
-                $scope.ordems = result;
+            PedidoSearch.query({query: $scope.searchQuery}, function(result) {
+                $scope.pedidos = result;
             }, function(response) {
                 if(response.status === 404) {
                     $scope.loadAll();
@@ -55,15 +56,15 @@ angular.module('controlesApp')
         };
 
         $scope.clear = function () {
-            $scope.ordem = {
-                periodoPedidoInicio: null,
-                periodoPedidoFim: null,
+            $scope.pedido = {
                 dtPrevistaSeparacao: null,
                 dtRealSeparacao: null,
                 dtPrevistaEntrega: null,
                 dtRealEntrega: null,
+                periodoPedidoInicio: null,
+                periodoPedidoFim: null,
                 dataPedido: null,
                 id: null
             };
         };
-    });
+});

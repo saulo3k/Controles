@@ -32,5 +32,11 @@
             </column>
         </createTable>
         
+       <loadData encoding="UTF-8"
+                  file="config/liquibase/categorias.csv"
+                  separator=";"
+                  tableName="categoria_produto">
+        </loadData>
+        
     </changeSet>
 </databaseChangeLog>

@@ -1,0 +1,65 @@
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPedidoLabel">Separar Pedido</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-show="pedido.id">
+            <label for="id" translate="global.field.id">ID</label>
+            {{pedido.id}}
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
+            {{pedido.cliente_pedido.nome}}
+        </div>
+        <div class="form-group" ng-show="pedido.id != null">
+            <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>            
+                     {{pedido.dataPedido | date:'fullDate'}}
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>            
+            {{pedido.dtPrevistaSeparacao | date:'fullDate'}}
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+            {{pedido.dtPrevistaEntrega | date:'fullDate'}}
+        </div>
+        
+        
+        <br>
+        <div class="form-group">
+        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
+	        <ul>
+	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) == -1}">
+	            		
+	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
+	                		<label>{{produto.nome}}</label>
+	                	
+	                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label>
+	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3" ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
+	            </li>
+	        </ul>
+        </div>
+        <div class="form-group" ng-if="pedido.total != 0">
+        	<label>Valor Total: </label>
+        	<label>{{pedido.total |  currency}}</label>
+        	<button type="button" has-authority="ROLE_ADMIN"
+                                 ng-click="ShowHide()"
+                                class="btn btn-primary btn-sm">
+        	<span class="glyphicon glyphicon-pencil" ></span>
+        	</button>
+        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
+        	
+        </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-info" ng-click="saveParam(1)">
+            <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Enviar Para Entrega</span>
+        </button>
+    </div>
+</form>
