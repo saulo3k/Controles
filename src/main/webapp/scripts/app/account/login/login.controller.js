@@ -18,7 +18,7 @@ angular.module('controlesApp')
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');
                 } else {
-                    $rootScope.back();
+                    $rootScope.back();                    
                 }
             }).catch(function () {
                 $scope.authenticationError = true;

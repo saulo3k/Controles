@@ -23,6 +23,7 @@
             </column>
             <column name="quantidade_atual" type="bigint"/>
             <column name="quantidade_apos_movimentacao" type="bigint"/>
+            <column name="quantidade" type="bigint"/>
             <column name="data_atual" type="date"/>
             <column name="operacao" type="varchar(255)"/>
             <column name="motivo" type="varchar(255)"/>

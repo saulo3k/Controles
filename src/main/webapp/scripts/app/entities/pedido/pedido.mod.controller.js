@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controlesApp')
-    .controller('PedidoModController', function ($scope, PedidoModelo, PedidoSearch, ParseLinks) {    	
+    .controller('PedidoModController', function ($scope, PedidoModelo, Pedido, PedidoSearch, ParseLinks) {    	
         $scope.pedidos = [];
         $scope.page = 0;
         $scope.loadAll = function() {
@@ -24,21 +24,21 @@ angular.module('controlesApp')
         };
         $scope.loadAll();
 
-//        $scope.delete = function (id) {
-//            Pedido.get({id: id}, function(result) {
-//                $scope.pedido = result;
-//                $('#deletePedidoConfirmation').modal('show');
-//            });
-//        };
-//
-//        $scope.confirmDelete = function (id) {
-//            Pedido.delete({id: id},
-//                function () {
-//                    $scope.reset();
-//                    $('#deletePedidoConfirmation').modal('hide');
-//                    $scope.clear();
-//                });
-//        };
+        $scope.delete = function (id) {
+        	Pedido.get({id: id}, function(result) {
+                $scope.pedido = result;
+                $('#deletePedidoConfirmation').modal('show');
+            });
+        };
+
+        $scope.confirmDelete = function (id) {
+        	PedidoModelo.delete({id: id},
+                function () {
+                    $scope.reset();
+                    $('#deletePedidoConfirmation').modal('hide');
+                    $scope.clear();
+                });
+        };
 
         $scope.search = function () {
             PedidoSearch.query({query: $scope.searchQuery}, function(result) {

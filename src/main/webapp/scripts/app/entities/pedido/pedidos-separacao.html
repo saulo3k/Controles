@@ -17,9 +17,12 @@
 	 <div class="container">
         <div class="row">
             <div class="col-md-4">               
-                <button class="btn btn-primary"  ng-click="back()">
+                <button class="btn btn-success"  ui-sref="pedido.separacao.listedit">
+                    <span class="fa fa-plus fa-5x"></span> <span>Separar pedidos</span>
+                </button>
+                <button class="btn btn-primary"  ui-sref="home">
                     <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
-                </button>                
+                </button>       
             </div>            	
             <div class="col-md-4">
             	
@@ -74,12 +77,13 @@
                     <th translate="controlesApp.pedido.dtPrevistaEntrega">DtPrevistaEntrega</th>                    
                     <th translate="controlesApp.pedido.dataPedido">DataPedido</th>
                     <th translate="controlesApp.pedido.user_pedido">user_pedido</th>
+                    <th>Usuário que esta separando pedido</th>
                     
                     <th></th>
                 </tr>
             </thead>
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                <tr ng-repeat="pedido in pedidos track by pedido.id">
+                <tr ng-repeat="pedido in pedidos track by pedido.id" class="background-color: red !important">
                     <td><a ui-sref="pedido.detail({id:pedido.id})">{{pedido.id}}</a></td>
                        <td>
             	            <a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a>
@@ -90,6 +94,9 @@
                     <td>{{pedido.dataPedido | date:'dd/MM/yyyy'}}</td>
                     <td>
                         {{pedido.user_pedido.login}}
+                    </td>
+                    <td>
+                        {{user.separando}}
                     </td>
                     <td>
 <!--                         <button type="submit" -->

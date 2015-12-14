@@ -101,16 +101,17 @@ angular.module('controlesApp').controller('PedidoDialogController',
 	            
 	        	angular.forEach(dataProd, function(valueProduto, keyProduto) {
 	        		
-	        		$scope.pedido.$promise.then(function(data) {
-	    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
-	    						if(valueProduto.id == valuePedido.produto.id) {	    							  
-	    				              $scope.selection.push(keyProduto);    
-	    				              $scope.produtosSelecionadosPedidos.push(valuePedido);
-	    				              valueProduto.quantidade = valuePedido.quantidade;
-	    						}
-	    					});
-	    			});
-	        		
+	        		if($scope.pedido.id != null){
+		        		$scope.pedido.$promise.then(function(data) {
+		    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
+		    						if(valueProduto.id == valuePedido.produto.id) {	    							  
+		    				              $scope.selection.push(keyProduto);    
+		    				              $scope.produtosSelecionadosPedidos.push(valuePedido);
+		    				              valueProduto.quantidade = valuePedido.quantidade;
+		    						}
+		    					});
+		    			});
+	        		}
 	        		
 	            });    	        	
 	        });

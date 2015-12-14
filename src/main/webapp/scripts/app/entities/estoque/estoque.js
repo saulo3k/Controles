@@ -49,15 +49,15 @@ angular.module('controlesApp')
                     }]
                 }
             })
-            .state('estoque.new', {
+            .state('estoque.newin', {
                 parent: 'estoque',
-                url: '/new',
+                url: '/newin',
                 data: {
                     authorities: ['ROLE_USER'],
                 },
                 onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                     $modal.open({
-                        templateUrl: 'scripts/app/entities/estoque/estoque-dialog.html',
+                        templateUrl: 'scripts/app/entities/estoque/estoque-dialog-in.html',
                         controller: 'EstoqueDialogController',
                         size: 'lg',
                         resolve: {
@@ -66,7 +66,37 @@ angular.module('controlesApp')
                                     quantidadeAtual: null,
                                     quantidadeAposMovimentacao: null,
                                     dataAtual: null,
-                                    operacao: null,
+                                    operacao: "Entrada",
+                                    motivo: null,
+                                    id: null
+                                };
+                            }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('estoque', null, { reload: true });
+                    }, function() {
+                        $state.go('estoque');
+                    })
+                }]
+            })
+             .state('estoque.newout', {
+                parent: 'estoque',
+                url: '/newout',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/estoque/estoque-dialog-out.html',
+                        controller: 'EstoqueDialogController',
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    quantidadeAtual: null,
+                                    quantidadeAposMovimentacao: null,
+                                    dataAtual: null,
+                                    operacao: "Saida",
                                     motivo: null,
                                     id: null
                                 };

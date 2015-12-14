@@ -23,7 +23,41 @@ angular.module('controlesApp')
                         return $translate.refresh();
                     }]
                 }
-            })            
+            })   
+            .state('pedido.separacao.listedit', {
+                parent: 'pedido.separacao',
+                url: '/editlist-separacao',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog-list-separacao.html',
+                        controller: 'PedidoSeparacaoListDialogController',
+                        windowClass: 'app-modal-window',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    dtPrevistaSeparacao: new Date(),
+                                    dtRealSeparacao: null,
+                                    dtPrevistaEntrega: new Date(),
+                                    dtRealEntrega: null,
+                                    periodoPedidoInicio: null,
+                                    periodoPedidoFim: null,
+                                    dataPedido: null,
+                                	produtosPedidos: [],
+                                	dataPedido: new Date(),
+                                    id: null
+                                };
+                            }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('pedido.separacao', null, { reload: true });
+                    }, function() {
+                        $state.go('pedido.separacao');
+                    })
+                }]
+            })
             .state('pedido.separacao.edit', {
                 parent: 'pedido.separacao',
                 url: '/{id}/edit-separacao',
@@ -41,9 +75,9 @@ angular.module('controlesApp')
                             }]
                         }
                     }).result.then(function(result) {
-                        $state.go('pedido', null, { reload: true });
+                        $state.go('pedido.separacao', null, { reload: true });
                     }, function() {
-                        $state.go('pedido');
+                        $state.go('pedido.separacao');
                     })
                 }]
             })
@@ -226,8 +260,8 @@ angular.module('controlesApp')
                 }]
             })
             .state('pedido.edit.model', {
-                parent: 'pedido',
-                url: '/{id}/edit',
+                parent: 'pedido.modelo',
+                url: '/{id}/editModel',
                 data: {
                     authorities: ['ROLE_USER'],
                 },
@@ -242,7 +276,7 @@ angular.module('controlesApp')
                             }]
                         }
                     }).result.then(function(result) {
-                        $state.go('pedido', null, { reload: true });
+                        $state.go('pedido.modelo', null, { reload: true });
                     }, function() {
                         $state.go('^');
                     })

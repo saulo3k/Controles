@@ -11,6 +11,9 @@ body {
 #wrapper {
     width: 100%;
 }
+.app-modal-window .modal-dialog {
+  width: 100%;
+}
 
 #page-wrapper {
     padding: 0 15px;

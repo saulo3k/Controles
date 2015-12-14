@@ -1,0 +1,75 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myEstoqueLabel">Entrada no Estoque</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="estoque.id" readonly />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.estoque.operacao" for="field_operacao">Operacao</label>
+            <select class="form-control" name="operacao" ng-model="estoque.operacao" id="field_operacao" ng-disabled="true">
+                <option ng-selected="true" value="Entrada" translate="controlesApp.OperacaoEstoque.Entrada">Entrada</option>
+              <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.estoque.estoque_produto" for="field_estoque_produto">estoque_produto</label>
+            <select class="form-control" id="field_estoque_produto" name="estoque_produto" ng-model="estoque.estoque_produto" ng-options="produto as produto.nome for produto in produtos track by produto.id">
+                <option value="">Selecione um Produto</option>
+            </select>
+            
+        </div>
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.estoque.quantidadeAtual" for="field_quantidadeAtual">QuantidadeAtual</label> -->
+<!--             <input type="number" class="form-control" name="quantidadeAtual" id="field_quantidadeAtual" -->
+<!--                     ng-model="estoque.quantidadeAtual" -->
+<!--                      /> -->
+<!--         </div> -->
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.estoque.quantidadeAposMovimentacao" for="field_quantidadeAposMovimentacao">QuantidadeAposMovimentacao</label> -->
+<!--             <input type="number" class="form-control" name="quantidadeAposMovimentacao" id="field_quantidadeAposMovimentacao" -->
+<!--                     ng-model="estoque.quantidadeAposMovimentacao" -->
+<!--                      /> -->
+<!--         </div> -->
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.estoque.dataAtual" for="field_dataAtual">DataAtual</label> -->
+<!--             <input type="date" class="form-control" name="dataAtual" id="field_dataAtual" -->
+<!--                     ng-model="estoque.dataAtual" -->
+<!--                      /> -->
+<!--         </div>         -->
+<!--         <div class="form-group"> -->
+<!--             <label translate="controlesApp.estoque.dataAtual" for="field_dataAtual">DataAtual</label> -->
+<!--             <input type="date" class="form-control" name="dataAtual" id="field_dataAtual" -->
+<!--                     ng-model="estoque.dataAtual" -->
+<!--                      /> -->
+<!--         </div>         -->
+        <div class="form-group">
+            <label translate="controlesApp.estoque.quantidade" for="field_quantidade"></label>
+            <input type="number" class="form-control" name="quantidade" id="field_quantidade"
+                    ng-model="estoque.quantidade"
+                     />
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.estoque.motivo" for="field_motivo">Motivo</label>
+            <input type="text" class="form-control" name="motivo" id="field_motivo"
+                    ng-model="estoque.motivo"
+                     />
+        </div>                
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

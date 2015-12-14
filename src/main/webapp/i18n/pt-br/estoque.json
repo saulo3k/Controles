@@ -15,8 +15,9 @@
                 "title": "Estoque"
             },
             "quantidadeAtual": "Qnt Antes Movimentação",
-            "quantidadeAposMovimentacao": "Qnt Após Movimentação",
-            "dataAtual": "Data Atual",
+            "quantidadeAposMovimentacao": "Qnt Movimentada",
+            "quantidade": "Quantidade",
+            "dataAtual": "Data",
             "operacao": "Operação",
             "motivo": "Motivo",
             "estoque_produto": "Produto",

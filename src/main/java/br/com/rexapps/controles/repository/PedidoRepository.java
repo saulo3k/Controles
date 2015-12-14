@@ -34,6 +34,12 @@ public interface PedidoRepository extends JpaRepository<Pedido,Long> {
     
     @Query("select pedido from Pedido pedido where pedido.pedidoModelo = true")
     Page<Pedido> findAllPedidosModelos(Pageable pageable);
+    
+    @Query("select pedido from Pedido pedido where pedido.pedidoModelo = true")
+    List<Pedido> findAllPedidosModelosAutomaticos();
+    
+    @Query("select distinct pedido from Pedido pedido left join fetch pedido.diasSemana where pedido.id =:id")
+    Pedido findOneWithEagerRelationshipsDaysOfWeek(@Param("id") Long id);
 
 
 }

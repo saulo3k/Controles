@@ -29,7 +29,7 @@
                 
             </div>            	
             <div class="col-md-4">
-            	<button class="btn btn-primary"  ng-click="back()">
+            	<button class="btn btn-primary"  ui-sref="home">
                     <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
                 </button>                
             </div>
@@ -124,11 +124,11 @@
                         <td>{{pedido.dtRealSeparacao | date:'dd/MM/yyyy'}}</td>
                         <td>{{pedido.dtRealEntrega | date:'dd/MM/yyyy'}}</td>                                                             
                     <td>
-                        <button type="submit"
-                                ui-sref="pedido.detail({id:pedido.id})"
-                                class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
-                        </button>
+<!--                         <button type="submit" -->
+<!--                                 ui-sref="pedido.detail({id:pedido.id})" -->
+<!--                                 class="btn btn-info btn-sm"> -->
+<!--                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span> -->
+<!--                         </button> -->
                         <button type="submit"
                                 ui-sref="pedido.edit({id:pedido.id})"
                                 class="btn btn-primary btn-sm">

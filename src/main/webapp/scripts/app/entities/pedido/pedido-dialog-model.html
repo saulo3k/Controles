@@ -48,7 +48,7 @@
             <input type="date" class="form-control" name="dataPedido" id="field_dataPedido"
                     ng-model="pedido.dataPedido"
                      />
-                     {{pedido.dataPedido}}
+                     {{pedido.dataPedido | date:'longDate'}}
         </div>
 		<div class="form-group" >		
 <!-- 				<label ng-repeat="dia in diasSemanas" class="checkbox" for="{{dia.id}}" class="form-control"> -->
@@ -58,12 +58,12 @@
 <!-- 					/>  -->
 <!-- 					{{dia.dia}} -->
 <!-- 				</label>  -->
-
-		         <select class="form-control" multiple name="diaSemana" ng-model="pedido.diasSemana" ng-options="d.dia for d in diasSemanas" ></select>
-                            	
+		         <select class="form-control" multiple ng-multiple="true" name="diaSemana" ng-model="pedido.diasSemana" ng-options="diaSemana.dia for diaSemana in diasSemanas track by diaSemana.id" ></select>
+		         
+            <p class="help-block">
+                Segure o CNTRL do teclado para selecionar mais de 1 dia
+            </p>                	            
 		</div>
-		
-
 		
 		<br>
 		<div class="form-group">
@@ -96,7 +96,10 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary">
+        <button type="submit" ng-if="pedido.id != null" ng-disabled="true" class="btn btn-primary" >
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span >Gerar Pedido Agora</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary" >
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
     </div>

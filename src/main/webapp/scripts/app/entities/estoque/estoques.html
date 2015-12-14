@@ -20,16 +20,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">                
-                <button class="btn btn-success"  ui-sref="estoque.new">
-                    <span class="fa fa-plus fa-5x"></span> <span translate="controlesApp.estoque.home.createLabelEntrada">Create a new Produto</span>
+                <button class="btn btn-success"  ui-sref="estoque.newin">
+                    <span class="fa fa-plus fa-5x"></span> <span translate="controlesApp.estoque.home.createLabelEntrada"></span>
                 </button>
-                <button class="btn btn-success"  ui-sref="estoque.new">
-                    <span class="fa fa-minus fa-5x"></span> <span translate="controlesApp.estoque.home.createLabelSaida">Pedido Modelo</span>
+                <button class="btn btn-success"  ui-sref="estoque.newout" >
+                    <span class="fa fa-minus fa-5x"></span> <span translate="controlesApp.estoque.home.createLabelSaida"></span>
                 </button>     
    
             </div>         
             <div class="col-md-4">
-                            <button class="btn btn-primary"  ng-click="back()">
+                 <button class="btn btn-primary"  ui-sref="home">
                     <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
                 </button>   
             </div>
@@ -78,6 +78,7 @@
                     <th translate="controlesApp.estoque.operacao">Operacao</th>
                     <th translate="controlesApp.estoque.quantidadeAtual">QuantidadeAtual</th>
                     <th translate="controlesApp.estoque.quantidadeAposMovimentacao">QuantidadeAposMovimentacao</th>
+                    <th >Quantidade</th>
                     <th translate="controlesApp.estoque.dataAtual">DataAtual</th>                    
                     <th translate="controlesApp.estoque.motivo">Motivo</th>
                     <th translate="controlesApp.estoque.estoque_produto">estoque_produto</th>
@@ -90,8 +91,9 @@
                     <td><a ui-sref="estoque.detail({id:estoque.id})">{{estoque.id}}</a></td>
                     <td translate="{{'controlesApp.OperacaoEstoque.' + estoque.operacao}}">{{estoque.operacao}}</td>
                     <td>{{estoque.quantidadeAtual}}</td>
+                    <td>{{estoque.quantidade}}</td>
                     <td>{{estoque.quantidadeAposMovimentacao}}</td>
-                        <td>{{estoque.dataAtual | date:'mediumDate'}}</td>                    
+                        <td>{{estoque.dataAtual | date:'shortDate'}}</td>                    
                     <td>{{estoque.motivo}}</td>
                     <td>
                         <a ui-sref="produto.detail({id:estoque.estoque_produto.id})">{{estoque.estoque_produto.nome}}</a>
@@ -105,16 +107,16 @@
                                 class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
                         </button>
-                        <button type="submit"
-                                ui-sref="estoque.edit({id:estoque.id})"
-                                class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
-                        </button>
-                        <button type="submit"
-                                ng-click="delete(estoque.id)"
-                                class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
-                        </button>
+<!--                         <button type="submit" -->
+<!--                                 ui-sref="estoque.edit({id:estoque.id})" -->
+<!--                                 class="btn btn-primary btn-sm"> -->
+<!--                             <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span> -->
+<!--                         </button> -->
+<!--                         <button type="submit" -->
+<!--                                 ng-click="delete(estoque.id)" -->
+<!--                                 class="btn btn-danger btn-sm"> -->
+<!--                             <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span> -->
+<!--                         </button> -->
                     </td>
                 </tr>
             </tbody>

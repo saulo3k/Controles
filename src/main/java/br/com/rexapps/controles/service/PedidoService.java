@@ -2,12 +2,14 @@ package br.com.rexapps.controles.service;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -106,7 +108,7 @@ public class PedidoService {
 			boolean criar = false;
 			// verifica se pedido esta na lista dos dias
 			for (DiaSemana diaSemana : pedido.getDiasSemana()) {
-				if (diaSemana.getId() == dataAtual.getDayOfWeek().getValue()) {
+				if (diaSemana.getId() == (dataAtual.getDayOfWeek().getValue() + 1)) {
 					criar = true;
 				}
 			}
@@ -144,7 +146,7 @@ public class PedidoService {
 		return pedido;
 	}
 
-	public void gerarPedidoAutomatico(Pedido pedidoParam) {
+	public Pedido gerarPedidoAutomatico(Pedido pedidoParam) {
 		Pedido pedido = new Pedido();
 		pedido.setStatusPedido(StatusPedido.PedidoGeradoAutomaticamente);
 		pedido.setPedidoModelo(false);
@@ -164,10 +166,34 @@ public class PedidoService {
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setProdutosPedidos(produtosPedidos);
 		pedidoRepository.save(pedido);
+		return pedido;
 	}
 
-	// @Scheduled(fixedRate = 5000)
+	@Scheduled(cron="0 0 0 * * ?")
 	public void agendadorVerificarGeracaoPedidos() {
-		System.out.println("pijama");
+		
+		List<Pedido> pedidos = pedidoRepository.findAllPedidosModelosAutomaticos();
+		
+		LocalDate dataAtual = LocalDate.now();
+		
+		for (Pedido pedido : pedidos) {
+				
+			if ((pedido.getPeriodoPedidoInicio().isEqual(dataAtual) || pedido.getPeriodoPedidoFim().isEqual(dataAtual))
+					|| (pedido.getPeriodoPedidoInicio().isBefore(dataAtual)
+							&& pedido.getPeriodoPedidoFim().isAfter(dataAtual))) {
+				boolean criar = false;
+				// verifica se pedido esta na lista dos dias
+				for (DiaSemana diaSemana : pedido.getDiasSemana()) {
+					if (diaSemana.getId() == (dataAtual.getDayOfWeek().getValue() + 1)) {
+						criar = true;
+					}
+				}
+				if (criar) {
+					// Cria novo pedido
+					gerarPedidoAutomatico(pedido);
+				}
+	
+			}
+		}
 	}
 }

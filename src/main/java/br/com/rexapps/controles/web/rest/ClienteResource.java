@@ -109,6 +109,21 @@ public class ClienteResource {
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    
+    /**
+     * GET  /clientes/:id -> get the "id" cliente.
+     */
+    @RequestMapping(value = "/clientes/quantidade",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Long> getCountCliente() {        
+        return Optional.ofNullable(clienteRepository.count())
+            .map(cliente -> new ResponseEntity<>(
+                cliente,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     /**
      * DELETE  /clientes/:id -> delete the "id" cliente.

@@ -23,7 +23,7 @@
                 <button class="btn btn-success"  ui-sref="pedido.modelo.new">
                     <span class="fa fa-plus fa-5x"></span><span>Criar Pedido Modelo</span>
                 </button>
-                <button class="btn btn-primary"  ng-click="back()">
+                <button class="btn btn-primary"  ui-sref="pedido">
                     <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
                 </button>                                                
             </div>            	
@@ -116,11 +116,11 @@
                         {{pedido.statusPedido}}
                     </td>
                     <td>
-                        <button type="submit"
-                                ui-sref="pedido.detail({id:pedido.id})"
-                                class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
-                        </button>
+<!--                         <button type="submit" -->
+<!--                                 ui-sref="pedido.detail({id:pedido.id})" -->
+<!--                                 class="btn btn-info btn-sm"> -->
+<!--                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span> -->
+<!--                         </button> -->
                         <button type="submit"
                                 ui-sref="pedido.edit.model({id:pedido.id})"
                                 class="btn btn-primary btn-sm">

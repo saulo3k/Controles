@@ -23,6 +23,14 @@
                     <span translate="controlesApp.estoque.quantidadeAposMovimentacao">QuantidadeAposMovimentacao</span>
                 </td>
                 <td>
+                    <span class="form-control-static">{{estoque.quantidade}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="controlesApp.estoque.quantidade"></span>
+                </td>
+                <td>
                     <span class="form-control-static">{{estoque.quantidadeAposMovimentacao}}</span>
                 </td>
             </tr>
@@ -31,7 +39,7 @@
                     <span translate="controlesApp.estoque.dataAtual">DataAtual</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{estoque.dataAtual | date:'mediumDate'}}</span>
+                    <span class="form-control-static">{{estoque.dataAtual | date:'longDate'}}</span>
                 </td>
             </tr>
             <tr>
@@ -63,7 +71,7 @@
                     <span translate="controlesApp.estoque.estoque_user">estoque_user</span>
                 </td>
                 <td>
-                    {{estoque.estoque_user.id}}
+                    {{estoque.estoque_user.login}}
                 </td>
             </tr>
             </tbody>
