@@ -15,11 +15,11 @@
         <!-- build:css assets/styles/main.css -->
         <link rel="stylesheet" href="assets/styles/main.css">
         <link rel="stylesheet" href="assets/styles/proprio.css">        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
- 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
- 		<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
- 		<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script> 		 		
+		<link rel="stylesheet" href="assets/styles/morris.css">
+		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+ 		<script src="assets/scripts/jquery.min.js"></script>
+ 		<script src="assets/scripts/raphael-min.js"></script>
+ 		<script src="assets/scripts/morris.min.js"></script> 		 		
         <!-- endbuild -->
     </head>
    
@@ -80,6 +80,7 @@
     <script src="scripts/components/auth/auth.service.js"></script>
     <script src="scripts/components/auth/principal.service.js"></script>
     <script src="scripts/components/auth/authority.directive.js"></script>
+    <script src="scripts/components/print/print.directive.js"></script>
     <script src="scripts/components/auth/services/account.service.js"></script>
     <script src="scripts/components/auth/services/activate.service.js"></script>
     <script src="scripts/components/auth/services/password.service.js"></script>
@@ -167,10 +168,13 @@
     <script src="scripts/app/entities/cliente/cliente.js"></script>
     <script src="scripts/app/entities/cliente/cliente.controller.js"></script>
     <script src="scripts/app/entities/cliente/cliente-dialog.controller.js"></script>
+    <script src="scripts/app/entities/cliente/cliente-produto-dialog.controller.js"></script>
     <script src="scripts/app/entities/cliente/cliente-detail.controller.js"></script>
     <script src="scripts/components/entities/cliente/cliente.service.js"></script>
     <script src="scripts/components/entities/cliente/cliente.service.utils.js"></script>
     <script src="scripts/components/entities/cliente/cliente.search.service.js"></script>
+    <script src="scripts/components/entities/clienteProduto/cliente.produto.services.js"></script>
+    <script src="scripts/components/entities/quantidade/quantidade.services.js"></script>
     <script src="scripts/app/entities/email/email.js"></script>
     <script src="scripts/app/entities/email/email.controller.js"></script>
     <script src="scripts/app/entities/email/email-dialog.controller.js"></script>
@@ -185,6 +189,7 @@
     <script src="scripts/app/entities/pedido/pedido-dialog.controller.js"></script>
     <script src="scripts/app/entities/pedido/pedido-dialog-model.controller.js"></script>
     <script src="scripts/app/entities/pedido/pedido-separacao-dialog.controller.js"></script>
+    <script src="scripts/app/entities/pedido/pedido-entrega-dialog.controller.js"></script>
     <script src="scripts/app/entities/pedido/pedido-detail.controller.js"></script>
     <script src="scripts/app/entities/pedido/pedido.mod.controller.js"></script>
     <script src="scripts/components/entities/pedido/pedido.service.js"></script>

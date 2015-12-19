@@ -21,10 +21,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import br.com.rexapps.controles.domain.enumeration.StatusPedido;
@@ -68,8 +68,25 @@ public class Pedido implements Serializable {
     
 	@ManyToOne
     private User user_pedido;
+	
+	@ManyToOne    
+    private User user_pedido_separacao;
+	
+	@ManyToOne
+    private User user_pedido_entrega;
+	
+	@Transient
+	private boolean atualizarSeparador = false;
 
-    @ManyToOne
+	public boolean isAtualizarSeparador() {
+		return atualizarSeparador;
+	}
+
+	public void setAtualizarSeparador(boolean atualizarSeparador) {
+		this.atualizarSeparador = atualizarSeparador;
+	}
+
+	@ManyToOne
     private Cliente cliente_pedido;
     
     @Enumerated(EnumType.ORDINAL)   
@@ -168,14 +185,6 @@ public class Pedido implements Serializable {
 		this.dataPedido = dataPedido;
 	}
 
-//	public Set<Produto> getProduto_has_pedidos() {
-//        return produto_has_pedidos;
-//    }
-//
-//    public void setProduto_has_pedidos(Set<Produto> produtos) {
-//        this.produto_has_pedidos = produtos;
-//    }
-
     public User getUser_pedido() {
         return user_pedido;
     }
@@ -253,4 +262,22 @@ public class Pedido implements Serializable {
             ", dataPedido='" + dataPedido + "'" +
             '}';
     }
+
+	public User getUser_pedido_separacao() {
+		return user_pedido_separacao;
+	}
+
+	public void setUser_pedido_separacao(User user_pedido_separacao) {
+		this.user_pedido_separacao = user_pedido_separacao;
+	}
+
+	public User getUser_pedido_entrega() {
+		return user_pedido_entrega;
+	}
+
+	public void setUser_pedido_entrega(User user_pedido_entrega) {
+		this.user_pedido_entrega = user_pedido_entrega;
+	}
+    
+
 }

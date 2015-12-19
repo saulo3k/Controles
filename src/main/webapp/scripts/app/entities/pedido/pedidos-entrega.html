@@ -4,7 +4,7 @@
 			  <div class="container">
 			    <div class="row">
 			        <div class="col-xs-6">
-			            <h1 ttranslate="controlesApp.pedido.home.titleEntrega">Entrega de Pedidos</h1>
+			            <h1 ttranslate="controlesApp.pedido.home.titleEntrega">Entregas de Pedidos</h1>
 			        </div>
 			        <div class="col-xs-6">
 			            <i class="fa fa-truck fa-5x"/>
@@ -69,12 +69,9 @@
             <thead>
                 <tr>
                     <th translate="global.field.id">ID</th>
-                    <th translate="controlesApp.pedido.dtPrevistaSeparacao">DtPrevistaSeparacao</th>
                     <th translate="controlesApp.pedido.dtRealSeparacao">DtRealSeparacao</th>
                     <th translate="controlesApp.pedido.dtPrevistaEntrega">DtPrevistaEntrega</th>
                     <th translate="controlesApp.pedido.dtRealEntrega">DtRealEntrega</th>
-                    <th translate="controlesApp.pedido.periodoPedidoInicio">PeriodoPedidoInicio</th>
-                    <th translate="controlesApp.pedido.periodoPedidoFim">PeriodoPedidoFim</th>
                     <th translate="controlesApp.pedido.dataPedido">DataPedido</th>
                     <th translate="controlesApp.pedido.user_pedido">user_pedido</th>
                     <th translate="controlesApp.pedido.cliente_pedido">cliente_pedido</th>
@@ -84,35 +81,22 @@
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
                 <tr ng-repeat="pedido in pedidos track by pedido.id">
                     <td><a ui-sref="pedido.detail({id:pedido.id})">{{pedido.id}}</a></td>
-                        <td>{{pedido.dtPrevistaSeparacao | date:'mediumDate'}}</td>
-                        <td>{{pedido.dtRealSeparacao | date:'mediumDate'}}</td>
-                        <td>{{pedido.dtPrevistaEntrega | date:'mediumDate'}}</td>
-                        <td>{{pedido.dtRealEntrega | date:'mediumDate'}}</td>
-                        <td>{{pedido.periodoPedidoInicio | date:'mediumDate'}}</td>
-                        <td>{{pedido.periodoPedidoFim | date:'mediumDate'}}</td>
-                    <td>{{pedido.dataPedido}}</td>
+                        <td>{{pedido.dtRealSeparacao | date:'dd/MM/yyyy'}}</td>
+                        <td>{{pedido.dtPrevistaEntrega | date:'dd/MM/yyyy'}}</td>
+                        <td>{{pedido.dtRealEntrega | date:'dd/MM/yyyy'}}</td>                        
+                    <td>{{pedido.dataPedido | date:'dd/MM/yyyy'}}</td>
                     <td>
-                        {{pedido.user_pedido.first_name}}
+                        {{pedido.user_pedido.login}}
                     </td>
                     <td>
                         <a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a>
                     </td>
-                    <td>
+                    <td>                        
                         <button type="submit"
-                                ui-sref="pedido.detail({id:pedido.id})"
-                                class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
-                        </button>
-                        <button type="submit"
-                                ui-sref="pedido.edit({id:pedido.id})"
+                                ui-sref="pedido.entrega.edit({id:pedido.id})"
                                 class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
-                        </button>
-                        <button type="submit"
-                                ng-click="delete(pedido.id)"
-                                class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
-                        </button>
+                            <span class="fa fa-truck "></span>&nbsp;<span> Entregar</span>
+                        </button>                        
                     </td>
                 </tr>
             </tbody>

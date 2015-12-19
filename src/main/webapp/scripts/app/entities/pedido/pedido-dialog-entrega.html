@@ -1,0 +1,151 @@
+<form name="editForm" role="form" novalidate ng-submit="save()">
+
+    <div class="modal-header" >
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myPedidoLabel">Entregar Pedido</h4>
+    </div>
+    <div class="modal-body" >
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-show="pedido.id">
+             <h1><label for="id" translate="global.field.id">ID</label>
+            {{pedido.id}}</h1>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
+            {{pedido.cliente_pedido.nome}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.endereco">
+            <label translate="controlesApp.pedido.cliente_endereco" for="field_cliente_endereco">cliente_endereco</label>
+            {{pedido.cliente_pedido.endereco}}
+        </div>
+        
+        <div class="form-group" ng-if="pedido.cliente_pedido.cep">
+            <label translate="controlesApp.pedido.cliente_cep" for="field_cliente_cep">cliente_endereco</label>
+            {{pedido.cliente_pedido.cep}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.cidade">
+            <label translate="controlesApp.pedido.cliente_cidade" for="field_cliente_cidade">cliente_cidade</label>
+            {{pedido.cliente_pedido.cidade}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.estado">
+            <label translate="controlesApp.pedido.cliente_estado" for="field_cliente_estado">cliente_estado</label>
+            {{pedido.cliente_pedido.estado}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.nomeContato">
+            <label translate="controlesApp.pedido.cliente_contato" for="field_cliente_contato">cliente_contato</label>
+            {{pedido.cliente_pedido.nomeContato}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.telefone">
+            <label translate="controlesApp.pedido.cliente_telefone" for="field_cliente_telefone">cliente_telefone</label>
+            {{pedido.cliente_pedido.telefone}}
+        </div>
+        <div class="form-group" ng-show="pedido.id != null">
+            <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>            
+                     {{pedido.dataPedido | date:'fullDate'}}
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>            
+            {{pedido.dtPrevistaSeparacao | date:'fullDate'}}
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+            {{pedido.dtPrevistaEntrega | date:'fullDate'}}
+        </div>
+        
+        
+        <br>
+        <div class="form-group">
+        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
+	        <ul>
+	            <li ng-repeat="produto in separados" ng-class="{'selected':selection.indexOf($index) != -1}">	                	
+	                	<label>{{produto.nome}}</label>	                	
+	                	<label> - Quantidade: </label>
+	                	<label> {{produto.quantidade}} </label>	                		                		                
+	            </li>
+	        </ul>
+        </div>
+        <div class="form-group" ng-if="pedido.total != 0">
+        	<label>Valor Total: </label>
+        	<label>{{pedido.total |  currency}}</label>        	
+        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
+        	
+        </div>
+    </div>
+    <div class="modal-body" id="printSection">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group" ng-show="pedido.id">
+             <h1><label for="id" translate="global.field.id">ID</label>
+            {{pedido.id}}</h1>
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
+            {{pedido.cliente_pedido.nome}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.endereco">
+            <label translate="controlesApp.pedido.cliente_endereco" for="field_cliente_endereco">cliente_endereco</label>
+            {{pedido.cliente_pedido.endereco}}
+        </div>
+        
+        <div class="form-group" ng-if="pedido.cliente_pedido.cep">
+            <label translate="controlesApp.pedido.cliente_cep" for="field_cliente_cep">cliente_endereco</label>
+            {{pedido.cliente_pedido.cep}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.cidade">
+            <label translate="controlesApp.pedido.cliente_cidade" for="field_cliente_cidade">cliente_cidade</label>
+            {{pedido.cliente_pedido.cidade}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.estado">
+            <label translate="controlesApp.pedido.cliente_estado" for="field_cliente_estado">cliente_estado</label>
+            {{pedido.cliente_pedido.estado}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.nomeContato">
+            <label translate="controlesApp.pedido.cliente_contato" for="field_cliente_contato">cliente_contato</label>
+            {{pedido.cliente_pedido.nomeContato}}
+        </div>
+        <div class="form-group" ng-if="pedido.cliente_pedido.telefone">
+            <label translate="controlesApp.pedido.cliente_telefone" for="field_cliente_telefone">cliente_telefone</label>
+            {{pedido.cliente_pedido.telefone}}
+        </div>
+        <div class="form-group" ng-show="pedido.id != null">
+            <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>            
+                     {{pedido.dataPedido | date:'fullDate'}}
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>            
+            {{pedido.dtPrevistaSeparacao | date:'fullDate'}}
+        </div>
+        <div class="form-group">
+            <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+            {{pedido.dtPrevistaEntrega | date:'fullDate'}}
+        </div>
+        
+        
+        <br>
+        <div class="form-group">
+        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
+	        <ul>
+	            <li ng-repeat="produto in separados" ng-class="{'selected':selection.indexOf($index) != -1}">	                	
+	                	<label>{{produto.nome}}</label>	                	
+	                	<label> - Quantidade: </label>
+	                	<label> {{produto.quantidade}} </label>	                		                		                
+	            </li>
+	        </ul>
+        </div>
+        <div class="form-group" ng-if="pedido.total != 0">
+        	<label>Valor Total: </label>
+        	<label>{{pedido.total |  currency}}</label>        	
+        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
+        	
+        </div>
+    </div>       
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit"  class="btn btn-info" ng-disabled="pedido.dtRealEntrega">
+            <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Sair para entrega</span>
+        </button>        
+        <button class="btn btn-primary" ng-print print-element-id="printThisElement" onClick="window.print();return false"><i class="fa fa-print"></i> Imprimir </button>
+    </div>
+</form>

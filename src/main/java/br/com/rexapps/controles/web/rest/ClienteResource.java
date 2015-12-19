@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import br.com.rexapps.controles.domain.Cliente;
 import br.com.rexapps.controles.repository.ClienteRepository;
 import br.com.rexapps.controles.repository.search.ClienteSearchRepository;
+import br.com.rexapps.controles.web.rest.dto.QuantidadeDTO;
 import br.com.rexapps.controles.web.rest.util.HeaderUtil;
 import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -110,15 +111,18 @@ public class ClienteResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     
+    
     /**
      * GET  /clientes/:id -> get the "id" cliente.
      */
-    @RequestMapping(value = "/clientes/quantidade",
+    @RequestMapping(value = "/cliente-quantidade",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Long> getCountCliente() {        
-        return Optional.ofNullable(clienteRepository.count())
+    public ResponseEntity<QuantidadeDTO> getCountCliente() {
+    	QuantidadeDTO qnti = new QuantidadeDTO();    	
+    	qnti.setQuantidadeCliente(clienteRepository.count());
+        return Optional.ofNullable(qnti)
             .map(cliente -> new ResponseEntity<>(
                 cliente,
                 HttpStatus.OK))
@@ -151,5 +155,5 @@ public class ClienteResource {
         return StreamSupport
             .stream(clienteSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
-    }
+    }    
 }

@@ -13,7 +13,6 @@ import java.util.stream.StreamSupport;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -162,4 +161,5 @@ public class ProdutoResource {
             .stream(produtoSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+    
 }

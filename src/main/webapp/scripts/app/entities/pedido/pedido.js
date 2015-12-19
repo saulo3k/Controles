@@ -25,7 +25,7 @@ angular.module('controlesApp')
                 }
             })   
             .state('pedido.separacao.listedit', {
-                parent: 'pedido.separacao',
+                parent: 'pedido',
                 url: '/editlist-separacao',
                 data: {
                     authorities: ['ROLE_USER'],
@@ -52,9 +52,9 @@ angular.module('controlesApp')
                             }
                         }
                     }).result.then(function(result) {
-                        $state.go('pedido.separacao', null, { reload: true });
+                        $state.go('pedido.separacao.listedit', null, { reload: true });
                     }, function() {
-                        $state.go('pedido.separacao');
+                        $state.go('pedido.separacao.listedit');
                     })
                 }]
             })
@@ -77,7 +77,7 @@ angular.module('controlesApp')
                     }).result.then(function(result) {
                         $state.go('pedido.separacao', null, { reload: true });
                     }, function() {
-                        $state.go('pedido.separacao');
+                        $state.go('pedido.separacao', null, { reload: true });
                     })
                 }]
             })
@@ -122,6 +122,29 @@ angular.module('controlesApp')
                         return $translate.refresh();
                     }]
                 }
+            })            
+            .state('pedido.entrega.edit', {
+            	parent: 'pedido.entrega',
+                url: '/{id}/edit-entrega',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog-entrega.html',
+                        controller: 'PedidoEntregaDialogController',
+                        size: 'lg',
+                        resolve: {
+                            entity: ['Pedido', function(Pedido) {
+                                return Pedido.get({id : $stateParams.id});
+                            }]
+                        }
+                    }).result.then(function(result) {
+                        $state.go('pedido.entrega', null, { reload: true });
+                    }, function() {
+                        $state.go('pedido.entrega');
+                    })
+                }]
             })
             .state('pedido.detail', {
                 parent: 'entity',

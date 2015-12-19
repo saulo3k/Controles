@@ -31,6 +31,12 @@
             <column name="status_pedido" type="bigint"/>
             <column name="valor_pedido" type="decimal(10,2)"/>
             <column name="user_pedido_id" type="bigint"/>
+            <column name="user_pedido_separacao_id" type="bigint">
+                  <constraints nullable="true" />
+            </column>
+            <column name="user_pedido_entrega_id" type="bigint">
+                  <constraints nullable="true" />
+            </column>
             <column name="cliente_pedido_id" type="bigint"/>                      
 			<column name="pedido_modelo" type="bit" defaultValueBoolean="false">
                 <constraints nullable="false" />
@@ -83,6 +89,18 @@
                                  constraintName="fk_pedido_user_pedido_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="user_pedido_separacao_id"
+                                 baseTableName="pedido"
+                                 constraintName="fk_pedido_user_separacao_pedido_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="user_pedido_entrega_id"
+                                 baseTableName="pedido"
+                                 constraintName="fk_pedido_user_entrega_pedido_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>                                                                  
 
         <addForeignKeyConstraint baseColumnNames="cliente_pedido_id"
                                  baseTableName="pedido"

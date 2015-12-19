@@ -17,9 +17,6 @@
 	 <div class="container">
         <div class="row">
             <div class="col-md-4">               
-                <button class="btn btn-success"  ui-sref="pedido.separacao.listedit">
-                    <span class="fa fa-plus fa-5x"></span> <span>Separar pedidos</span>
-                </button>
                 <button class="btn btn-primary"  ui-sref="home">
                     <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
                 </button>       
@@ -82,8 +79,8 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                <tr ng-repeat="pedido in pedidos track by pedido.id" class="background-color: red !important">
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page" >
+                <tr ng-repeat="pedido in pedidos track by pedido.id" ng-class="{'danger':pedido.user_pedido_separacao}">
                     <td><a ui-sref="pedido.detail({id:pedido.id})">{{pedido.id}}</a></td>
                        <td>
             	            <a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a>
@@ -96,7 +93,7 @@
                         {{pedido.user_pedido.login}}
                     </td>
                     <td>
-                        {{user.separando}}
+                        {{pedido.user_pedido_separacao.login}}
                     </td>
                     <td>
 <!--                         <button type="submit" -->
@@ -106,7 +103,7 @@
 <!--                         </button> -->
                         <button type="submit"
                                 ui-sref="pedido.separacao.edit({id:pedido.id})"
-                                class="btn btn-success btn-sm">
+                                class="btn btn-success btn-sm" ng-click="marcarUsuario()">
                             <span class="fa fa-check-square-o"></span>&nbsp;<span translate="controlesApp.pedido.sep_pedido"> Edit</span>
                         </button>
                     </td>

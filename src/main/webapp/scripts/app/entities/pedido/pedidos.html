@@ -23,12 +23,15 @@
                 <button class="btn btn-success"  ui-sref="pedido.new">
                     <span class="fa fa-plus fa-5x"></span> <span translate="controlesApp.pedido.home.createLabel">Create a new Produto</span>
                 </button>
-                <button  has-authority="ROLE_ADMIN" class="btn btn-success"  ui-sref="pedido.modelo">
+                <button  has-authority="ROLE_ADMIN" class="btn btn btn-danger"  ui-sref="pedido.modelo">
                     <span class="fa fa-clock-o fa-5x"></span> <span translate="controlesApp.pedido.home.createLabelPedido">Pedido Modelo</span>
                 </button>
                 
             </div>            	
             <div class="col-md-4">
+            <button class="btn btn-warning"  ui-sref="pedido.separacao.listedit">
+                    <span class="fa fa-random fa-5x"></span> <span>Equalizar pedidos</span>
+                </button>
             	<button class="btn btn-primary"  ui-sref="home">
                     <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
                 </button>                
@@ -103,6 +106,8 @@
                     <th translate="controlesApp.pedido.dtPrevistaSeparacao">DtPrevistaSeparacao</th>
                     <th translate="controlesApp.pedido.dtPrevistaEntrega">DtPrevistaEntrega</th>
                     <th translate="controlesApp.pedido.user_pedido">user_pedido</th>
+                    <th translate="controlesApp.pedido.user_pedido_separacao">user_pedido_separacao</th>
+                    <th translate="controlesApp.pedido.user_pedido_entrega">user_pedido_entrega</th>
                     <th translate="controlesApp.pedido.dtRealSeparacao">DtRealSeparacao</th>                    
                     <th translate="controlesApp.pedido.dtRealEntrega">DtRealEntrega</th>
                     
@@ -121,6 +126,8 @@
                         <td>{{pedido.dtPrevistaSeparacao | date:'dd/MM/yyyy'}}</td>
                         <td>{{pedido.dtPrevistaEntrega | date:'dd/MM/yyyy'}}</td>
                         <td>{{pedido.user_pedido.login}}</td>
+                        <td>{{pedido.user_pedido_separacao.login}}</td>
+                        <td>{{pedido.user_pedido_entrega.login}}</td>
                         <td>{{pedido.dtRealSeparacao | date:'dd/MM/yyyy'}}</td>
                         <td>{{pedido.dtRealEntrega | date:'dd/MM/yyyy'}}</td>                                                             
                     <td>

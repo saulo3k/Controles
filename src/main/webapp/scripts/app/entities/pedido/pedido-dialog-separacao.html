@@ -33,34 +33,56 @@
         <div class="form-group">
         	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
 	        <ul>
-	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) == -1}">
+	            <li ng-repeat="produto in separados" ng-class="{'selected':selection.indexOf($index) != -1}">
 	            		
 	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
-	                		<label>{{produto.nome}}</label>
 	                	
-	                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label>
-	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3" ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
+	                	<label>{{produto.nome}}</label>	                	
+	                	<label> - Quantidade: </label>
+	                	<label> {{produto.quantidade}} </label>
+	                	<label ng-if="selection.indexOf($index) != -1" style="color: #66CD00;"> SEPARADO! </label>	                		                 
 	            </li>
 	        </ul>
         </div>
         <div class="form-group" ng-if="pedido.total != 0">
         	<label>Valor Total: </label>
-        	<label>{{pedido.total |  currency}}</label>
-        	<button type="button" has-authority="ROLE_ADMIN"
-                                 ng-click="ShowHide()"
-                                class="btn btn-primary btn-sm">
-        	<span class="glyphicon glyphicon-pencil" ></span>
-        	</button>
-        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
+        	<label>{{pedido.total |  currency}}</label>        	
+        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden" has-authority="ROLE_ADMIN">
         	
         </div>
-    </div>    
+    </div>       
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-info" ng-click="saveParam(1)">
+        <button type="submit"  class="btn btn-info" >
             <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Enviar Para Entrega</span>
         </button>
+        <button type="button"  class="btn btn-success" ng-click="iniciarSeparacao()" >
+            <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Iniciar Separação</span>
+        </button>
+        
+    </div>
+    
+    <div class="modal fade" id="restantePedidoConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(pedido.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="fecharAlerta()">&times;</button>
+                        <h4 class="modal-title" >Alerta</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Existem produtos que não foram separados !! Selecione todos os produtos para poder seguir</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="fecharAlerta()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Fechar</span>
+                        </button>                        
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </form>

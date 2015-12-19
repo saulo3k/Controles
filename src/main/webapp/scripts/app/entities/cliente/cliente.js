@@ -26,6 +26,29 @@ angular.module('controlesApp')
                     }]
                 }
             })
+            .state('cliente.produto', {
+                parent: 'cliente',
+                url: '/cliente/produto/{id}',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/cliente/cliente-produto-dialog.html',
+                        controller: 'ClienteProdutoDialogController',
+                        size: 'lg',                        
+                        resolve: {
+                        	 entity: function () {
+                                 return $stateParams.id;
+                              }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('cliente', null, { reload: true });
+                    }, function() {
+                        $state.go('cliente');
+                    })
+                }]
+            })
             .state('cliente.detail', {
                 parent: 'entity',
                 url: '/cliente/{id}',

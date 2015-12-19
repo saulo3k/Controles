@@ -12,6 +12,7 @@
             "detail": {
                 "title": "Cliente"
             },
+            "produto": "Cadastrar Preço Exclusivo Produto",
             "created": "Cliente criado com sucesso",
             "deleted": "Cliente removido com sucesso",
             "updated": "Cliente alterado com sucesso",

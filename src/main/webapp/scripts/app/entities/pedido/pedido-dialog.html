@@ -1,12 +1,12 @@
 
-<form name="editForm" role="form" novalidate ng-submit="save()">
+<form name="editForm" role="form" novalidate ng-submit="save()" class="ng-pristine">
 
-    <div class="modal-header">
+    <div class="modal-header alert alert-info">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
         <h4 class="modal-title" id="myPedidoLabel" translate="controlesApp.pedido.home.createOrEditLabel">Create or edit a Pedido</h4>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" >
         <jh-alert-error></jh-alert-error>
         <div class="form-group" ng-show="pedido.id">
             <label for="id" translate="global.field.id">ID</label>
@@ -14,11 +14,11 @@
         </div>
         <div class="form-group">
             <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
-            <select class="form-control" id="field_cliente_pedido" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id">
+            <select class="form-control" id="field_cliente_pedido" ng-change="buscarPrecosExclusivos(pedido.cliente_pedido.id)" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id">
                 <option value="">Selecione um Cliente</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" >
             <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>
             <input type="date" class="form-control" name="dtPrevistaSeparacao" id="field_dtPrevistaSeparacao"
                     ng-model="pedido.dtPrevistaSeparacao" />
@@ -54,7 +54,7 @@
                      {{pedido.dataPedido | date:'longDate'}}
         </div>
         <br>
-        <div class="form-group">
+        <div class="form-group" ng-if="pedido.cliente_pedido">
         	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
 	        <ul>
 	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
@@ -63,14 +63,14 @@
 	                		<label>{{produto.nome}}</label>
 	                	
 	                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label>
-	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3" ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
+	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3"  ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
 	            </li>
 	        </ul>
         </div>
-        <div class="form-group" ng-if="pedido.total != 0">
+        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN">
         	<label>Valor Total: </label>
         	<label>{{pedido.total |  currency}}</label>
-        	<button type="button" has-authority="ROLE_ADMIN"
+        	<button type="button" 
                                  ng-click="ShowHide()"
                                 class="btn btn-primary btn-sm">
         	<span class="glyphicon glyphicon-pencil" ></span>

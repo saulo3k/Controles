@@ -1,6 +1,6 @@
 {
     "controlesApp": {
-        "estoque" : {
+        "estoque" : {        
             "home": {
                 "title": "Estoques",
                 "createLabelEntrada": "Entrada",
@@ -14,6 +14,7 @@
             "detail": {
                 "title": "Estoque"
             },
+            "created": "Estoque lançado com sucesso !",
             "quantidadeAtual": "Qnt Antes Movimentação",
             "quantidadeAposMovimentacao": "Qnt Movimentada",
             "quantidade": "Quantidade",

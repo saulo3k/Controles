@@ -13,5 +13,8 @@ public interface ProdutoRepository extends JpaRepository<Produto,Long> {
 
     @Query("select produto from Produto produto where produto.user.login = ?#{principal.username}")
     List<Produto> findByUserIsCurrentUser();
+    
+    @Query("select sum(produto.estoque) from Produto produto")
+    Long countProdutos();
 
 }

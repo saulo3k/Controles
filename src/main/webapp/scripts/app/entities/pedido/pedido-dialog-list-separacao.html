@@ -1,12 +1,19 @@
+<div style="height: 2500px">
 <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
-        <h4 class="modal-title" id="myPedidoLabel">Separar Pedido</h4>
+        <h4 class="modal-title" id="myPedidoLabel">Equalizar Pedidos</h4>
 </div>    
 	
-	<div class="modal-body">
+	<div class="modal-body">	
+	<label>Produtos utilizados:</label>
+	<div class="row">	    
+		<div ng-repeat="produ in separados" class="col-md-1" ng-class-odd="'alert alert-danger'" ng-class-even="'alert alert-info'">
+			{{produ.nome}}:{{produ.estoque}}			
+		</div>	
+	</div>	
 	
-	<div ng-repeat="pedido in pedidos" class="col-md-6">
+	<div ng-repeat="pedido in pedidos" class="col-xs-3" ng-class-odd="'alert alert-success'" ng-class-even="'alert alert-warning'">
 	
 		<form name="editForm" role="form" novalidate ng-submit="save()">   
 		        <jh-alert-error></jh-alert-error>
@@ -33,18 +40,16 @@
 		        
 		        
 		        <br>
-		        <div class="form-group">
-		        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
-			        <ul>
-			            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) == -1}">
-			            		
-			            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
-			                		<label>{{produto.nome}}</label>
-			                	
-			                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label>
-			                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3" ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
-			            </li>
-			        </ul>
+		        <div class="div scroll">
+		        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label>
+		        		<div ng-repeat="produtoPedidos in pedido.produtosPedidos">		        				        			            					                		
+				            		<button type="button" ng-click="toggle($index, produtoPedidos.produto)"  class="btn btn-danger btn-circle" ng-if="produtoPedidos.produto.nome">
+				            			<i class="fa fa-check" ng-if="produtoPedidos.produto.nome"></i> 
+				            		</button>	            		
+				                	<label ng-if="produtoPedidos.produto.nome">{{produtoPedidos.produto.nome}}</label>			                	
+				                	<label ng-if="produtoPedidos.produto.nome"> - QNTD: {{produtoPedidos.quantidade}}</label>				                	
+				                	<input ng-if="produtoPedidos.produto.nome"  type="text" size="3"  ng-model="produtoPedidos.quantidadeNew" ng-blur="calculaTotal(produtoPedidos, pedido)" >					                	
+		                </div>			            
 		        </div>
 		        <div class="form-group" ng-if="pedido.total != 0">
 		        	<label>Valor Total: </label>
@@ -59,13 +64,11 @@
 		        </div>
 		        
 		        <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
-			            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
-			        </button>
-			        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-info" ng-click="saveParam(1)">
-			            <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Enviar Para Entrega</span>
-			        </button>
+		        	<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-success" ng-click="saveParam(1)">
+            			<span class="fa fa-arrow-circle-right"></span>&nbsp;<span translate="controlesApp.pedido.separacao_pedido">Separacao</span>
+        			</button>
 		    	</div>    
 		</form>
 	</div>
+</div>
 </div>

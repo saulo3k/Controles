@@ -2,7 +2,7 @@
 
 angular.module('controlesApp')
     .factory('Produto', function ($resource, DateUtils) {
-        return $resource('api/produtos/:id', {}, {
+        return $resource('api/produtos/:id', {}, {        	
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

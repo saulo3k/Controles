@@ -10,7 +10,8 @@ public enum StatusPedido {
 	Separacao(4),
 	EmSeparacao(5),
 	Romaneio(6),
-	PedidoGeradoAutomaticamente(7);
+	PedidoGeradoAutomaticamente(7),
+	SaiuParaRomaneio(8);
 	
 	int codigo;
 	StatusPedido(int p) {

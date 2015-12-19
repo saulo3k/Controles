@@ -121,6 +121,30 @@ public class PedidoResource {
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("pedido", pedido.getId().toString()))
 				.body(result);
 	}
+	
+	/**
+	 * PUT /pedidos -> Updates an existing pedido.
+	 */
+	@RequestMapping(value = "/separacao", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<Pedido> updateSeparacao(@RequestBody Pedido pedido) throws URISyntaxException {
+		log.debug("REST request to update Pedido : {}", pedido);		
+		Pedido result = pedidoService.separarPedido(pedido);		
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("pedido", pedido.getId().toString()))
+				.body(result);
+	}
+	
+	/**
+	 * PUT /pedidos -> Updates an existing pedido.
+	 */
+	@RequestMapping(value = "/entregas", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<Pedido> updateEntrega(@RequestBody Pedido pedido) throws URISyntaxException {
+		log.debug("REST request to update Pedido : {}", pedido);		
+		Pedido result = pedidoService.entregarPedido(pedido);		
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("pedido", pedido.getId().toString()))
+				.body(result);
+	}
 
 	/**
 	 * GET /pedidos -> get all the pedidos.
@@ -131,6 +155,21 @@ public class PedidoResource {
 		Page<Pedido> page = pedidoRepository.findAllWithOutPedidoModelo(pageable);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/pedidos");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
+	
+	/**
+	 * GET /pedidos -> get all the pedidos.
+	 */
+	@RequestMapping(value = "/equalizar-pedidos", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<Pedido>> getAllPedidosEqualizar(Pageable pageable) throws URISyntaxException {
+		Page<Pedido> page = pedidoRepository.findAllEqPedido(pageable);
+		for (Pedido pedido : page.getContent()) {
+			pedido.setProdutosPedidos(pedidoProdutoRepository.findByIdPedidos(pedido.getId()));	
+		}		
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/equalizar-pedidos");
+		
+		return new ResponseEntity<>(page.getContent() , headers, HttpStatus.OK);
 	}
 
 	/**

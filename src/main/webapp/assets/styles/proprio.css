@@ -379,3 +379,27 @@ ul
 /* text-decoration: none;  */
 /* color: blue;  */
 /* } */
+
+@media screen {
+    #printSection {
+        display: none;
+    }
+}
+@media print {
+    body * {
+        visibility:hidden;
+    }
+    #printSection, #printSection * {
+        visibility:visible;
+    }
+    #printSection {
+        position:absolute;
+        left:0;
+        top:0;
+    }
+}
+ div.scroll {
+    width: 300px;
+    height: 250px;
+    overflow: scroll;
+ }

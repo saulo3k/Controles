@@ -2,6 +2,7 @@
 
 angular.module('controlesApp')
     .controller('PedidoEntregaController', function ($scope, Pedido, PedidoSearch, PedidoEntrega, ParseLinks) {
+
         $scope.pedidos = [];
         $scope.page = 0;
         $scope.loadAll = function() {

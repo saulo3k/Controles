@@ -13,10 +13,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.rexapps.controles.domain.ClienteProduto;
 import br.com.rexapps.controles.domain.DiaSemana;
 import br.com.rexapps.controles.domain.Pedido;
 import br.com.rexapps.controles.domain.ProdutosPedidos;
 import br.com.rexapps.controles.domain.enumeration.StatusPedido;
+import br.com.rexapps.controles.repository.ClienteProdutoRepository;
 import br.com.rexapps.controles.repository.PedidoProdutoRepository;
 import br.com.rexapps.controles.repository.PedidoRepository;
 import br.com.rexapps.controles.repository.ProdutoRepository;
@@ -34,12 +36,18 @@ public class PedidoService {
 
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+	private EstoqueService estoqueService;
 
 	@Inject
 	private ProdutoRepository produtoRepository;
 
 	@Inject
 	private PedidoProdutoRepository pedidoProdutoRepository;
+	
+	@Inject
+	private ClienteProdutoRepository clienteProdutoRepository;
 
 	public Pedido savePedido(Pedido pedido) {
 		log.debug("Activating user for activation key {}", pedido);
@@ -60,6 +68,7 @@ public class PedidoService {
 		// Seta usuario que cadastrou o pedido
 		pedido.setUser_pedido(userRepository.findOne(SecurityUtils.getCurrentUserId()));
 
+		
 		Set<ProdutosPedidos> produtosPedidos = new HashSet<>();
 		for (ProdutosPedidos prodPedidoFor : pedido.getProdutosPedidos()) {
 			ProdutosPedidos prodPedidoSave = new ProdutosPedidos();
@@ -145,6 +154,27 @@ public class PedidoService {
 		pedidoRepository.save(pedido);
 		return pedido;
 	}
+	
+	public Pedido separarPedido(Pedido pedido) {
+		if(pedido.getStatusPedido() == StatusPedido.EmSeparacao){
+			pedido.setUser_pedido_separacao(userRepository.findOne(SecurityUtils.getCurrentUserId()));
+		}else{
+			pedido.setUser_pedido_separacao(userRepository.findOne(SecurityUtils.getCurrentUserId()));
+			pedido.setStatusPedido(StatusPedido.Romaneio);
+			pedido.setDtRealSeparacao(LocalDate.now());
+			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido_separacao());	
+		}		
+	    pedidoRepository.save(pedido);
+		return pedido;
+	}
+	
+	public Pedido entregarPedido(Pedido pedido) {
+		pedido.setUser_pedido_entrega(userRepository.findOne(SecurityUtils.getCurrentUserId()));
+		pedido.setStatusPedido(StatusPedido.SaiuParaRomaneio);
+		pedido.setDtRealEntrega(LocalDate.now());
+	    pedidoRepository.save(pedido);
+		return pedido;
+	}
 
 	public Pedido gerarPedidoAutomatico(Pedido pedidoParam) {
 		Pedido pedido = new Pedido();
@@ -154,12 +184,24 @@ public class PedidoService {
 		pedido.setDtPrevistaEntrega(LocalDate.now());
 		pedido.setUser_pedido(userRepository.findOne(pedidoParam.getUser_pedido().getId()));
 
+		//Busca precos exclusivos para pagamento
+		List<ClienteProduto> precosExclusivos = clienteProdutoRepository.findAllbyCliente(pedido.getCliente_pedido().getId());
+		
 		Set<ProdutosPedidos> produtosPedidos = new HashSet<>();
+		
 		for (ProdutosPedidos prodPedidoFor : pedidoParam.getProdutosPedidos()) {
 			ProdutosPedidos prodPedidoSave = new ProdutosPedidos();
 			prodPedidoSave.setPedido(pedido);
 			prodPedidoSave.setProduto(produtoRepository.findOne((prodPedidoFor.getProduto().getId())));
 			prodPedidoSave.setQuantidade(prodPedidoFor.getQuantidade());
+			
+			for (ClienteProduto produto : precosExclusivos) {
+				if (produto.getId() == prodPedidoSave.getProduto().getId()) {
+					prodPedidoSave.getProduto().setPrecoVenda(produto.getPrecoVenda());
+					break;
+				}
+			}  
+			
 			produtosPedidos.add(prodPedidoSave);
 		}
 		pedido.setCliente_pedido(pedidoParam.getCliente_pedido());
@@ -195,5 +237,13 @@ public class PedidoService {
 	
 			}
 		}
+	}
+
+	public EstoqueService getEstoqueService() {
+		return estoqueService;
+	}
+
+	public void setEstoqueService(EstoqueService estoqueService) {
+		this.estoqueService = estoqueService;
 	}
 }
