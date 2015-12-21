@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.rexapps.controles.domain.Estoque;
+import br.com.rexapps.controles.domain.Pedido;
 import br.com.rexapps.controles.domain.Produto;
 import br.com.rexapps.controles.domain.ProdutosPedidos;
 import br.com.rexapps.controles.domain.User;
@@ -46,6 +47,25 @@ public class EstoqueService {
 		estoqueAdicao.setQuantidadeAtual(0L);
 		estoqueAdicao.setQuantidadeAposMovimentacao(produto.getEstoque());
 		estoqueRepository.save(estoqueAdicao);
+	}
+	
+	public void devolverProdutoEstoque(Produto produto, Long quantidade, Pedido pedido) {
+
+		Estoque estoqueAdicao = new Estoque();
+		estoqueAdicao.setDataAtual(LocalDate.now());
+		estoqueAdicao.setEstoque_produto(produto);
+		estoqueAdicao.setEstoque_user(userRepository.findOne(SecurityUtils.getCurrentUserId()));
+		estoqueAdicao.setMotivo("Remoção do pedido:" + pedido.getId() + "Que se encontrava em:" + pedido.getStatusPedido().name());
+		estoqueAdicao.setOperacao(OperacaoEstoque.Saida);
+		estoqueAdicao.setQuantidadeAtual(produto.getEstoque());
+		Long total = produto.getEstoque() + quantidade;
+		estoqueAdicao.setQuantidadeAposMovimentacao(total);
+		
+		estoqueRepository.save(estoqueAdicao);
+		
+		produto.setEstoque(total);
+		
+		produtoRepository.save(produto);
 	}
 
 	public void removerProdutoEstoque(Produto produto) {

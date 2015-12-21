@@ -77,7 +77,12 @@ public class PedidoService {
 			prodPedidoSave.setQuantidade(prodPedidoFor.getQuantidade());
 			produtosPedidos.add(prodPedidoSave);
 		}
+
 		pedido.setProdutosPedidos(produtosPedidos);
+		
+		if(pedido.getStatusPedido().equals(StatusPedido.EmSeparacao) && !pedido.isPedidoModelo()) {
+			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido_separacao());
+		}
 
 		pedidoRepository.save(pedido);
 
@@ -151,6 +156,10 @@ public class PedidoService {
 		}
 
 		pedido.setProdutosPedidos(produtosPedidos);
+		
+		if(pedido.getStatusPedido().equals(StatusPedido.EmSeparacao) && !pedido.isPedidoModelo()) {
+			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido_separacao());
+		}
 		pedidoRepository.save(pedido);
 		return pedido;
 	}
@@ -161,8 +170,7 @@ public class PedidoService {
 		}else{
 			pedido.setUser_pedido_separacao(userRepository.findOne(SecurityUtils.getCurrentUserId()));
 			pedido.setStatusPedido(StatusPedido.Romaneio);
-			pedido.setDtRealSeparacao(LocalDate.now());
-			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido_separacao());	
+			pedido.setDtRealSeparacao(LocalDate.now());				
 		}		
 	    pedidoRepository.save(pedido);
 		return pedido;
@@ -207,6 +215,7 @@ public class PedidoService {
 		pedido.setCliente_pedido(pedidoParam.getCliente_pedido());
 		pedido.setDataPedido(LocalDate.now());
 		pedido.setProdutosPedidos(produtosPedidos);
+		
 		pedidoRepository.save(pedido);
 		return pedido;
 	}
@@ -246,4 +255,19 @@ public class PedidoService {
 	public void setEstoqueService(EstoqueService estoqueService) {
 		this.estoqueService = estoqueService;
 	}
+	
+	public void remover(Long id) {
+		//devolver estoque
+		Pedido pedido = pedidoRepository.findOneWithEagerRelationshipsDaysOfWeek(id);
+		if (pedido.getStatusPedido().equals(StatusPedido.EmSeparacao) || 
+				pedido.getStatusPedido().equals(StatusPedido.Romaneio) || 
+				pedido.getStatusPedido().equals(StatusPedido.SaiuParaRomaneio) ||  
+				pedido.getStatusPedido().equals(StatusPedido.Separacao)) {
+			for (ProdutosPedidos produtosPedidos : pedido.getProdutosPedidos()) {			
+				estoqueService.devolverProdutoEstoque(produtosPedidos.getProduto(), produtosPedidos.getQuantidade(), pedido);
+			} 
+		}
+		pedidoRepository.delete(id);
+	}
+
 }

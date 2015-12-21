@@ -31,5 +31,5 @@
             restrict: 'A'
         };
     }
-    angular.module('app').directive('ngPrint', [printDirective]);
+    angular.module('controlesApp').directive('ngPrint', [printDirective]);
 }(window.angular));

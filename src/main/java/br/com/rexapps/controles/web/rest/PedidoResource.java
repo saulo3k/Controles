@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 
 import br.com.rexapps.controles.domain.Pedido;
+import br.com.rexapps.controles.domain.enumeration.StatusPedido;
 import br.com.rexapps.controles.repository.PedidoProdutoRepository;
 import br.com.rexapps.controles.repository.PedidoRepository;
 import br.com.rexapps.controles.repository.search.PedidoSearchRepository;
@@ -193,7 +194,7 @@ public class PedidoResource {
 	@Timed
 	public ResponseEntity<Void> deletePedido(@PathVariable Long id) {
 		log.debug("REST request to delete Pedido : {}", id);
-		pedidoRepository.delete(id);
+		pedidoService.remover(id);
 		pedidoSearchRepository.delete(id);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("pedido", id.toString())).build();
 	}

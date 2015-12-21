@@ -59,7 +59,7 @@ angular.module('controlesApp')
                 }]
             })
             .state('pedido.separacao.edit', {
-                parent: 'pedido.separacao',
+                parent: 'pedido',
                 url: '/{id}/edit-separacao',
                 data: {
                     authorities: ['ROLE_USER'],
