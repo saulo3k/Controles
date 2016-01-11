@@ -35,6 +35,7 @@ import br.com.rexapps.controles.repository.UserRepository;
 import br.com.rexapps.controles.repository.search.ProdutoSearchRepository;
 import br.com.rexapps.controles.security.SecurityUtils;
 import br.com.rexapps.controles.service.EstoqueService;
+import br.com.rexapps.controles.service.ProdutoService;
 import br.com.rexapps.controles.web.rest.util.HeaderUtil;
 import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 
@@ -55,6 +56,9 @@ public class ProdutoResource {
     
     @Inject
     private EstoqueService estoqueService; 
+    
+    @Inject
+    private ProdutoService produtoService; 
     
     @Inject
     private UserRepository userRepository;
@@ -113,7 +117,7 @@ public class ProdutoResource {
     @Timed
     public ResponseEntity<List<Produto>> getAllProdutos(Pageable pageable)
         throws URISyntaxException {
-        Page<Produto> page = produtoRepository.findAll(pageable);
+        Page<Produto> page = produtoRepository.findAllOrderByName(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/produtos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -143,7 +147,8 @@ public class ProdutoResource {
     @Timed
     public ResponseEntity<Void> deleteProduto(@PathVariable Long id) {
         log.debug("REST request to delete Produto : {}", id);
-        produtoRepository.delete(id);
+        produtoService.removerProduto(id);
+
         produtoSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("produto", id.toString())).build();
     }

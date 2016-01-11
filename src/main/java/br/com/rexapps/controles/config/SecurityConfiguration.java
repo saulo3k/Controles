@@ -1,31 +1,29 @@
 package br.com.rexapps.controles.config;
 
-import br.com.rexapps.controles.security.*;
-import br.com.rexapps.controles.web.filter.CsrfCookieGeneratorFilter;
+import javax.inject.Inject;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-
-import org.springframework.data.repository.query.spi.EvaluationContextExtension;
-import org.springframework.data.repository.query.spi.EvaluationContextExtensionSupport;
-import org.springframework.security.access.expression.SecurityExpressionRoot;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 
-import javax.inject.Inject;
+import br.com.rexapps.controles.security.AjaxAuthenticationFailureHandler;
+import br.com.rexapps.controles.security.AjaxAuthenticationSuccessHandler;
+import br.com.rexapps.controles.security.AjaxLogoutSuccessHandler;
+import br.com.rexapps.controles.security.AuthoritiesConstants;
+import br.com.rexapps.controles.security.Http401UnauthorizedEntryPoint;
+import br.com.rexapps.controles.web.filter.CsrfCookieGeneratorFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -77,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {    	
         http
             .csrf()
             .ignoringAntMatchers("/websocket/**")

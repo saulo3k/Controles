@@ -49,8 +49,17 @@ public class Cliente implements Serializable {
 
     @Column(name = "endereco")
     private String endereco;
+    
+    @Column(name = "bairro")
+    private String bairro;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "numero")
+    private String numero;
+    
+    @Column(name = "complemento")
+    private String complemento;
+    
+	@Enumerated(EnumType.STRING)
     @Column(name = "estado")
     private Estado estado;
 
@@ -158,6 +167,32 @@ public class Cliente implements Serializable {
     public void setInformacoesParaBusca(String informacoesParaBusca) {
         this.informacoesParaBusca = informacoesParaBusca;
     }
+    
+
+    public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+
 
     @Override
     public boolean equals(Object o) {

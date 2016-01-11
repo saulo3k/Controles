@@ -116,7 +116,7 @@ private static final UnidadeMedida DEFAULT_UNIDADE_MEDIDA = UnidadeMedida.G;
         produto.setPrecoVenda(DEFAULT_PRECO_VENDA);
         produto.setEstoque(DEFAULT_ESTOQUE);
         produto.setVendaSemEstoque(DEFAULT_VENDA_SEM_ESTOQUE);
-        produto.setPromocao(DEFAULT_PROMOCAO);
+//        produto.setPromocao(DEFAULT_PROMOCAO);
         produto.setDataCadastro(DEFAULT_DATA_CADASTRO);
         produto.setUnidadeMedida(DEFAULT_UNIDADE_MEDIDA);
     }
@@ -145,7 +145,7 @@ private static final UnidadeMedida DEFAULT_UNIDADE_MEDIDA = UnidadeMedida.G;
         assertThat(testProduto.getPrecoVenda()).isEqualTo(DEFAULT_PRECO_VENDA);
         assertThat(testProduto.getEstoque()).isEqualTo(DEFAULT_ESTOQUE);
         assertThat(testProduto.getVendaSemEstoque()).isEqualTo(DEFAULT_VENDA_SEM_ESTOQUE);
-        assertThat(testProduto.getPromocao()).isEqualTo(DEFAULT_PROMOCAO);
+//        assertThat(testProduto.getPromocao()).isEqualTo(DEFAULT_PROMOCAO);
         assertThat(testProduto.getDataCadastro()).isEqualTo(DEFAULT_DATA_CADASTRO);
         assertThat(testProduto.getUnidadeMedida()).isEqualTo(DEFAULT_UNIDADE_MEDIDA);
     }
@@ -259,7 +259,7 @@ private static final UnidadeMedida DEFAULT_UNIDADE_MEDIDA = UnidadeMedida.G;
         produto.setPrecoVenda(UPDATED_PRECO_VENDA);
         produto.setEstoque(UPDATED_ESTOQUE);
         produto.setVendaSemEstoque(UPDATED_VENDA_SEM_ESTOQUE);
-        produto.setPromocao(UPDATED_PROMOCAO);
+//        produto.setPromocao(UPDATED_PROMOCAO);
         produto.setDataCadastro(UPDATED_DATA_CADASTRO);
         produto.setUnidadeMedida(UPDATED_UNIDADE_MEDIDA);
 
@@ -280,7 +280,7 @@ private static final UnidadeMedida DEFAULT_UNIDADE_MEDIDA = UnidadeMedida.G;
         assertThat(testProduto.getPrecoVenda()).isEqualTo(UPDATED_PRECO_VENDA);
         assertThat(testProduto.getEstoque()).isEqualTo(UPDATED_ESTOQUE);
         assertThat(testProduto.getVendaSemEstoque()).isEqualTo(UPDATED_VENDA_SEM_ESTOQUE);
-        assertThat(testProduto.getPromocao()).isEqualTo(UPDATED_PROMOCAO);
+//        assertThat(testProduto.getPromocao()).isEqualTo(UPDATED_PROMOCAO);
         assertThat(testProduto.getDataCadastro()).isEqualTo(UPDATED_DATA_CADASTRO);
         assertThat(testProduto.getUnidadeMedida()).isEqualTo(UPDATED_UNIDADE_MEDIDA);
     }

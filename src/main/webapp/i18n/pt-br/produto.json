@@ -7,7 +7,7 @@
                 "createOrEditLabel": "Criar ou Editar Produto"
             },
             "delete": {
-                "question": "Tem certeza que deseja remover o Produto {{ id }}?"
+                "question": "Tem certeza que deseja remover o Produto {{ id }} ? \n Esta ação ira remover os dados de estoque do mesmo, Porem se este produto já foi utilizado em algum pedido sera removido apenas logicamente !!! "
             },
             "detail": {
                 "title": "Produto"
@@ -18,9 +18,9 @@
             "nome": "Nome",
             "descricao": "Descrição",
             "referencia": "Referência",
-            "codigoBarras": "Codigo de Barras",
-            "precoCusto": "Preco de Custo",
-            "precoVenda": "Preco de Venda",
+            "codigoBarras": "Código de Barras",
+            "precoCusto": "Preço de Custo",
+            "precoVenda": "Preço de Venda",
             "estoque": "Quantidade",
             "vendaSemEstoque": "Permitir Venda Sem Estoque",
             "promocao": "Promoção",

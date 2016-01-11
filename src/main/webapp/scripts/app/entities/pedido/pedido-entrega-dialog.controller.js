@@ -5,9 +5,9 @@ angular.module('controlesApp').controller('PedidoEntregaDialogController',
         function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, PedidoEntrega) {
     	
         $scope.pedido = entity;        
-        $scope.produtos = Produto.query();
+        $scope.produtos = Produto.query({page: $scope.page, size: 7000});
         $scope.users = User.query();
-        $scope.clientes = Cliente.query();
+        $scope.clientes = Cliente.query({page: $scope.page, size: 9000});
         $scope.load = function(id) {
             Pedido.get({id : id}, function(result) {            	
                 $scope.pedido = result;

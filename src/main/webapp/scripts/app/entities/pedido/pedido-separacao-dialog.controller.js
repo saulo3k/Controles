@@ -5,9 +5,9 @@ angular.module('controlesApp').controller('PedidoSeparacaoDialogController',
         function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, PedidoSeparacao) {
     	
         $scope.pedido = entity;        
-        $scope.produtos = Produto.query();
+        $scope.produtos = Produto.query({page: $scope.page, size: 7000});
         $scope.users = User.query();
-        $scope.clientes = Cliente.query();
+        $scope.clientes = Cliente.query({page: $scope.page, size: 9000});
         $scope.load = function(id) {
             Pedido.get({id : id}, function(result) {            	
                 $scope.pedido = result;
@@ -70,7 +70,8 @@ angular.module('controlesApp').controller('PedidoSeparacaoDialogController',
 	            
 	        	angular.forEach(dataProd, function(valueProduto, keyProduto) {	        		
 	        		$scope.pedido.$promise.then(function(data) {
-	    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {	    						
+	    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
+	    						console.log('valuePedido',valuePedido);
 	    						if(valueProduto.id == valuePedido.produto.id && $scope.separados.indexOf(valueProduto) == -1) {	    												
 	    				              valueProduto.quantidade = valuePedido.quantidade;	    				              
 	    				              $scope.separados.push(valueProduto);
@@ -84,8 +85,7 @@ angular.module('controlesApp').controller('PedidoSeparacaoDialogController',
         $scope.carregarPedido();
         
         $scope.iniciarSeparacao = function () {        	         	 
-            PedidoSeparacao.updateSeparacao($scope.pedido);
-            $scope.refresh();
+            PedidoSeparacao.updateSeparacao($scope.pedido);            
         };
 
 }]);

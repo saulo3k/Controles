@@ -74,15 +74,29 @@ public class EstoqueResource {
         }
         estoque.setDataAtual(LocalDate.now()); 
         estoque.setEstoque_user(userRepository.findOne(SecurityUtils.getCurrentUserId()));
-        if(estoque.getOperacao() == OperacaoEstoque.Entrada){
+        
+        if(estoque.getEstoque_produto().getEstoque() != null){
         	estoque.setQuantidadeAtual(estoque.getEstoque_produto().getEstoque());
-        	estoque.setQuantidadeAposMovimentacao(estoque.getEstoque_produto().getEstoque() + estoque.getQuantidade());
-        	estoque.getEstoque_produto().setEstoque(estoque.getQuantidadeAposMovimentacao());
         }else{
-        	estoque.setQuantidadeAtual(estoque.getEstoque_produto().getEstoque());
-        	estoque.setQuantidadeAposMovimentacao(estoque.getEstoque_produto().getEstoque() - estoque.getQuantidade());
-        	estoque.getEstoque_produto().setEstoque(estoque.getQuantidadeAposMovimentacao());
+        	estoque.setQuantidadeAtual(0L);
         }
+        if(estoque.getOperacao() == OperacaoEstoque.Entrada){
+        	if(estoque.getEstoque_produto().getEstoque() != null){        	
+        		estoque.setQuantidadeAposMovimentacao(estoque.getEstoque_produto().getEstoque() + estoque.getQuantidade());        	
+        	}else{
+        		estoque.setQuantidadeAposMovimentacao(estoque.getQuantidade());
+        	}
+        }else{
+        	if(estoque.getEstoque_produto().getEstoque() != null){
+        		estoque.setQuantidadeAposMovimentacao(estoque.getEstoque_produto().getEstoque() - estoque.getQuantidade());
+        	}else{
+        		estoque.setQuantidadeAposMovimentacao(-estoque.getQuantidade());
+        	}
+        	
+        }
+        
+        estoque.getEstoque_produto().setEstoque(estoque.getQuantidadeAposMovimentacao());
+        
         produtoRepository.save(estoque.getEstoque_produto());
         Estoque result = estoqueRepository.save(estoque);
         estoqueSearchRepository.save(result);
@@ -119,6 +133,7 @@ public class EstoqueResource {
     @Timed
     public ResponseEntity<List<Estoque>> getAllEstoques(Pageable pageable)
         throws URISyntaxException {
+    	
         Page<Estoque> page = estoqueRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/estoques");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

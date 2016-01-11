@@ -43,18 +43,18 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td ng-if="pedido.periodoPedidoInicio">
                     <span translate="controlesApp.pedido.periodoPedidoInicio">PeriodoPedidoInicio</span>
                 </td>
-                <td>
+                <td ng-if="pedido.periodoPedidoInicio">
                     <span class="form-control-static">{{pedido.periodoPedidoInicio | date:'mediumDate'}}</span>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td ng-if="pedido.periodoPedidoFim">
                     <span translate="controlesApp.pedido.periodoPedidoFim">PeriodoPedidoFim</span>
                 </td>
-                <td>
+                <td ng-if="pedido.periodoPedidoFim">
                     <span class="form-control-static">{{pedido.periodoPedidoFim | date:'mediumDate'}}</span>
                 </td>
             </tr>
@@ -63,7 +63,7 @@
                     <span translate="controlesApp.pedido.dataPedido">DataPedido</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{pedido.dataPedido}}</span>
+                    <span class="form-control-static">{{pedido.dataPedido  | date:'mediumDate'}}</span>
                 </td>
             </tr>
             <tr>
@@ -72,7 +72,7 @@
                 </td>
                 <td>
                     <span ng-repeat="produto_has_pedido in pedido.produto_has_pedidos">
-                        <a class="form-control-static" ui-sref="produto.detail({id: {{produto_has_pedido.id}}})">{{produto_has_pedido.nome}}</a>{{$last ? '' : ', '}}
+                        <a class="form-control-static" ui-sref="produto.detail({id: {{produto_has_pedido.id}}})">{{produto_has_pedido.produto.nome}}</a>{{$last ? '' : ', '}}
                     <span>
                 </td>
             </tr>
@@ -81,7 +81,7 @@
                     <span translate="controlesApp.pedido.user_pedido">user_pedido</span>
                 </td>
                 <td>
-                    {{pedido.user_pedido.first_name}}
+                    {{pedido.user_pedido.login}}
                 </td>
             </tr>
             <tr>

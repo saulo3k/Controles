@@ -1,24 +1,7 @@
 package br.com.rexapps.controles.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import br.com.rexapps.controles.domain.Cliente;
-import br.com.rexapps.controles.repository.ClienteRepository;
-import br.com.rexapps.controles.repository.search.ClienteSearchRepository;
-import br.com.rexapps.controles.web.rest.dto.QuantidadeDTO;
-import br.com.rexapps.controles.web.rest.util.HeaderUtil;
-import br.com.rexapps.controles.web.rest.util.PaginationUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
-import javax.inject.Inject;
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -26,7 +9,33 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import javax.inject.Inject;
+import javax.validation.Valid;
+
+import org.postgresql.util.PSQLException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codahale.metrics.annotation.Timed;
+
+import br.com.rexapps.controles.domain.Cliente;
+import br.com.rexapps.controles.repository.ClienteRepository;
+import br.com.rexapps.controles.repository.search.ClienteSearchRepository;
+import br.com.rexapps.controles.web.rest.dto.QuantidadeDTO;
+import br.com.rexapps.controles.web.rest.util.HeaderUtil;
+import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing Cliente.
@@ -138,8 +147,13 @@ public class ClienteResource {
     @Timed
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
         log.debug("REST request to delete Cliente : {}", id);
-        clienteRepository.delete(id);
-        clienteSearchRepository.delete(id);
+        try{
+        	clienteRepository.delete(id);
+        	clienteSearchRepository.delete(id);        	
+        }catch(DataIntegrityViolationException p){
+        	System.out.println("Tentou mais existe pedidos vinculados");
+        	return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("cliente.vinculadoPedido", id.toString())).build();
+        }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("cliente", id.toString())).build();
     }
 

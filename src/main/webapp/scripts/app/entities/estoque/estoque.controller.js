@@ -2,9 +2,19 @@
 
 angular.module('controlesApp')
     .controller('EstoqueController', function ($scope, Estoque, EstoqueSearch, ParseLinks) {
+    	
         $scope.estoques = [];
         $scope.page = 0;
         $scope.loadAll = function() {
+            Estoque.query({page: $scope.page, size: 20, sort: "id" + ',' + 'desc'}, function(result, headers) {
+                $scope.links = ParseLinks.parse(headers('link'));
+                for (var i = 0; i < result.length; i++) {
+                    $scope.estoques.push(result[i]);
+                }
+            });
+        };
+        
+        $scope.loadAllParse = function() {
             Estoque.query({page: $scope.page, size: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
@@ -12,6 +22,7 @@ angular.module('controlesApp')
                 }
             });
         };
+        
         $scope.reset = function() {
             $scope.page = 0;
             $scope.estoques = [];
@@ -19,7 +30,7 @@ angular.module('controlesApp')
         };
         $scope.loadPage = function(page) {
             $scope.page = page;
-            $scope.loadAll();
+            $scope.loadAllParse();
         };
         $scope.loadAll();
 
@@ -63,5 +74,5 @@ angular.module('controlesApp')
                 motivo: null,
                 id: null
             };
-        };
+        };        
     });

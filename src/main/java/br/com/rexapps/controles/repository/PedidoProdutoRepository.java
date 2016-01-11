@@ -15,5 +15,8 @@ public interface PedidoProdutoRepository extends JpaRepository<ProdutosPedidos,L
 
     @Query("select produtosPedidos from ProdutosPedidos produtosPedidos where produtosPedidos.pedido.id= :id")
     Set<ProdutosPedidos> findByIdPedidos(@Param("id") Long id);
+    
+    @Query("select produtosPedidos from ProdutosPedidos produtosPedidos where produtosPedidos.produto.id= :id")
+    Set<ProdutosPedidos> findByIdProduto(@Param("id") Long id);
         
 }

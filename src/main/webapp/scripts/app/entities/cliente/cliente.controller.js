@@ -5,13 +5,14 @@ angular.module('controlesApp')
         $scope.clientes = [];
         $scope.page = 0;
         $scope.loadAll = function() {
-            Cliente.query({page: $scope.page, size: 20}, function(result, headers) {
+            Cliente.query({page: $scope.page, size: 20, sort: "nome" + ',' + 'asc'}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
                     $scope.clientes.push(result[i]);
                 }
             });
         };
+                
         $scope.reset = function() {
             $scope.page = 0;
             $scope.clientes = [];

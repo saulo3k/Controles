@@ -8,8 +8,8 @@
     <div class="modal-body" >
         <jh-alert-error></jh-alert-error>
         <div class="form-group" ng-show="pedido.id">
-             <h1><label for="id" translate="global.field.id">ID</label>
-            {{pedido.id}}</h1>
+             <h1><label for="id">Pedido</label>
+            #{{pedido.id}}</h1>
         </div>
         <div class="form-group">
             <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
@@ -56,17 +56,32 @@
         
         <br>
         <div class="form-group">
-        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
-	        <ul>
-	            <li ng-repeat="produto in separados" ng-class="{'selected':selection.indexOf($index) != -1}">	                	
-	                	<label>{{produto.nome}}</label>	                	
-	                	<label> - Quantidade: </label>
-	                	<label> {{produto.quantidade}} </label>	                		                		                
-	            </li>
-	        </ul>
-        </div>
-        <div class="form-group" ng-if="pedido.total != 0">
-        	<label>Valor Total: </label>
+           <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Unidade de Medida</th>
+                    <th>Quantidade</th>                    
+                    <th>Valor</th>
+                    <th>Valor total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="produto in separados track by produto.id" >
+                    <td>{{produto.nome}}</td>
+                        <td>{{produto.unidadeMedida}}</td>
+                        <td>{{produto.quantidade}}</td>
+                        <td>{{produto.precoVenda  |  currency}}</td>                        
+                    	<td>{{produto.precoVenda * produto.quantidade  |  currency}}</td>
+                    	<td></td>
+                </tr>
+            </tbody>
+        </table>        
+        </div>  
+              
+        <div class="form-group" ng-if="pedido.total != 0"  align="right">
+        	<label>Valor Total Pedido: </label>
         	<label>{{pedido.total |  currency}}</label>        	
         	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
         	
@@ -75,8 +90,8 @@
     <div class="modal-body" id="printSection">
         <jh-alert-error></jh-alert-error>
         <div class="form-group" ng-show="pedido.id">
-             <h1><label for="id" translate="global.field.id">ID</label>
-            {{pedido.id}}</h1>
+             <h1><label for="id">Pedido</label>
+            #{{pedido.id}}</h1>
         </div>
         <div class="form-group">
             <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
@@ -112,28 +127,39 @@
                      {{pedido.dataPedido | date:'fullDate'}}
         </div>
         <div class="form-group">
-            <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>            
-            {{pedido.dtPrevistaSeparacao | date:'fullDate'}}
-        </div>
-        <div class="form-group">
             <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
             {{pedido.dtPrevistaEntrega | date:'fullDate'}}
         </div>
         
         
         <br>
-        <div class="form-group">
-        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
-	        <ul>
-	            <li ng-repeat="produto in separados" ng-class="{'selected':selection.indexOf($index) != -1}">	                	
-	                	<label>{{produto.nome}}</label>	                	
-	                	<label> - Quantidade: </label>
-	                	<label> {{produto.quantidade}} </label>	                		                		                
-	            </li>
-	        </ul>
-        </div>
-        <div class="form-group" ng-if="pedido.total != 0">
-        	<label>Valor Total: </label>
+         <div class="form-group">
+           <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Unidade de Medida</th>
+                    <th>Quantidade</th>                    
+                    <th>Valor</th>
+                    <th>Valor total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="produto in separados track by produto.id" >
+                    	<td>{{produto.nome}}</td>             
+                        <td>{{produto.unidadeMedida}}</td>
+                        <td>{{produto.quantidade}}</td>
+                        <td>{{produto.precoVenda  |  currency}}</td>                        
+                    	<td>{{produto.precoVenda * produto.quantidade  |  currency}}</td>
+                    	<td></td>
+                </tr>
+            </tbody>
+        </table>        
+        </div>  
+              
+        <div class="form-group" ng-if="pedido.total != 0"  align="right">
+        	<label>Valor Total Pedido: </label>
         	<label>{{pedido.total |  currency}}</label>        	
         	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
         	

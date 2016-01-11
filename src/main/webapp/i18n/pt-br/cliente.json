@@ -12,6 +12,9 @@
             "detail": {
                 "title": "Cliente"
             },
+            "vinculadoPedido": {
+            	"deleted": "Este cliente não pode ser removido pois esta sendo utilizado em pedidos, remova os pedidos depois remova o cliente!"
+            },
             "produto": "Cadastrar Preço Exclusivo Produto",
             "created": "Cliente criado com sucesso",
             "deleted": "Cliente removido com sucesso",
@@ -23,6 +26,9 @@
             "email": "E-mail",
             "cep": "Cep",
             "endereco": "Endereço",
+            "bairro": "Bairro",
+            "numero": "Número",
+            "complemento": "Complemento",
             "estado": "Estado",
             "cidade": "Cidade",
             "nomeContato": "Nome para Contato",

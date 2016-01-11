@@ -8,22 +8,32 @@
     </div>
     <div class="modal-body">
         <jh-alert-error></jh-alert-error>
-    	 
-    	 <div class="form-group">
-        	<label for="field_produto_has_pedido">Produtos</label> 
-	        <ul>
-	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
-	            		
-	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
-	                		<label>{{produto.nome}}</label>
-	                	
-	                	<label ng-if="selection.indexOf($index) != -1"> - Preço: </label>
-	                	<input ng-if="selection.indexOf($index) != -1" type="number" aria-label="amount" size="3" ng-model="produto.precoVenda">
-	                	{{produto.precoVenda | currency}}	                		                 
-	            </li>
-	        </ul>
+
+			<div class="form-group" >
+           <table class="table table-striped">
+            <thead>
+                <tr>
+                	<th>Selecionar</th>
+                    <th>Produto</th>              
+                    <th>Valor</th>
+                    <th>Preço Exclusivo</th>
+                    <th>Preço Padrão</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
+                	<td><button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button></td>
+                    <td>{{produto.nome}}</td>                        
+                        <td><input ng-if="selection.indexOf($index) != -1" type="number" aria-label="amount" size="3" ng-model="produto.precoVenda">
+	                	</td>                                            	
+                    	<td>{{produto.precoVenda | currency}}</td>
+                    	<td>{{produto.precoAnterior | currency}}</td>
+                    	<td></td>
+                </tr>
+            </tbody>
+        </table>        
         </div>
-    </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

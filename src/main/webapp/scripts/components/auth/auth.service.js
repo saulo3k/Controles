@@ -33,6 +33,7 @@ angular.module('controlesApp')
                 // Reset state memory
                 $rootScope.previousStateName = undefined;
                 $rootScope.previousStateNameParams = undefined;
+//                $state.go('login');
             },
 
             authorize: function(force) {

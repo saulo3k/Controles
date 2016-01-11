@@ -1,4 +1,4 @@
-<div style="height: 90vmax; min-height: 400px;">
+<div >
 <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
@@ -8,69 +8,101 @@
 	<div class="modal-body">	
 	<label>Produtos utilizados:</label>
 	<div class="row">	    
-		<div ng-repeat="produ in separados" class="col-md-1" ng-class-odd="'alert alert-danger'" ng-class-even="'alert alert-info'">
+		<div ng-repeat="produ in separados" class="col-md-1" ng-class-odd="'alert alert-success'" ng-class-even="'alert alert-info'">
 			{{produ.nome}}:{{produ.estoque}}			
 		</div>	
 	</div>	
+	<div class="row">
 	
-	<div ng-repeat="pedido in pedidos" class="col-xs-3" ng-class-odd="'alert alert-success'" ng-class-even="'alert alert-warning'">
-	
-		<form name="editForm" role="form" novalidate ng-submit="save(pedido)">   
-		        <jh-alert-error></jh-alert-error>
-		        <div class="form-group" ng-show="pedido.id">
-		            <h1><label for="id" translate="global.field.id">ID</label>
-		            {{pedido.id}}</h1>
-		        </div>
-		        <div class="form-group">
-		            <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
-		            {{pedido.cliente_pedido.nome}}
-		        </div>
-		        <div class="form-group" ng-show="pedido.id != null">
-		            <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>            
-		                     {{pedido.dataPedido | date:'fullDate'}}
-		        </div>
-		        <div class="form-group">
-		            <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>            
-		            {{pedido.dtPrevistaSeparacao | date:'fullDate'}}
-		        </div>
-		        <div class="form-group">
-		            <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
-		            {{pedido.dtPrevistaEntrega | date:'fullDate'}}
-		        </div>
-		        
-		        
-		        <br>
-		        <div class="div scroll">
-		        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label>
-		        		<div ng-repeat="produtoPedidos in pedido.produtosPedidos">		        				        			            					                		
-				            		<button type="button" ng-click="toggle($index, produtoPedidos.produto)"  class="btn btn-danger btn-circle" ng-if="produtoPedidos.produto.nome">
-				            			<i class="fa fa-check" ng-if="produtoPedidos.produto.nome"></i> 
-				            		</button>	            		
-				                	<label ng-if="produtoPedidos.produto.nome">{{produtoPedidos.produto.nome}}</label>			                	
-				                	<label ng-if="produtoPedidos.produto.nome"> - {{produtoPedidos.quantidade}} {{produtoPedidos.produto.unidadeMedida}}</label>
-				                	<label ng-if="produtoPedidos.produto.nome">QNTD:</label>				          				                	
-				                	<input ng-if="produtoPedidos.produto.nome"  type="text" size="3"  ng-model="produtoPedidos.quantidadeNew" ng-keyup="calculaTotal(produtoPedidos, pedido)" >
-				                						                	
-		                </div>			            
-		        </div>
-		        <div class="form-group" ng-if="pedido.total != 0">
-		        	<label>Valor Total: </label>
-		        	<label>{{pedido.total |  currency}}</label>
-		        	<button type="button" has-authority="ROLE_ADMIN"
-		                                 ng-click="ShowHide()"
-		                                class="btn btn-primary btn-sm">
-		        	<span class="glyphicon glyphicon-pencil" ></span>
-		        	</button>
-		        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
-		        	
-		        </div>
-		        
-		        <div class="modal-footer">
-		        	<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-success" ng-click="saveParam(1)">
-            			<span class="fa fa-arrow-circle-right"></span>&nbsp;<span translate="controlesApp.pedido.separacao_pedido">Separacao</span>
-        			</button>
-		    	</div>    
-		</form>
-	</div>
+		<div ng-repeat="pedido in pedidos" class="col-xs-3" ng-class-odd="'alert alert-success'" ng-class-even="'alert alert-warning'">
+		
+			<form name="editForm" role="form" novalidate ng-submit="save(pedido)">   
+			        <jh-alert-error></jh-alert-error>
+			        <div class="form-group" ng-show="pedido.id">
+			            <h1><label for="id" translate="global.field.id">ID</label>
+			            {{pedido.id}}</h1>
+			        </div>
+			        <div class="form-group">
+			            <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
+			            {{pedido.cliente_pedido.nome}}
+			        </div>
+			        <div class="form-group" ng-show="pedido.id != null">
+			            <label translate="controlesApp.pedido.dataPedido" for="field_dataPedido">DataPedido</label>            
+			                     {{pedido.dataPedido | date:'shortDate'}}
+			        </div>
+			        <div class="form-group">
+			            <label translate="controlesApp.pedido.dtPrevistaSeparacao" for="field_dtPrevistaSeparacao">DtPrevistaSeparacao</label>            
+			            {{pedido.dtPrevistaSeparacao | date:'shortDate'}}
+			        </div>
+			        <div class="form-group">
+			            <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+			            {{pedido.dtPrevistaEntrega | date:'shortDate'}}
+			        </div>
+			        
+			        
+			        <br>
+			        
+		<div class="form-group div scroll" >        
+           <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Produto</th>
+<!--                     <th>Unidade de Medida</th> -->
+                    <th>Qnt</th>
+                    <th>Nova Qnt</th>                                                                 
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="produtoPedidos in pedido.produtosPedidos" ng-class="{'selected':selection.indexOf($index) != -1}">                	
+                    <td>{{produtoPedidos.produto.nome}}</td>
+<!--                         <td>{{produtoPedidos.produto.unidadeMedida}}</td> -->
+						<td>{{produtoPedidos.quantidade}}</td>
+                        <td>
+                        <div class="form-group">
+                        	
+                        	<input ng-if="produtoPedidos.produto.nome"  type="text" size="3"  ng-model="produtoPedidos.quantidadeNew" ng-keyup="calculaTotal(produtoPedidos, pedido)" >
+                        </div>                        	
+                        </td>                                                                    
+                    	<td></td>
+                </tr>
+            </tbody>
+        </table>        
+        </div>  
+		
+			        
+<!-- 			        <div class="div scroll"> -->
+<!-- 			        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> -->
+<!-- 			        		<div ng-repeat="produtoPedidos in pedido.produtosPedidos">		        				        			            					                		 -->
+<!-- 					            		<button type="button" ng-click="toggle($index, produtoPedidos.produto)"  class="btn btn-danger btn-circle" ng-if="produtoPedidos.produto.nome"> -->
+<!-- 					            			<i class="fa fa-check" ng-if="produtoPedidos.produto.nome"></i>  -->
+<!-- 					            		</button>	            		 -->
+<!-- 					                	<label ng-if="produtoPedidos.produto.nome">{{produtoPedidos.produto.nome}}</label>			                	 -->
+<!-- 					                	<label ng-if="produtoPedidos.produto.nome"> - {{produtoPedidos.quantidade}} {{produtoPedidos.produto.unidadeMedida}}</label> -->
+<!-- 					                	<label ng-if="produtoPedidos.produto.nome">QNTD:</label>				          				                	 -->
+<!-- 					                	<input ng-if="produtoPedidos.produto.nome"  type="text" size="3"  ng-model="produtoPedidos.quantidadeNew" ng-keyup="calculaTotal(produtoPedidos, pedido)" > -->
+					                						                	
+<!-- 			                </div>			             -->
+<!-- 			        </div> -->
+			        <div class="form-group" ng-if="pedido.total != 0">
+			        	<label>Valor Total: </label>
+			        	<label>{{pedido.total |  currency}}</label>
+			        	<button type="button" has-authority="ROLE_ADMIN"
+			                                 ng-click="ShowHide()"
+			                                class="btn btn-primary btn-sm">
+			        	<span class="glyphicon glyphicon-pencil" ></span>
+			        	</button>
+			        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
+			        	
+			        </div>
+			        
+			        <div class="modal-footer">
+			        	<button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-success" ng-click="saveParam(1)">
+	            			<span class="fa fa-arrow-circle-right"></span>&nbsp;<span translate="controlesApp.pedido.separacao_pedido">Separacao</span>
+	        			</button>
+			    	</div>    
+			</form>
+		</div>
+	</div>	
 </div>
 </div>

@@ -2,6 +2,7 @@
 
 angular.module('controlesApp')
     .controller('PedidoController', function ($scope, Pedido, PedidoSearch, ParseLinks) {
+    	$scope.showEqualizar = false;
         $scope.pedidos = [];
         $scope.page = 0;
         $scope.loadAll = function() {
@@ -9,6 +10,9 @@ angular.module('controlesApp')
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
                     $scope.pedidos.push(result[i]);
+                    if(result[i].statusPedido == 'EmProcessoPedido'){
+                    	$scope.showEqualizar = true;
+                    }
                 }
             });
         };
@@ -37,7 +41,9 @@ angular.module('controlesApp')
                     $scope.reset();
                     $('#deletePedidoConfirmation').modal('hide');
                     $scope.clear();
-                });
+                    $scope.showEqualizar = false;
+                    $scope.loadAll();
+                });        	
         };
 
         $scope.search = function () {

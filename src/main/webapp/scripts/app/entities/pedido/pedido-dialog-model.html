@@ -67,18 +67,37 @@
 		
 		<br>
 		<div class="form-group" ng-if="pedido.cliente_pedido">
-        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
-	        <ul>
-	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
-	            		
-	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
-	                		<label>{{produto.nome}}</label>
-	                	
-	                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label>
-	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3" ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                 
-	            </li>
-	        </ul>
-        </div>
+
+           <table class="table table-striped">
+            <thead>
+                <tr>
+                	<th>Selecionar</th>
+                    <th>Produto</th>
+                    <th>Unidade de Medida</th>
+                    <th>Quantidade</th>                    
+                    <th>Valor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
+                	<td><button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button></td>
+                    <td>{{produto.nome}}</td>
+                        <td>{{produto.unidadeMedida}}</td>
+                        <td>
+                        <div class="form-group">
+                        	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3"  ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >
+                        	<button type="button" class="btn btn-success" ng-if="selection.indexOf($index) != -1" ng-click="somar($index,produto);calculaTotal(produtos)"><i class="fa glyphicon-plus" ></i></button>                        	
+                        	<button type="button" class="btn btn-danger" ng-if="selection.indexOf($index) != -1" ng-click="subtrair($index,produto);calculaTotal(produtos)"><i class="fa glyphicon-minus" ></i></button>
+                        	</div>                        	
+                        </td>
+                        <td>{{produto.precoVenda  |  currency}}</td>                                            	
+                    	<td></td>
+                </tr>
+            </tbody>
+        </table>        
+        </div>  
+		
         <div class="form-group" ng-if="pedido.total != 0">
         	<label>Valor Total: </label>
         	<label>{{pedido.total |  currency}}</label>

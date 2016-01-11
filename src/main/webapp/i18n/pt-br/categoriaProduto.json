@@ -12,6 +12,9 @@
             "detail": {
                 "title": "Categoria de Produto"
             },
+            "naoremover": {
+                "deleted": "Esta Categoria de Produto existem produtos vinculados a ela, remova ou altere o produto desvinculando esta categoria"
+            },
             "created": "Categoria de Produto criada com sucesso",
             "deleted": "Categoria de Produto removida com sucesso",
             "updated": "Categoria de Produto alterada com sucesso",

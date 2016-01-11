@@ -8,6 +8,7 @@ import br.com.rexapps.controles.web.rest.util.HeaderUtil;
 import br.com.rexapps.controles.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -119,8 +120,13 @@ public class CategoriaProdutoResource {
     @Timed
     public ResponseEntity<Void> deleteCategoriaProduto(@PathVariable Long id) {
         log.debug("REST request to delete CategoriaProduto : {}", id);
-        categoriaProdutoRepository.delete(id);
-        categoriaProdutoSearchRepository.delete(id);
+        try{
+        	categoriaProdutoRepository.delete(id);
+            categoriaProdutoSearchRepository.delete(id);        	
+        }catch(DataIntegrityViolationException p){        
+        	return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("categoriaProduto.naoremover", id.toString())).build();
+        }
+               
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("categoriaProduto", id.toString())).build();
     }
 

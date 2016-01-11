@@ -57,8 +57,8 @@
         </button>
         <button type="submit"  class="btn btn-info" >
             <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Enviar Para Entrega</span>
-        </button>
-        <button type="button"  class="btn btn-success" ng-click="iniciarSeparacao()" >
+        </button>                
+        <button type="button"  class="btn btn-success" ng-click="iniciarSeparacao()" ng-if="pedido.user_pedido_separacao == null">
             <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Iniciar Separação</span>
         </button>
         
@@ -67,7 +67,6 @@
     <div class="modal fade" id="restantePedidoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form name="deleteForm" ng-submit="confirmDelete(pedido.id)">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                                 ng-click="fecharAlerta()">&times;</button>
@@ -81,7 +80,6 @@
                             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Fechar</span>
                         </button>                        
                     </div>
-                </form>
             </div>
         </div>
     </div>

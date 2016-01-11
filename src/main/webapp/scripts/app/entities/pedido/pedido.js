@@ -34,7 +34,7 @@ angular.module('controlesApp')
                     $modal.open({
                         templateUrl: 'scripts/app/entities/pedido/pedido-dialog-list-separacao.html',
                         controller: 'PedidoSeparacaoListDialogController',
-                        windowClass: 'app-modal-window',
+                        windowClass: 'app-modal-window',                        
                         resolve: {
                             entity: function () {
                                 return {
@@ -59,7 +59,7 @@ angular.module('controlesApp')
                 }]
             })
             .state('pedido.separacao.edit', {
-                parent: 'pedido',
+                parent: 'pedido.separacao',
                 url: '/{id}/edit-separacao',
                 data: {
                     authorities: ['ROLE_USER'],
@@ -180,6 +180,7 @@ angular.module('controlesApp')
                         templateUrl: 'scripts/app/entities/pedido/pedido-dialog.html',
                         controller: 'PedidoDialogController',
                         size: 'lg',
+                        backdrop : 'static',
                         resolve: {
                             entity: function () {
                                 return {

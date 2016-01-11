@@ -108,6 +108,8 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        User userCreated = userRepository.findOne(SecurityUtils.getCurrentUserId());
+        newUser.setCreatedBy(userCreated.getLogin());
         userRepository.save(newUser);
         userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);

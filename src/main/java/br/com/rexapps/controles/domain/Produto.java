@@ -60,10 +60,10 @@ public class Produto implements Serializable {
     @Column(name = "venda_sem_estoque")
     private Boolean vendaSemEstoque;
 
-    @Column(name = "promocao")
-    private Boolean promocao;
+    @Column(name = "removido_logicamente")
+    private Boolean removidoLogicamente;
 
-    @Column(name = "data_cadastro", nullable = false)
+	@Column(name = "data_cadastro", nullable = false)
     private LocalDate dataCadastro;
 
     @Enumerated(EnumType.STRING)
@@ -75,6 +75,15 @@ public class Produto implements Serializable {
 
     @ManyToOne
     private User user;
+    
+
+    public Boolean getRemovidoLogicamente() {
+		return removidoLogicamente;
+	}
+
+	public void setRemovidoLogicamente(Boolean removidoLogicamente) {
+		this.removidoLogicamente = removidoLogicamente;
+	}
 
     public Long getId() {
         return id;
@@ -148,14 +157,6 @@ public class Produto implements Serializable {
         this.vendaSemEstoque = vendaSemEstoque;
     }
 
-    public Boolean getPromocao() {
-        return promocao;
-    }
-
-    public void setPromocao(Boolean promocao) {
-        this.promocao = promocao;
-    }
-
     public LocalDate getDataCadastro() {
         return dataCadastro;
     }
@@ -221,7 +222,7 @@ public class Produto implements Serializable {
             ", precoVenda='" + precoVenda + "'" +
             ", estoque='" + estoque + "'" +
             ", vendaSemEstoque='" + vendaSemEstoque + "'" +
-            ", promocao='" + promocao + "'" +
+            ", removidoLogicamente='" + removidoLogicamente + "'" +
             ", dataCadastro='" + dataCadastro + "'" +
             ", unidadeMedida='" + unidadeMedida + "'" +
             '}';

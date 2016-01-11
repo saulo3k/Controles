@@ -69,4 +69,17 @@ public class ClienteProdutoResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     
+	
+	@RequestMapping(value = "/clientes/produtos/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<Void> deleteClienteProduto(@PathVariable Long id) {
+		log.debug("REST request to delete Pedido : {}", id);
+		List<ClienteProduto> lista = clienteProdutoRepository.findAllbyCliente(id);
+		for (ClienteProduto clienteProduto : lista) {
+			clienteProdutoRepository.delete(clienteProduto.getId());	
+		}
+				
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("cliente", id.toString())).build();
+	}
+    
 }

@@ -6,9 +6,10 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
     	$scope.pedidos = [];
     	$scope.Produtospedidos = []; 
         $scope.page = 0;
-        $scope.produtos = Produto.query();
+        $scope.produtos = Produto.query({page: $scope.page, size: 7000});
         $scope.users = User.query();
-        $scope.clientes = Cliente.query();
+        $scope.clientes = Cliente.query({page: $scope.page, size: 9000});
+        
         $scope.selection = [];   
 		$scope.separados = [];
         
@@ -55,11 +56,24 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         
         $scope.buscarPrecosExclusivos = function(id){			
         	ClienteProduto.get({id : id}, function(result, headers) {
-                for (var i = 0; i < result.length; i++) {                	                 	                	
-                	$scope.clienteProdutos.push(result[i]);
+                for (var i = 0; i < result.length; i++) {                
+                	var clienteProd = result[i];
+                	$scope.clienteProdutos.push(clienteProd);               
+                	var keepGoing = true;
+                	
+                	for (var j = 0; j < $scope.produtos.length; j++) {
+                			var valueProduto = $scope.produtos[j];
+            				if(keepGoing){
+	            				if(valueProduto.id == clienteProd.produto.id){
+		    						valueProduto.precoVenda = clienteProd.precoVenda;		    						
+		    						keepGoing = false;
+		    					}
+            				}
+                	}	                	
                 }
         	});
-        };                        
+        };    
+                        
         
         $scope.valoresAntigos = [];       
         $scope.$watch('Produtospedidos',  function(newValue, oldValue) {

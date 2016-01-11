@@ -129,7 +129,7 @@ angular.module('controlesApp')
                     }).result.then(function(result) {
                         $state.go('cliente', null, { reload: true });
                     }, function() {
-                        $state.go('^');
+                        $state.go('cliente');
                     })
                 }]
             });

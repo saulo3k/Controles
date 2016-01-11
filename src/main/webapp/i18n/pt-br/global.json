@@ -11,7 +11,10 @@
                 "cliente": "Cliente",
                 "email": "Email",
                 "pedido": "Pedido",
+                "separar": "Separar Pedido",
+                "entregar": "Entregar Pedido",
                 "estoque": "Estoque",
+                "usuario": "Usuários/Funcionários",
                 "additionalEntity": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

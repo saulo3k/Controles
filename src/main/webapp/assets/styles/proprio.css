@@ -357,7 +357,7 @@ table.dataTable thead .sorting:after {
 }
 
 .selected {
-    background-color: #F8DEBD;
+    background-color: #F8DEBD !important;    
 }
 .corFonte {
 	background-color: #4cae4c;	

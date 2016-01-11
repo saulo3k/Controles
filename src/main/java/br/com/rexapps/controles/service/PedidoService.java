@@ -141,9 +141,11 @@ public class PedidoService {
 		Set<ProdutosPedidos> produtosPedidosSeremRemovidos = new HashSet<>();
 
 		produtosPedidosSeremRemovidos = pedidoProdutoRepository.findByIdPedidos(pedido.getId());
+		
 		for (ProdutosPedidos produtosremover : produtosPedidosSeremRemovidos) {
 			pedidoProdutoRepository.delete(produtosremover.getId());
 			pedidoProdutoRepository.flush();
+
 		}
 
 		Set<ProdutosPedidos> produtosPedidos = new HashSet<>();

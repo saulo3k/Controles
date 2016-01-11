@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 
 import br.com.rexapps.controles.domain.Pedido;
-import br.com.rexapps.controles.domain.enumeration.StatusPedido;
 import br.com.rexapps.controles.repository.PedidoProdutoRepository;
 import br.com.rexapps.controles.repository.PedidoRepository;
 import br.com.rexapps.controles.repository.search.PedidoSearchRepository;
@@ -117,7 +116,7 @@ public class PedidoResource {
 			return createPedido(pedido);
 		}
 		Pedido result = pedidoService.updatePedido(pedido);
-		result.setProdutosPedidos(null);
+		result.setProdutosPedidos(null); 
 		pedidoSearchRepository.save(pedido);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert("pedido", pedido.getId().toString()))
 				.body(result);

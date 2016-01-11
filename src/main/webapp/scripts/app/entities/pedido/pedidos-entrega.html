@@ -95,7 +95,8 @@
                         <button type="submit"
                                 ui-sref="pedido.entrega.edit({id:pedido.id})"
                                 class="btn btn-primary btn-sm">
-                            <span class="fa fa-truck "></span>&nbsp;<span> Entregar</span>
+                            <span class="fa fa-truck "></span>&nbsp;<span ng-if="pedido.dtRealEntrega == null"> Entregar</span>
+                            <span ng-if="pedido.dtRealEntrega != null"> Saiu Para Entrega</span>
                         </button>                        
                     </td>
                 </tr>

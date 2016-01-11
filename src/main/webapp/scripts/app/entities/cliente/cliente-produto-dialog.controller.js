@@ -1,61 +1,55 @@
 'use strict';
 
 angular.module('controlesApp').controller('ClienteProdutoDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Cliente', 'Produto', 'ClienteProduto',
-        function($scope, $stateParams, $modalInstance, entity, Cliente, Produto, ClienteProduto) {
+    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Cliente', 'Produto', 'ClienteProduto', 'ParseLinks',
+        function($scope, $stateParams, $modalInstance, entity, Cliente, Produto, ClienteProduto, ParseLinks) {
         
-    	$scope.produtos = Produto.query();
+    	$scope.produtos = Produto.query({page: $scope.page, size: 7000});
         $scope.selection = [];
         $scope.selectionProdutos = [];
     	$scope.clienteProdutos = [];
-    	
-	    $scope.loadAll = function() {
+    	    
+        
+	    $scope.loadAllClienteProdutos = function() {
+	    	
 	    	var produtoClienteTratamento = [];
-	    	ClienteProduto.get({id : entity}, function(result, headers) {
-    			console.log('sizeclienteProdutos', result.length);
-                for (var i = 0; i < result.length; i++) {                	
-                 	
+	    	
+	    	ClienteProduto.get({id : entity}, function(result, headers) {    			
+                
+	    		for (var i = 0; i < result.length; i++) {
                 	$scope.clienteProdutos.push(result[i]);        			
         			produtoClienteTratamento.push(result[i]);        			        	        
                 }
-                $scope.produtos.$promise.then(function(dataProd) {
-        			angular.forEach(dataProd, function(valueProduto, indexProduto) {
-        				angular.forEach(produtoClienteTratamento, function(clienteProduto, indexClienteProduto) {
+	    		
+	    		$scope.produtos.$promise.then(function(dataProduto) {
+	    			angular.forEach(dataProduto, function(valueProduto, indexProduto) {
+	    				valueProduto.precoAnterior = valueProduto.precoVenda;
+	    				angular.forEach(produtoClienteTratamento, function(clienteProduto, indexClienteProduto) {	    					
 	        				if (clienteProduto.produto.id == valueProduto.id) {
-	        		            $scope.selection.push(indexProduto);    
-	        	                valueProduto.precoVenda = clienteProduto.precoVenda;
-	        	                console.log('valueproduto', clienteProduto.precoVenda);
+	        					$scope.selection.push(indexProduto);	        					
+	        					valueProduto.precoVenda = clienteProduto.precoVenda;
+	        					$scope.selectionProdutos.push(valueProduto);
 	        				}
-        				});
-        			}); 
-        			
-    	        });
+	    				});
+	        		});
+	        	});
+	        	
             });
+	    	
         };
         
-
+        $scope.loadAllClienteProdutos();
         
-    	$scope.selecionarProdutosCarregamento = function() {
-//			console.log('size', $scope.clienteProdutos.length);
-//			console.log('sizeProdutos', $scope.produtos.length);
-////    		angular.forEach($scope.produtos, function(valueProduto, indexProduto) {
-//    			angular.forEach($scope.clienteProdutos, function(valueClienteProduto, indexClienteProduto) {
-//    				console.log('entrou no for 1', valueClienteProduto);
-//    			});
-////    		});
-    	};
-    	
-    	$scope.selecionarProdutosCarregamento();
     	
         $scope.toggle = function (idx, produto) {
             var pos = $scope.selection.indexOf(idx);
             if (pos == -1) {
-                $scope.selection.push(idx);    
+                $scope.selection.push(idx);                
                 $scope.selectionProdutos.push(produto);
             }else{            	
             	$scope.selection.splice(pos, 1);   
                 var remover = $scope.selectionProdutos.indexOf(produto);  
-                if(remover > -1){                		
+                if(remover > -1) {                		
                 	$scope.selectionProdutos.splice(remover, 1);
                 }	                
             }
@@ -68,16 +62,17 @@ angular.module('controlesApp').controller('ClienteProdutoDialogController',
 
         $scope.save = function () {
         	var cliente = {id: entity};
-        	angular.forEach($scope.selectionProdutos, function(valueProduto, indexProduto) {
-        		console.log('Prod',valueProduto.precoVenda);        		
-                var clienteProduto = {cliente: cliente, produto: valueProduto, precoVenda: valueProduto.precoVenda};
-            	console.log('marconi',clienteProduto);   
-                ClienteProduto.update(clienteProduto, onSaveFinished);               
-        	});
+        	ClienteProduto.delete({id: entity}, function () {
+        		angular.forEach($scope.selectionProdutos, function(valueProduto, indexProduto) {        		        	
+                    var clienteProduto = {cliente: cliente, produto: valueProduto, precoVenda: valueProduto.precoVenda};   
+                    ClienteProduto.update(clienteProduto, onSaveFinished);               
+            	});
+            });        	
         };
 
         $scope.clear = function() {
             $modalInstance.dismiss('cancel');
         };
-        $scope.loadAll();
+        
+        
 }]);

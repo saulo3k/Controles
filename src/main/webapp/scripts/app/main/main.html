@@ -1,6 +1,7 @@
 <div ng-cloak>
     <div class="row">    
 		<div class="col-lg-3 col-md-6">
+				<a ui-sref="pedido">
                  <div class="panel panel-primary">
                      <div class="panel-heading">
                          <div class="row">
@@ -13,17 +14,18 @@
                              </div>
                          </div>
                      </div>
-                     <a ui-sref="pedido">
+                     
                          <div class="panel-footer">
                              <span class="pull-left">Fazer Pedidos</span>
                              <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                              <div class="clearfix"></div>
                          </div>
-                     </a>
+                
                  </div>
              </div>
-             
+             </a>
              <div class="col-lg-3 col-md-6">
+             	 <a ui-sref="pedido.separacao">
                    <div class="panel panel-green">
                        <div class="panel-heading">
                            <div class="row">
@@ -38,17 +40,19 @@
                                
                            </div>
                        </div>
-                       <a ui-sref="pedido.separacao">
+                       
                            <div class="panel-footer">
                                <span class="pull-left">Separar Pedidos</span>
                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                <div class="clearfix"></div>
                            </div>
-                       </a>
+                    
                    </div>
+                   </a>
                </div>
                
                <div class="col-lg-3 col-md-6">
+                    <a ui-sref="pedido.entrega">
                    <div class="panel panel-yellow">
                        <div class="panel-heading"  style="height: 118px">
                            <div class="row">
@@ -61,17 +65,18 @@
                                </div>
                            </div>
                        </div>
-                       <a ui-sref="pedido.entrega">
+                 
                            <div class="panel-footer">
                                <span class="pull-left">Fazer Entrega</span>
                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                <div class="clearfix"></div>
-                           </div>
-                       </a>
+                           </div>                       
                    </div>
+                   </a>
                </div>
                
                <div class="col-lg-3 col-md-6" >
+               <a ui-sref="estoque">
                    <div class="panel panel-primary">
                        <div class="panel-heading"  style="height: 118px">
                            <div class="row">
@@ -80,22 +85,24 @@
                                </div>
                                <div class="col-xs-9 text-right">
                                    <div class="huge">{{quantidadeEstoque}}</div>
-                                   <div>Estoque</div>
+                                   <div>Quantidade Estoque</div>
                                </div>
                            </div>
                        </div>
-                       <a ui-sref="estoque">
+                       
                            <div class="panel-footer">
                                <span class="pull-left">Controlar Estoque</span>
                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                <div class="clearfix"></div>
                            </div>
-                       </a>
+                       
                    </div>
+                   </a>
                </div>	    
 	    </div>
 	    <div class="row" has-authority="ROLE_ADMIN">
 	    	<div class="col-lg-3 col-md-6" >
+	    	<a ui-sref="produto">
                    <div class="panel panel-green">
                        <div class="panel-heading"  style="height: 118px">
                            <div class="row">
@@ -108,16 +115,17 @@
                                </div>
                            </div>
                        </div>
-                       <a ui-sref="produto">
+                       
                            <div class="panel-footer">
                                		<span class="pull-left">Cadastrar produtos</span>
                                		<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 	<div class="clearfix"></div>
                            </div>
-                       </a>
                    </div>
+                   </a>
                </div>
                <div class="col-lg-3 col-md-6" >
+               <a ui-sref="user-management">
                    <div class="panel panel-yellow">
                        <div class="panel-heading"  style="height: 118px">
                            <div class="row">
@@ -129,19 +137,19 @@
                                    <div>Usuários/Funcionários</div>
                                </div>
                            </div>
-                       </div>
-                       <a href="#">
+                       </div>                       
                            <div class="panel-footer">
-                           	   <a ui-sref="user-management">
+                           	   
                                		<span class="pull-left">Cadastrar usuários no sistema</span>
                                		<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                		<div class="clearfix"></div>
-                               </a>		
-                           </div>
-                       </a>
+                               
+                           </div>                        
                    </div>
+                   </a>		
                </div>               
                <div class="col-lg-3 col-md-6" >
+               <a ui-sref="categoriaProduto">
                    <div class="panel panel-primary">
                        <div class="panel-heading"  style="height: 118px">
                            <div class="row">
@@ -154,46 +162,45 @@
                                </div>
                            </div>
                        </div>
-                       <a href="#">
                            <div class="panel-footer">
-                           	   <a ui-sref="categoriaProduto"> 
-                               	<span class="pull-left">Cadastrar categorias de produtos </span>
+                           	    
+                               	<span class="pull-left">Cadastrar categorias produtos </span>
                                	<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                	<div class="clearfix"></div>
-                               </a>
+
                            </div>
-                       </a>
                    </div>
+ 					</a>
                </div>
                
                <div class="col-lg-3 col-md-6">
-                 <div class="panel panel-green">
-                     <div class="panel-heading" style="height: 118px">
-                         <div class="row">
-                             <div class="col-xs-3">                              
-                                 <i class="fa fa-user fa-5x"></i>
-                             </div>
-                             <div class="col-xs-9 text-right">
-                                 <div class="huge" >{{quantidadeCliente}}</div>
-                                 <div>Clientes</div>
-                             </div>
-                         </div>
-                     </div>
-                     <a ui-sref="cliente">
-                         <div class="panel-footer">
-	                             <span class="pull-left">Cadastrar Clientes</span>
-	                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-	                             <div class="clearfix"></div>
-                         </div>
-                     </a>
-                 </div>
+                <div style="background-color: #FFFFFF">              
+	                <a ui-sref="cliente">
+	                 <div class="panel panel-green">
+	                     <div class="panel-heading" style="height: 118px">
+	                         <div class="row">
+	                             <div class="col-xs-3">                              
+	                                 <i class="fa fa-user fa-5x"></i>
+	                             </div>
+	                             <div class="col-xs-9 text-right">
+	                                 <div class="huge" >{{quantidadeCliente}}</div>
+	                                 <div>Clientes</div>
+	                             </div>
+	                         </div>
+	                     </div>
+	                    
+	                         <div class="panel-footer">
+		                             <span class="pull-left">Cadastrar Clientes</span>
+		                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+		                             <div class="clearfix"></div>
+	                         </div>
+	                     
+	                 </div>
+	             </a>
              </div>
-	    </div>
-<!-- 	     <div class="panel panel-default"> -->
-<!--           <div class="panel-heading"> -->
-<!--               <i class="fa fa-bar-chart-o fa-fw"></i> Historico de Pedidos -->
-<!-- 	    <div id="myfirstchart" style="height: 250px;"></div> -->
-<!-- 	    </div> -->
-<!-- 	    </div> -->
-<!-- 	    <script src="scripts/app/graficos/morris-data.js"></script> -->
+             
+             </div>
+             
+                          
+	    </div>	    
 </div>
