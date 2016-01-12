@@ -58,6 +58,7 @@
         </div>
         <br>
         <div class="form-group" ng-if="pedido.cliente_pedido">
+<!--         <input type="text" class="form-control" placeholder="Procurar Produtos" ng-model="searchKeyword"> -->
 
            <table class="table table-striped">
             <thead>
@@ -67,11 +68,12 @@
                     <th>Unidade de Medida</th>
                     <th>Quantidade</th>                    
                     <th>Valor</th>
+
                     <th></th>
                 </tr>
             </thead>
             <tbody >
-                <tr ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}">
+                <tr ng-repeat="produto in produtos | filter: searchKeyword track by $index" ng-class="{'selected':selection.indexOf($index) != -1}">
                 	<td><button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button></td>
                     <td>{{produto.nome}}</td>
                         <td>{{produto.unidadeMedida}}</td>
@@ -119,7 +121,7 @@
         <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-primary" ng-click="saveParam(0)">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
-        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-success" ng-click="saveParam(1)">
+        <button type="submit" ng-disabled="editForm.$invalid || editForm.$submitted" class="btn btn-success" ng-click="saveParam(1)" ng-if="pedido.statusPedido == 'EmProcessoPedido' || pedido.id == null">
             <span class="fa fa-arrow-circle-right"></span>&nbsp;<span translate="controlesApp.pedido.separacao_pedido">Separacao</span>
         </button>       
     </div>

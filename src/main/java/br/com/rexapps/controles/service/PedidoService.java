@@ -137,15 +137,23 @@ public class PedidoService {
 	}
 
 	public Pedido updatePedido(Pedido pedido) {
-
-		Set<ProdutosPedidos> produtosPedidosSeremRemovidos = new HashSet<>();
-
-		produtosPedidosSeremRemovidos = pedidoProdutoRepository.findByIdPedidos(pedido.getId());
 		
-		for (ProdutosPedidos produtosremover : produtosPedidosSeremRemovidos) {
+		Pedido pedidoAntigo = pedidoRepository.getOne(pedido.getId());
+		
+		Set<ProdutosPedidos> produtosPedidosSeremRemovidos = new HashSet<>();
+		
+		if(pedido.getStatusPedido().equals(StatusPedido.EmProcessoPedido) && 
+		   (pedidoAntigo.getStatusPedido().equals(StatusPedido.Separacao) || pedidoAntigo.getStatusPedido().equals(StatusPedido.EmSeparacao) || pedidoAntigo.getStatusPedido().equals(StatusPedido.Romaneio))){
+			//Devolver estoque
+			for (ProdutosPedidos produtosPedidos : pedidoAntigo.getProdutosPedidos()) {			
+				estoqueService.devolverProdutoEstoque(produtosPedidos.getProduto(), produtosPedidos.getQuantidade(), pedidoAntigo);
+			}
+		}
+		
+		for (ProdutosPedidos produtosremover : pedidoAntigo.getProdutosPedidos()) {
 			pedidoProdutoRepository.delete(produtosremover.getId());
-			pedidoProdutoRepository.flush();
-
+			pedidoAntigo.setProdutosPedidos(null);
+			pedidoRepository.save(pedidoAntigo);
 		}
 
 		Set<ProdutosPedidos> produtosPedidos = new HashSet<>();
@@ -163,6 +171,7 @@ public class PedidoService {
 			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido_separacao());
 		}
 		pedidoRepository.save(pedido);
+		pedidoRepository.flush();
 		return pedido;
 	}
 	

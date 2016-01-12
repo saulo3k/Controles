@@ -24,9 +24,9 @@ public class CategoriaProduto implements Serializable {
     @Column(name = "nome", length = 255, nullable = false)
     private String nome;
 
-    @NotNull
+
     @Size(max = 255)
-    @Column(name = "descricao", length = 255, nullable = false)
+    @Column(name = "descricao", length = 255)
     private String descricao;
 
     @NotNull

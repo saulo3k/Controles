@@ -6,12 +6,12 @@
 </div>    
 	
 	<div class="modal-body">	
-	<label>Produtos utilizados:</label>
-	<div class="row">	    
-		<div ng-repeat="produ in separados" class="col-md-1" ng-class-odd="'alert alert-success'" ng-class-even="'alert alert-info'">
-			{{produ.nome}}:{{produ.estoque}}			
-		</div>	
-	</div>	
+<!-- 	<label>Produtos utilizados:</label> -->
+<!-- 	<div class="row">	     -->
+<!-- 		<div ng-repeat="produ in separados" class="col-md-1" ng-class-odd="'alert alert-success'" ng-class-even="'alert alert-info'"> -->
+<!-- 			{{produ.nome}}:{{produ.estoque}}			 -->
+<!-- 		</div>	 -->
+<!-- 	</div>	 -->
 	<div class="row">
 	
 		<div ng-repeat="pedido in pedidos" class="col-xs-3" ng-class-odd="'alert alert-success'" ng-class-even="'alert alert-warning'">
@@ -47,7 +47,6 @@
             <thead>
                 <tr>
                     <th>Produto</th>
-<!--                     <th>Unidade de Medida</th> -->
                     <th>Qnt</th>
                     <th>Nova Qnt</th>                                                                 
                     <th></th>
@@ -59,9 +58,8 @@
 <!--                         <td>{{produtoPedidos.produto.unidadeMedida}}</td> -->
 						<td>{{produtoPedidos.quantidade}}</td>
                         <td>
-                        <div class="form-group">
-                        	
-                        	<input ng-if="produtoPedidos.produto.nome"  type="text" size="3"  ng-model="produtoPedidos.quantidadeNew" ng-keyup="calculaTotal(produtoPedidos, pedido)" >
+                        <div class="form-group">                        	
+                        	<input ng-if="produtoPedidos.produto.nome"  type="number" style="width: 50px;" size="3"  ng-model="produtoPedidos.quantidadeNew" ng-change="calculaTotal(produtoPedidos, pedido)" >
                         </div>                        	
                         </td>                                                                    
                     	<td></td>
@@ -84,8 +82,8 @@
 					                						                	
 <!-- 			                </div>			             -->
 <!-- 			        </div> -->
-			        <div class="form-group" ng-if="pedido.total != 0">
-			        	<label>Valor Total: </label>
+			        <div class="form-group" align="right" ng-if="pedido.total != 0">
+			        	<label>Valor Total Pedido: </label>
 			        	<label>{{pedido.total |  currency}}</label>
 			        	<button type="button" has-authority="ROLE_ADMIN"
 			                                 ng-click="ShowHide()"

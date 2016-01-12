@@ -55,6 +55,7 @@ public class CategoriaProdutoResource {
         if (categoriaProduto.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new categoriaProduto cannot already have an ID").body(null);
         }
+        categoriaProduto.setAtiva(true);
         CategoriaProduto result = categoriaProdutoRepository.save(categoriaProduto);
         categoriaProdutoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/categoriaProdutos/" + result.getId()))

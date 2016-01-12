@@ -68,9 +68,10 @@ public class EstoqueService {
 		estoqueAdicao.setDataAtual(LocalDate.now());
 		estoqueAdicao.setEstoque_produto(produto);
 		estoqueAdicao.setEstoque_user(userRepository.findOne(SecurityUtils.getCurrentUserId()));
-		estoqueAdicao.setMotivo("Remoção do pedido:" + pedido.getId() + "Que se encontrava em:" + pedido.getStatusPedido().name());
-		estoqueAdicao.setOperacao(OperacaoEstoque.Saida);
+		estoqueAdicao.setMotivo("Devolução de Produto por Remoção do pedido:" + pedido.getId() + "Que se encontrava em:" + pedido.getStatusPedido().name());
+		estoqueAdicao.setOperacao(OperacaoEstoque.Entrada);
 		estoqueAdicao.setQuantidadeAtual(produto.getEstoque());
+		estoqueAdicao.setQuantidade(quantidade);
 		Long total = produto.getEstoque() + quantidade;
 		estoqueAdicao.setQuantidadeAposMovimentacao(total);
 		

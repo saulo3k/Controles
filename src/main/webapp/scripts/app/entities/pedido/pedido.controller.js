@@ -16,6 +16,18 @@ angular.module('controlesApp')
                 }
             });
         };
+        
+        $scope.puxarPedidos= function() {        	
+            Pedido.query({page: $scope.page, size: 2000}, function(result, headers) {
+                $scope.links = ParseLinks.parse(headers('link'));
+                for (var i = 0; i < result.length; i++) {
+                    $scope.pedidos.push(result[i]);
+                    if(result[i].statusPedido == 'EmProcessoPedido'){
+                    	$scope.showEqualizar = true;
+                    }
+                }
+            });
+        }
 		    	
         $scope.reset = function() {
             $scope.page = 0;

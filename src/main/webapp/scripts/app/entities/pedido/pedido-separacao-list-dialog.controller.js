@@ -14,8 +14,8 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
 		$scope.separados = [];
         
 		$scope.loadAll = function() {
-        	PedidoEqualizar.query({page: $scope.page, size: 50}, function(result, headers) {
-             	
+        	PedidoEqualizar.query({page: $scope.page, size: 500}, function(result, headers) {
+        		console.log("passou aqui");
                 for (var i = 0; i < result.length; i++) {
                     
                 	$scope.pedidos.push(result[i]);
@@ -54,21 +54,18 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         
         $scope.produtoPrecoExclusivo = {};
         
-        $scope.buscarPrecosExclusivos = function(id){			
+        $scope.buscarPrecosExclusivos = function(id){	
+        	console.log("oi",id);
         	ClienteProduto.get({id : id}, function(result, headers) {
                 for (var i = 0; i < result.length; i++) {                
                 	var clienteProd = result[i];
                 	$scope.clienteProdutos.push(clienteProd);               
-                	var keepGoing = true;
                 	
                 	for (var j = 0; j < $scope.produtos.length; j++) {
-                			var valueProduto = $scope.produtos[j];
-            				if(keepGoing){
-	            				if(valueProduto.id == clienteProd.produto.id){
-		    						valueProduto.precoVenda = clienteProd.precoVenda;		    						
-		    						keepGoing = false;
-		    					}
-            				}
+            			var valueProduto = $scope.produtos[j];
+        				if(valueProduto.id == clienteProd.produto.id){
+    						valueProduto.precoVenda = clienteProd.precoVenda;		    						
+    					}            				
                 	}	                	
                 }
         	});
@@ -90,10 +87,39 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         $scope.calculaTotal = function (produtoPedidoParam, pedido) {
         	        	        	
         	pedido.total = 0;
-        	
+        	        	
         	for(var i=0; i < pedido.produtosPedidos.length; i++) {
         		
         		var produtoPedido = pedido.produtosPedidos[i];
+        		
+        		var precoVenda = Number(produtoPedido.produto.precoVenda || 0);
+        		
+            	for (var j = 0; j < $scope.produtos.length; j++) {
+        			var valueProduto = $scope.produtos[j];
+    				if(valueProduto.id == produtoPedido.produto.id){
+    					precoVenda = valueProduto.precoVenda;
+    					if(produtoPedido.quantidadeNew != null){
+    	        	 		pedido.total += produtoPedido.quantidadeNew * precoVenda;  
+    	        	 	}else{
+    	        	 		pedido.total += produtoPedido.quantidade * precoVenda;
+    	        	 	}
+					}            				
+            	}
+        		    	    			        	 	
+        		        		
+//                for(var g = 0; g < $scope.clienteProdutos.length; g++) {
+//                	var clienteProd = $scope.clienteProdutos[g];
+//                	if(pedido.cliente_pedido.id == clienteProd.cliente.id) {
+//                    	console.log("clienteProd", clienteProd.cliente.id);
+//                    	
+//                    	console.log("produtoPedido.produto.id",produtoPedido.produto.nome);
+//	                	if(produtoPedido.produto.id == clienteProd.produto.id) {
+//	                		
+//
+////	    	    			break;
+//	    	    		}	
+//                	}
+//                } 
         		
         		if(produtoPedidoParam.produto.id == produtoPedido.produto.id) {        			        			        			        	
             		
@@ -105,25 +131,11 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
     						var newQuantidade = new Number(produtoPedidoParam.quantidadeNew);            						   						
     						var estoque = separado.estoque + oldQuantidade;
     						separado.estoque = estoque - newQuantidade;
-        					produtoPedidoParam.quantidade = newQuantidade;
                 			break;		
             			}            			
             		}        
         		}
-        		              
-        		var precoVenda = Number(produtoPedido.produto.precoVenda || 0);
-                for(var g = 0; g < $scope.clienteProdutos.length; g++) {
-                	var clienteProd = $scope.clienteProdutos[g];
-                	if(pedido.cliente_pedido.id == clienteProd.cliente.id) {
-	                	if(produtoPedido.produto.id == clienteProd.produto.id) {	                		
-	    	    			precoVenda = clienteProd.precoVenda;
-	    	    			break;
-	    	    		}	
-                	}
-                }                            	                                                                             
-    			
-        		var quantidade = Number(produtoPedido.quantidade || 0);
-        		pedido.total = pedido.total + (precoVenda  * quantidade);	        		        	
+        		                                         	                                                                                 	
         	}                   
         }                           
                                       
@@ -134,38 +146,14 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         };                       
         $scope.separados = [];
         
-        $scope.produtosSelecionadosPedidos = [];        
-                
-        $scope.toggle = function (idx, produto) {
-            var pos = $scope.selection.indexOf(idx);
-            if (pos == -1) {
-                $scope.selection.push(idx);                
-                $scope.produtosSelecionadosPedidos.push(produto);
-            } else {
-                $scope.selection.splice(pos, 1);
-                var remover = $scope.produtosSelecionadosPedidos.splice(pos, 1);
-                for (var i=0; i < $scope.pedido.produtosPedidos.length;i++){
-                	
-                	if(remover[0].id == $scope.pedido.produtosPedidos[i].produto.id){                		
-                		 $scope.pedido.produtosPedidos.splice(i, 1);
-                	}	
-                };
-            }
-        };
+        $scope.produtosSelecionadosPedidos = [];               
              
 
         var onSaveFinished = function (result) {
             $scope.$emit('controlesApp:pedidoUpdate', result);
-//            $modalInstance.close(result);
         };
         
-        $scope.saveParam = function (acao) {
-        	if(acao == 0){
-        		$scope.status = 'EmProcessoPedido';	
-        	}else if(acao == 1){
-        		$scope.status = 'EmSeparacao';
-        	}
-        };
+        
 
         $scope.IsHidden = false;
         $scope.ShowHide = function () {            
@@ -175,17 +163,25 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         $scope.save = function (pedido) {
             if (pedido.id != null) {
             	pedido.statusPedido = 'EmSeparacao';
+            	for(var i=0; i < pedido.produtosPedidos.length; i++) {
+            		if(pedido.produtosPedidos[i].quantidadeNew != null){
+            			console.log("entrou aqui");
+            			pedido.produtosPedidos[i].quantidade = pedido.produtosPedidos[i].quantidadeNew;	
+            		}            		 
+            	}
                 Pedido.update(pedido, onSaveFinished);
                 var pos = $scope.pedidos.indexOf(pedido); 
                 console.log(pos);
                 var remover = $scope.pedidos.splice(pos, 1);
-                console.log(remover);
+                if($scope.pedidos.length == 0){                
+                	$scope.clear(); 
+                }
             }
         };
 
-        $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
-            console.log('oi', $window);
+        $scope.clear = function() {    		
+            $modalInstance.dismiss('cancel');            
             $window.location.href = '#/pedidos';
+            Pedido.query();
         };                                        
 }]);

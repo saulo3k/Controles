@@ -399,7 +399,7 @@ ul
     }
 }
  div.scroll {
-    width: 300px;
+    width: auto;
     height: 250px;
     overflow: scroll;
  }

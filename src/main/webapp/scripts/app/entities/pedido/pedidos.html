@@ -37,38 +37,20 @@
                 </button>                
             </div>
             <div class="col-md-4" style="height:84px">
-                <form name="searchForm" class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
-                        <button class="btn btn-info" ng-click="search()">
-                    		<span class="glyphicon glyphicon-search"> Procurar Pedidos</span>                     		
-                    	</button>
-                    </div>
-                </form>
+<!--                 <form name="searchForm" class="form-inline"> -->
+<!--                     <div class="form-group"> -->
+<!--                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" > -->
+<!--                         <button class="btn btn-info" ng-click="search()"> -->
+<!--                     		<span class="glyphicon glyphicon-search"> Procurar Pedidos</span>                     		 -->
+<!--                     	</button> -->
+<!--                     </div> -->
+<!--                 </form> -->
             </div>
         </div>
     </div>
 	<br>
-    
-<!--     <div class="container"> -->
-<!--         <div class="row"> -->
-<!--             <div class="col-md-4"> -->
-<!--                 <button class="btn btn-primary" ui-sref="pedido.new"> -->
-<!--                     <span class="glyphicon glyphicon-flash"></span> <span translate="controlesApp.pedido.home.createLabel">Create a new Pedido</span> -->
-<!--                 </button> -->
-<!--             </div> -->
-<!--             <div class="col-md-8"> -->
-<!--                 <form name="searchForm" class="form-inline"> -->
-<!--                     <div class="form-group"> -->
-<!--                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="query"> -->
-<!--                     </div> -->
-<!--                     <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Search a Pedido</span> -->
-<!--                     </button> -->
-<!--                 </form> -->
-<!--             </div> -->
-<!--         </div> -->
-<!--     </div> -->
-
+        
+<input type="text" class="form-control" placeholder="Procurar Pedidos" ng-model="searchKeyword" style="width: auto" ng-click="puxarPedidos()">
     <div class="modal fade" id="deletePedidoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -93,6 +75,7 @@
             </div>
         </div>
     </div>
+    
 
     <div class="table-responsive">
         <table class="table table-striped">
@@ -117,7 +100,7 @@
                 </tr>
             </thead>
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                <tr ng-repeat="pedido in pedidos track by pedido.id">
+                <tr ng-repeat="pedido in pedidos | filter: searchKeyword ">
                     <td><a ui-sref="pedido.detail({id:pedido.id})">{{pedido.id}}</a></td>
                     <td><a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a></td>
                     	<td>{{pedido.statusPedido}}</td>

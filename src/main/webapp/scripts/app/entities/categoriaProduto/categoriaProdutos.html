@@ -74,8 +74,7 @@
                 <tr>
                     <th translate="global.field.id">ID</th>
                     <th translate="controlesApp.categoriaProduto.nome">Nome</th>
-                    <th translate="controlesApp.categoriaProduto.descricao">Descricao</th>
-                    <th translate="controlesApp.categoriaProduto.ativa">Ativa</th>
+                    <th translate="controlesApp.categoriaProduto.descricao">Descricao</th>                    
                     <th></th>
                 </tr>
             </thead>
@@ -84,10 +83,10 @@
                     <td><a ui-sref="categoriaProduto.detail({id:categoriaProduto.id})">{{categoriaProduto.id}}</a></td>
                     <td>{{categoriaProduto.nome}}</td>
                     <td>{{categoriaProduto.descricao}}</td>
-                    <td>
-                    	<button type="button" class="btn btn-success btn-circle" ng-show="{{categoriaProduto.ativa == true}}"></button>
-                    	<button type="button" class="btn btn-danger btn-circle" ng-show="{{categoriaProduto.ativa == false}}"></button>
-                    </td>
+<!--                     <td> -->
+<!--                     	<button type="button" class="btn btn-success btn-circle" ng-show="{{categoriaProduto.ativa == true}}"></button> -->
+<!--                     	<button type="button" class="btn btn-danger btn-circle" ng-show="{{categoriaProduto.ativa == false}}"></button> -->
+<!--                     </td> -->
                     <td>
                         <button type="submit"
                                 ui-sref="categoriaProduto.detail({id:categoriaProduto.id})"
