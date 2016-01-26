@@ -38,7 +38,7 @@ import br.com.rexapps.controles.domain.enumeration.StatusPedido;
 @JsonIgnoreProperties( ignoreUnknown = true )
 public class Pedido implements Serializable {
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
@@ -98,6 +98,12 @@ public class Pedido implements Serializable {
     
 	@Column(name = "valor_pedido")
     private BigDecimal total;
+	
+	@Column(name = "valor_desconto")
+    private BigDecimal desconto;
+	
+	@Column(name = "valor_total_desconto")
+    private BigDecimal totalDesconto;
 
 	@ManyToMany    
     		@JoinTable(name = "pedido_diassemana",
@@ -279,5 +285,19 @@ public class Pedido implements Serializable {
 		this.user_pedido_entrega = user_pedido_entrega;
 	}
     
+    public BigDecimal getDesconto() {
+		return desconto;
+	}
 
+	public void setDesconto(BigDecimal desconto) {
+		this.desconto = desconto;
+	}
+
+	public BigDecimal getTotalDesconto() {
+		return totalDesconto;
+	}
+
+	public void setTotalDesconto(BigDecimal totalDesconto) {
+		this.totalDesconto = totalDesconto;
+	}
 }

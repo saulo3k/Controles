@@ -34,6 +34,8 @@
             "cliente_endereco": "Endereço",
             "cliente_cep": "Cep",
             "cliente_cidade": "Cidade",
+            "cliente_numero": "Número",
+            "cliente_complemento": "Complemento",
             "cliente_estado": "Estado",
             "cliente_contato": "Nome para Contato",
             "cliente_telefone": "Telefone",            

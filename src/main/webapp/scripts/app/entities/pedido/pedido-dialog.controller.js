@@ -1,19 +1,18 @@
 'use strict';
 
 angular.module('controlesApp').controller('PedidoDialogController',
-    ['$scope', '$stateParams', '$modalInstance',  'entity', 'Pedido', 'Produto', 'User', 'Cliente', 'ClienteProduto', 'ParseLinks', '$location', '$anchorScroll',
+    ['$scope', '$stateParams', '$modalInstance',  'entity', 'Pedido', 'Produto', 'User', 'Cliente', 'ClienteProduto', 'ParseLinks', '$location', '$anchorScroll',  
         function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, ClienteProduto, ParseLinks, $location, $anchorScroll) {
     	
         $scope.pedido = entity;        
         $scope.produtos = Produto.query({page: $scope.page, size: 7000});
         $scope.clientes = Cliente.query({page: $scope.page, size: 9000, sort: "nome" + ',' + 'asc'});
-                       
+        $scope.categorias = [];               
         $scope.load = function(id) {
             Pedido.get({id : id}, function(result) {            	
                 $scope.pedido = result;
             });                  
-        };
-                
+        };                             
         
         $scope.clienteProdutos = [];
         
@@ -40,7 +39,7 @@ angular.module('controlesApp').controller('PedidoDialogController',
         $scope.selection = [];
         $scope.produtosSelecionadosPedidos = [];         
         
-        $scope.somar = function (idx, produto) {        
+        $scope.somar = function (produto) {        
         	for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
         		if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
         			if(produto.quantidade == null){
@@ -54,7 +53,7 @@ angular.module('controlesApp').controller('PedidoDialogController',
         	}        	        	  
         }
         
-        $scope.subtrair = function (idx, produto) {
+        $scope.subtrair = function (produto) {
         	
         	for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
         		if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
@@ -67,6 +66,23 @@ angular.module('controlesApp').controller('PedidoDialogController',
                 	}       		
         		}
         	}        	        	  
+        }
+        
+        $scope.apagarPesquisa = function () {        	
+        	$scope.searchKeyword = null;
+        }
+        
+        $scope.isActive =[];                
+        $scope.filtrarCategoria = function (categoria, ind) {        	
+        	
+        	if(categoria == "Todos os Produtos"){
+        		$scope.category = null;	
+        	}else{
+        		$scope.category = categoria;
+        	}        	
+        	for(var i=0; i < $scope.isActive.length; i++){
+        		  $scope.isActive[i] = i===ind;        	      
+        	}
         }
                 
         $scope.toggle = function (idx, produto, pedido) {
@@ -83,7 +99,7 @@ angular.module('controlesApp').controller('PedidoDialogController',
                 
                 for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
                 	if($scope.pedido.produtosPedidos[i].produto.id == produto.id){
-                		produto.quantidade = 0;
+                		produto.quantidade = null;
                 		$scope.pedido.produtosPedidos.splice(i, 1);
                 	}	
                 }
@@ -92,26 +108,38 @@ angular.module('controlesApp').controller('PedidoDialogController',
             $scope.calculaTotal($scope.produtos);
         };
         
+        $scope.calcularDesconto = function (pedido) {        	        	
+        	if(typeof pedido.desconto == "undefined"){        		
+        		pedido.totalDesconto =  pedido.total;
+        	}else{
+        		pedido.totalDesconto =  pedido.total - pedido.desconto;
+        	}
+        };
+        
         $scope.pedido.total = 0;
-        $scope.setQuantidade = function (idx, produto) {        			
-    			for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
-    				
-    				if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
-    					$scope.pedido.produtosPedidos[i].quantidade = produto.quantidade;        					
-    				}        			
-    			}        	
+        $scope.setQuantidade = function (produto) {
+        	if(typeof produto.quantidade == "undefined") {
+        		produto.quantidade = null;
+        		return false;
+        	}
+			for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
+				
+				if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
+					$scope.pedido.produtosPedidos[i].quantidade = produto.quantidade;        					
+				}        			
+			} 			  
         };
         
         $scope.calculaTotal = function (produtos) {
-        	console.log("calculatotal");
         	$scope.pedido.total = Number(0);
         	angular.forEach(produtos, function(valueProduto, keyProduto) {
         		var precoVenda = Number(valueProduto.precoVenda || 0);
         		var quantidade = Number(valueProduto.quantidade || 0);
         		$scope.pedido.total = $scope.pedido.total + (precoVenda  * quantidade);	
         	});
-                   	
-        }                
+        	$scope.calcularDesconto($scope.pedido);
+        }     
+        
 
         var onSaveFinished = function (result) {
             $scope.$emit('controlesApp:pedidoUpdate', result);
@@ -146,7 +174,9 @@ angular.module('controlesApp').controller('PedidoDialogController',
         				 salvar = false;
         			 }
         		}
-        		
+        		if($scope.pedido.desconto == null || isNaN($scope.pedido.desconto) || typeof $scope.pedido.desconto == "undefined"){
+        			$scope.pedido.totalDesconto =  $scope.pedido.total;
+        		}
         		if(salvar){
 		            if ($scope.pedido.id != null) {            	
 		                Pedido.update($scope.pedido, onSaveFinished);
@@ -173,6 +203,16 @@ angular.module('controlesApp').controller('PedidoDialogController',
 	            
 	        	angular.forEach(dataProd, function(valueProduto, keyProduto) {
 	        		
+	        		if($scope.categorias.length == 0){
+	        			$scope.categorias.push("Todos os Produtos");
+	        			$scope.isActive.push(true);
+	        		}
+	        		
+	        		if($scope.categorias.indexOf(valueProduto.categoriaProduto.nome) == -1){
+	        			$scope.categorias.push(valueProduto.categoriaProduto.nome);
+	        			$scope.isActive.push(false);
+	        		}
+	        		
 	        		if($scope.pedido.id != null) {
 	        			if(entrada) {	        				
 	        				entrada = false;	        				
@@ -181,7 +221,7 @@ angular.module('controlesApp').controller('PedidoDialogController',
 		        		$scope.pedido.$promise.then(function(data) {
 		    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
 		    						if(valueProduto.id == valuePedido.produto.id) {	    							  
-		    				              $scope.selection.push(keyProduto);    
+		    				              $scope.selection.push(valueProduto.id);    
 		    				              $scope.produtosSelecionadosPedidos.push(valuePedido);
 		    				              valueProduto.quantidade = valuePedido.quantidade;
 		    						}
@@ -190,9 +230,35 @@ angular.module('controlesApp').controller('PedidoDialogController',
 	        		}
 	        		
 	            });    	        	
-	        });	
+	        });	        
         };       
         
         $scope.carregarPedido();
          
 }]);
+angular.module('controlesApp').directive('focusOnShow', function($timeout) {
+    return {
+        restrict: 'A',
+        link: function($scope, $element, $attr) {
+            if ($attr.ngShow){
+                $scope.$watch($attr.ngShow, function(newValue){
+                    if(newValue){
+                        $timeout(function(){
+                            $element.focus();
+                        }, 0);
+                    }
+                })      
+            }
+            if ($attr.ngHide){
+                $scope.$watch($attr.ngHide, function(newValue){
+                    if(!newValue){
+                        $timeout(function(){
+                            $element.focus();
+                        }, 0);
+                    }
+                })      
+            }
+
+        }
+    };
+});

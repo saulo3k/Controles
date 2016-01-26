@@ -3,10 +3,10 @@
 		<div class="panel-heading"> 					   
 			  <div class="container">
 			    <div class="row">
-			        <div class="col-xs-6">
-			            <h1 translate="user-management.home.title">Usuarios/Funcioanrios</h1>
+			        <div class="col-md-4">
+			            <h1 translate="user-management.home.title">Usuários/Funcinários</h1>
 			        </div>
-			        <div class="col-xs-6">
+			        <div class="col-md-4">
 			            <i class="fa fa-male fa-5x"/>
 			        </div>
 			    </div>
@@ -132,8 +132,7 @@
 
                         <div class="form-group">
                             <label translate="user-management.profiles">Profiles</label>
-                            <select class="form-control" multiple name="authority" ng-model="user.authorities"
-                                    ng-options="authority for authority in authorities">
+                            <select class="form-control" multiple name="authority" ng-model="user.authorities" ng-options="authority for authority in authorities">
                             </select>
                         </div>
                     </div>
@@ -178,8 +177,18 @@
             </div>
         </div>
     </div>
-
+    <br>
+	<div class="row">
+  		<div class=".col-xl-1">
+  		<label>Procurar</label>
+			<input type="text" class="form-control" placeholder="Procurar Usuários" ng-model="searchKeyword" style="width: 100%" ng-click="puxarPedidos()">
+			<button class="btn btn-danger"  type="button" ng-click="searchKeyword = null" style="width: 100%">
+              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span>
+        	</button>
+  		</div>
+	</div>
     <div class="table-responsive">
+    	<h3>Usuários</h3>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -196,7 +205,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="user in users track by user.id">
+            <tr ng-repeat="user in users | filter:searchKeyword track by user.id">
                 <td><a ui-sref="user-management-detail({login:user.login})">{{user.id}}</a></td>
                 <td>{{user.login}}</td>
                 <td>{{user.email}}</td>

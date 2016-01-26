@@ -14,6 +14,15 @@ angular.module('controlesApp')
             });
         };
         
+        $scope.puxarPedidos= function() {        	
+        	Estoque.query({page: $scope.page, size: 7000}, function(result, headers) {
+                $scope.links = ParseLinks.parse(headers('link'));
+                for (var i = 0; i < result.length; i++) {
+                    $scope.estoques.push(result[i]);
+                }
+            });                        
+        }
+        
         $scope.loadAllParse = function() {
             Estoque.query({page: $scope.page, size: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));

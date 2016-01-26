@@ -1,48 +1,34 @@
 'use strict';
 
 angular.module('controlesApp').controller('PedidoEntregaDialogController',
-    ['$scope', '$stateParams', '$modalInstance',  'entity', 'Pedido', 'Produto', 'User', 'Cliente', 'PedidoEntrega',
-        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, PedidoEntrega) {
-    	
-        $scope.pedido = entity;        
+    ['$scope', '$stateParams',  'entity', 'Pedido', 'Produto', 'PedidoEntrega','ClienteProduto', 
+        function($scope, $stateParams, entity, Pedido, Produto, PedidoEntrega, ClienteProduto) {
+    	 
+        $scope.pedido = null; 
+        
         $scope.produtos = Produto.query({page: $scope.page, size: 7000});
-        $scope.users = User.query();
-        $scope.clientes = Cliente.query({page: $scope.page, size: 9000});
         $scope.load = function(id) {
             Pedido.get({id : id}, function(result) {            	
                 $scope.pedido = result;
+                $scope.buscarPrecosExclusivos(result.cliente_pedido.id);
+                $scope.carregarPedido(result);            
             });                         
-        };                       
+        };         
+        $scope.load(entity);
+        $scope.puxarPedidos= function() {        	
+        	Pedido.get({id : id, size: 3000}, function(result) {            	
+                $scope.pedido = result;
+            });                        
+        }
+        
         $scope.separados = [];           
         $scope.selection = [];
         $scope.produtosSelecionadosPedidos = [];        
-                
-        $scope.toggle = function (idx, produto) {
-            var pos = $scope.selection.indexOf(idx);
-            if (pos == -1) {
-                $scope.selection.push(idx);                
-                $scope.produtosSelecionadosPedidos.push(produto);
-            } else {
-                $scope.selection.splice(pos, 1);
-                var remover = $scope.produtosSelecionadosPedidos.splice(pos, 1);
-                for (var i=0; i < $scope.pedido.produtosPedidos.length;i++){
-                	
-                	if(remover[0].id == $scope.pedido.produtosPedidos[i].produto.id){                		
-                		 $scope.pedido.produtosPedidos.splice(i, 1);
-                	}	
-                };
-            }
-        };
+        
 
         var onSaveFinished = function (result) {
-            $scope.$emit('controlesApp:pedidoUpdate', result);
-            $modalInstance.close(result);
+            $scope.$emit('controlesApp:pedidoUpdate', result);            
         };               
-
-        $scope.IsHidden = false;
-        $scope.ShowHide = function () {            
-            $scope.IsHidden = $scope.IsHidden ? false : true;
-        }
 
         $scope.save = function () {    		            
             $scope.pedido.statusPedido = 'SaiuParaRomaneio';         
@@ -53,25 +39,43 @@ angular.module('controlesApp').controller('PedidoEntregaDialogController',
             $modalInstance.dismiss('cancel');
         };
         
+        $scope.clienteProdutos = [];
+        $scope.buscarPrecosExclusivos = function(id){			
+        	ClienteProduto.get({id : id}, function(result, headers) {
+                for (var i = 0; i < result.length; i++) {                
+                	var clienteProd = result[i];
+                	$scope.clienteProdutos.push(clienteProd);               
+                	var keepGoing = true;
+                	
+                	for (var j = 0; j < $scope.produtos.length; j++) {
+                			var valueProduto = $scope.produtos[j];
+            				if(keepGoing){
+	            				if(valueProduto.id == clienteProd.produto.id){
+		    						valueProduto.precoVenda = clienteProd.precoVenda;		    						
+		    						keepGoing = false;
+		    					}
+            				}
+                	}	                	
+                }
+        	});
+        };
         
-        $scope.carregarPedido = function () {        		
+        $scope.carregarPedido = function (pedido) {        		
         	
         	$scope.produtosSelecionadosPedidos = [];        
-        	
+        	        	        	        	
 	        $scope.produtos.$promise.then(function(dataProd) {
 	            
 	        	angular.forEach(dataProd, function(valueProduto, keyProduto) {	        		
-	        		$scope.pedido.$promise.then(function(data) {
-	    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
+	    					angular.forEach(pedido.produtosPedidos, function(valuePedido, key) {
 	    						if(valueProduto.id == valuePedido.produto.id) {	    						
 	    				              valueProduto.quantidade = valuePedido.quantidade;	    				              
 	    				              $scope.separados.push(valueProduto);
 	    						}
-	    					});
-	    			});	        		
+	    					});	    			
 	            });    	        	        	
 	        });	    	        	        
         };       
         
-        $scope.carregarPedido();
+            
 }]);

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
-    ['$scope', '$stateParams', '$modalInstance',  'entity', 'Pedido', 'Produto', 'User', 'Cliente','PedidoSeparacao', 'PedidoEqualizar', 'ClienteProduto', '$window',
-        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, PedidoSeparacao, PedidoEqualizar, ClienteProduto, $window) {
+    ['$scope', '$stateParams', '$modalInstance',  'entity', 'Pedido', 'Produto', 'User', 'Cliente','PedidoSeparacao', 'PedidoEqualizar', 'ClienteProduto', '$window', '$timeout',
+        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, PedidoSeparacao, PedidoEqualizar, ClienteProduto, $window, $timeout) {
     	$scope.pedidos = [];
     	$scope.Produtospedidos = []; 
         $scope.page = 0;
@@ -12,14 +12,20 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         
         $scope.selection = [];   
 		$scope.separados = [];
-        
+
+		$scope.calcularDesconto = function (pedido) {
+			if(typeof pedido.desconto == "undefined"){        		
+        		pedido.totalDesconto =  pedido.total;
+        	}else{
+        		pedido.totalDesconto =  pedido.total - pedido.desconto;
+        	}  
+        };
+		
 		$scope.loadAll = function() {
         	PedidoEqualizar.query({page: $scope.page, size: 500}, function(result, headers) {
-        		console.log("passou aqui");
                 for (var i = 0; i < result.length; i++) {
                     
                 	$scope.pedidos.push(result[i]);
-                    var separar = [];
                 	var pedido = result[i];
                 	
                 	$scope.buscarPrecosExclusivos(pedido.cliente_pedido.id);
@@ -54,8 +60,8 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         
         $scope.produtoPrecoExclusivo = {};
         
-        $scope.buscarPrecosExclusivos = function(id){	
-        	console.log("oi",id);
+        $scope.buscarPrecosExclusivos = function(id) {
+        	
         	ClienteProduto.get({id : id}, function(result, headers) {
                 for (var i = 0; i < result.length; i++) {                
                 	var clienteProd = result[i];
@@ -82,10 +88,76 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         	}               
         }, true);
                 
-        
+        $scope.controlaEstoque = function (produtoPedidoParam) {
+        	
+        	var estoque = estoque = produtoPedidoParam.produto.estoque;
+        	var firstLoop = true;        	
+        	
+//        	console.log("produtoPedido.quantidadeNew",produtoPedidoParam.quantidadeNew);
+        	
+        	for(var i=0; i < $scope.pedidos.length; i++) {
+        		
+        		var pedido = $scope.pedidos[i];        		        		
+        		
+        		for(var x=0; x < pedido.produtosPedidos.length; x++) {
+        			
+        			var produtoPedido = pedido.produtosPedidos[x];
+        			
+		    		if(produtoPedidoParam.produto.id == produtoPedido.produto.id) {     
+		    			
+//		    			console.log('Pedido que tem este produto', pedido.id);
+		    			
+		    			for(var h=0; h < $scope.separados.length; h++) {
+		            		
+		        			var separado = $scope.separados[h];
+		        			
+		        			if(separado.id == produtoPedidoParam.produto.id) {
+		        				
+		        				if(firstLoop){
+//		        					console.log("frist", estoque);
+		        					separado.estoque = estoque;
+		        					firstLoop = false;
+		        				}
+		    					var oldQuantidade = new Number(produtoPedido.quantidade);
+		    					var newQuantidade = new Number(produtoPedido.quantidadeNew);
+//		    					console.log('oldQuantidade', oldQuantidade);
+//		    					console.log('newQuantidade', newQuantidade);
+		    					
+		    					
+		    					if(isNaN(newQuantidade) || produtoPedidoParam.quantidadeNew == null) {
+		    						newQuantidade = oldQuantidade;
+		    					}
+		    					
+		    					if(newQuantidade < 0) {
+//		    						console.log('#############', newQuantidade);
+		    						separado.estoque = separado.estoque - oldQuantidade;        			        	        			        	
+		    						$scope.quantidadeNegativa = true;
+		    						produtoPedidoParam.quantidadeNew = null;
+		    						produtoPedido.quantidadeNew = null;
+		    						$timeout(callAtTimeout, 10000);
+//		    						return false;        						
+		    					}else {		    						 		
+//		    						console.log('#####calc newQuantidade', newQuantidade);
+		    						separado.estoque = separado.estoque - newQuantidade;
+//		    						console.log('#####calc estoque', separado.estoque);
+		    					}
+		    					if(separado.estoque <= 0){
+		    						$scope.produtoEstoqueMenor = produtoPedido.produto;
+		    						$scope.estoqueMenor = true;
+		    						$timeout(callAtTimeout, 10000);
+		    					}			    					    						    						    						    									            				
+			        		}            			
+			        	}		     	       
+		    		}
+        		}
+        	}        	 
+        }
              
         $scope.calculaTotal = function (produtoPedidoParam, pedido) {
-        	        	        	
+        	if(isNaN(produtoPedidoParam.quantidadeNew) || produtoPedidoParam.quantidadeNew < 0) {
+        		return false;
+        	}
+        	
         	pedido.total = 0;
         	        	
         	for(var i=0; i < pedido.produtosPedidos.length; i++) {
@@ -93,51 +165,40 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         		var produtoPedido = pedido.produtosPedidos[i];
         		
         		var precoVenda = Number(produtoPedido.produto.precoVenda || 0);
-        		
+        		        	        		
             	for (var j = 0; j < $scope.produtos.length; j++) {
-        			var valueProduto = $scope.produtos[j];
+            			
+            		var valueProduto = $scope.produtos[j];
+        			
     				if(valueProduto.id == produtoPedido.produto.id){
-    					precoVenda = valueProduto.precoVenda;
-    					if(produtoPedido.quantidadeNew != null){
-    	        	 		pedido.total += produtoPedido.quantidadeNew * precoVenda;  
+    					var precoEspecial = false;	
+    					for (var x = 0; x < $scope.clienteProdutos.length; x++) {
+    						var clienteProduto = $scope.clienteProdutos[x];    						
+    						if(clienteProduto.cliente.id == pedido.cliente_pedido.id ){    					
+    							if(clienteProduto.produto.id == valueProduto.id){    								    							
+    								precoEspecial = true;
+    							}
+    						}
+    					}
+    					if(precoEspecial){
+    						precoVenda = valueProduto.precoVenda;
+    					}			
+    					if(produtoPedido.quantidadeNew != null) {
+    	        	 		pedido.total += produtoPedido.quantidadeNew * precoVenda;    						
     	        	 	}else{
     	        	 		pedido.total += produtoPedido.quantidade * precoVenda;
     	        	 	}
 					}            				
-            	}
-        		    	    			        	 	
-        		        		
-//                for(var g = 0; g < $scope.clienteProdutos.length; g++) {
-//                	var clienteProd = $scope.clienteProdutos[g];
-//                	if(pedido.cliente_pedido.id == clienteProd.cliente.id) {
-//                    	console.log("clienteProd", clienteProd.cliente.id);
-//                    	
-//                    	console.log("produtoPedido.produto.id",produtoPedido.produto.nome);
-//	                	if(produtoPedido.produto.id == clienteProd.produto.id) {
-//	                		
-//
-////	    	    			break;
-//	    	    		}	
-//                	}
-//                } 
-        		
-        		if(produtoPedidoParam.produto.id == produtoPedido.produto.id) {        			        			        			        	
-            		
-            		for(var h=0; h < $scope.separados.length; h++) {
-            			var separado = $scope.separados[h];
-            			
-            			if(separado.id == produtoPedidoParam.produto.id) {            						
-    						var oldQuantidade = new Number(produtoPedidoParam.quantidade);
-    						var newQuantidade = new Number(produtoPedidoParam.quantidadeNew);            						   						
-    						var estoque = separado.estoque + oldQuantidade;
-    						separado.estoque = estoque - newQuantidade;
-                			break;		
-            			}            			
-            		}        
-        		}
-        		                                         	                                                                                 	
-        	}                   
-        }                           
+            	}        		    	    			        	 	        		                		        		                                         	                                                                                 	
+        	}
+        	$scope.calcularDesconto(pedido);
+        }
+        
+        function callAtTimeout() {
+        	$scope.produtoEstoqueMenor = null;
+			$scope.estoqueMenor = false;
+			$scope.quantidadeNegativa = false;
+        }
                                       
         $scope.load = function(id) {
             Pedido.get({id : id}, function(result) {            	
@@ -165,13 +226,15 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
             	pedido.statusPedido = 'EmSeparacao';
             	for(var i=0; i < pedido.produtosPedidos.length; i++) {
             		if(pedido.produtosPedidos[i].quantidadeNew != null){
-            			console.log("entrou aqui");
             			pedido.produtosPedidos[i].quantidade = pedido.produtosPedidos[i].quantidadeNew;	
             		}            		 
             	}
+            	if(pedido.desconto == null || isNaN(pedido.desconto) || typeof pedido.desconto == "undefined"){
+        			pedido.totalDesconto =  pedido.total;
+        		}
+            	
                 Pedido.update(pedido, onSaveFinished);
                 var pos = $scope.pedidos.indexOf(pedido); 
-                console.log(pos);
                 var remover = $scope.pedidos.splice(pos, 1);
                 if($scope.pedidos.length == 0){                
                 	$scope.clear(); 

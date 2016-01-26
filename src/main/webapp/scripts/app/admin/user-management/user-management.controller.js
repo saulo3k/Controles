@@ -41,19 +41,30 @@ angular.module('controlesApp')
                 $('#saveUserModal').modal('show');            
         };
         
+        $scope.errorUserExists = null;
+        $scope.errorEmailExists = null;
+        $scope.error = null;
+        
         $scope.save = function () {
         	if($scope.user.id != null ){
         		User.update($scope.user,
         			function () {
                     	$scope.refresh();
                 	});
-        	}else{
-        		console.log($scope.user.password);
-        		 User.save($scope.user,
-        	        function () {
+        	}else{        		        		        		         		
+        		 User.save($scope.user).$promise.then(function () {
         	            $scope.refresh();
         	        }
-        		 );
+        		 ).catch(function(response) {
+                     $scope.success = null;
+                     if (response.status == 400 && response.data == 'login already in use') {
+                         $scope.errorUserExists = 'ERROR';
+                     } else if (response.status == 400 && response.data == 'e-mail address already in use') {
+                         $scope.errorEmailExists = 'ERROR';
+                     } else {
+                         $scope.error = 'ERROR';
+                     }
+                 });
         	}        		 
         };
 

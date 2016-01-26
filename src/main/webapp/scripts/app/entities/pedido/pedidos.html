@@ -3,10 +3,10 @@
 	<div class="panel-heading"> 					   
 		  <div class="container">
 		    <div class="row">
-		        <div class="col-xs-6">
+		        <div class="col-md-4">
 		            <h1 ttranslate="controlesApp.pedido.home.title">Pedidos</h1>
 		        </div>
-		        <div class="col-xs-6">
+		        <div class="col-md-4">
 		            <i class="fa fa-pencil-square-o fa-5x"/>
 		        </div>
 		    </div>
@@ -15,7 +15,7 @@
 </div>
 
 
-<div>
+<div has-authority="ROLE_ADMIN">
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
@@ -48,9 +48,19 @@
             </div>
         </div>
     </div>
+    <br>
+    <div class="row">
+  		<div class=".col-xl-1">
+  		<label>Procurar</label>
+			<input type="text" class="form-control" placeholder="Procurar Pedidos" ng-model="searchKeyword" style="width: 100%" ng-click="puxarPedidos()">
+			<button class="btn btn-danger"  type="button" ng-click="searchKeyword = null" style="width: 100%">
+              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span>
+        	</button>
+  		</div>
+	</div>
+    
 	<br>
-        
-<input type="text" class="form-control" placeholder="Procurar Pedidos" ng-model="searchKeyword" style="width: auto" ng-click="puxarPedidos()">
+    
     <div class="modal fade" id="deletePedidoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -78,6 +88,7 @@
     
 
     <div class="table-responsive">
+    <h3>Pedidos</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -105,7 +116,7 @@
                     <td><a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a></td>
                     	<td>{{pedido.statusPedido}}</td>
                     	<td>{{pedido.dataPedido | date:'dd/MM/yyyy'}}</td>
-                    	<td>{{pedido.total | currency}}</td>
+                    	<td>{{pedido.totalDesconto | currency}}</td>
                         <td>{{pedido.dtPrevistaSeparacao | date:'dd/MM/yyyy'}}</td>
                         <td>{{pedido.dtPrevistaEntrega | date:'dd/MM/yyyy'}}</td>
                         <td>{{pedido.user_pedido.login}}</td>

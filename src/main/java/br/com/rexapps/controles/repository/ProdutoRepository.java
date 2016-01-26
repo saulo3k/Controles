@@ -20,7 +20,7 @@ public interface ProdutoRepository extends JpaRepository<Produto,Long> {
     @Query("select sum(produto.estoque) from Produto produto")
     Long countProdutos();
     
-    @Query("select produto from Produto produto WHERE produto.removidoLogicamente = null order by produto.nome")
-    Page<Produto> findAllOrderByName(Pageable pageable);
+    @Query("select produto from Produto produto WHERE produto.removidoLogicamente = null order by produto.categoriaProduto.nome")
+    Page<Produto> findAllOrderByCategoria(Pageable pageable);
 
 }

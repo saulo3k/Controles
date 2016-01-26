@@ -1,19 +1,18 @@
 <div>
-	<div class="panel panel-yellow"> 
+	<div class="panel panel-yellow" > 
 		<div class="panel-heading"> 					   
 			  <div class="container">
 			    <div class="row">
-			        <div class="col-xs-6">
-			            <h1 ttranslate="controlesApp.pedido.home.titleEntrega">Entregas de Pedidos</h1>
+			        <div class="col-md-4">
+			            <h1 translate="controlesApp.pedido.home.titleEntrega">Entregas de Pedidos</h1>
 			        </div>
-			        <div class="col-xs-6">
+			        <div class="col-md-4">
 			            <i class="fa fa-truck fa-5x"/>
 			        </div>
 			    </div>
 			</div>
 		</div> 	 
 	</div>
-
     <jh-alert></jh-alert>
 	 <div class="container">
         <div class="row">
@@ -25,20 +24,28 @@
             <div class="col-md-4">
             	
             </div>
-            <div class="col-md-4" style="height:84px">
-                <form name="searchForm" class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
-                        <button class="btn btn-info" ng-click="search()">
-                    		<span class="glyphicon glyphicon-search"> Procurar Pedidos</span>                     		
-                    	</button>
-                    </div>
-                </form>
-            </div>
+<!--             <div class="col-md-4" style="height:84px"> -->
+<!--                 <form name="searchForm" class="form-inline"> -->
+<!--                     <div class="form-group"> -->
+<!--                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" > -->
+<!--                         <button class="btn btn-info" ng-click="search()"> -->
+<!--                     		<span class="glyphicon glyphicon-search"> Procurar Pedidos</span>                     		 -->
+<!--                     	</button> -->
+<!--                     </div> -->
+<!--                 </form> -->
+<!--             </div> -->
         </div>
     </div>
 	<br>
-
+	<div class="row">
+  		<div class=".col-xl-1">
+  		<label>Procurar</label>
+			<input type="text" class="form-control" placeholder="Procurar Pedidos" ng-model="searchKeyword" style="width: 100%" ng-click="puxarPedidos()">
+			<button class="btn btn-danger"  type="button" ng-click="searchKeyword = null" style="width: 100%">
+              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span>
+        	</button>
+  		</div>
+	</div>
     <div class="modal fade" id="deletePedidoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -65,6 +72,7 @@
     </div>
 
     <div class="table-responsive">
+    	<h3>Pedidos Pronto Para Entrega</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -79,7 +87,7 @@
                 </tr>
             </thead>
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                <tr ng-repeat="pedido in pedidos track by pedido.id">
+                <tr ng-repeat="pedido in pedidos | filter: searchKeyword track by pedido.id |  orderBy:'dtPrevistaEntrega'"" ng-class="{'success':pedido.dtRealEntrega != null}">
                     <td><a ui-sref="pedido.detail({id:pedido.id})">{{pedido.id}}</a></td>
                         <td>{{pedido.dtRealSeparacao | date:'dd/MM/yyyy'}}</td>
                         <td>{{pedido.dtPrevistaEntrega | date:'dd/MM/yyyy'}}</td>
@@ -92,12 +100,18 @@
                         <a ui-sref="cliente.detail({id:pedido.cliente_pedido.id})">{{pedido.cliente_pedido.nome}}</a>
                     </td>
                     <td>                        
-                        <button type="submit"
-                                ui-sref="pedido.entrega.edit({id:pedido.id})"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-truck "></span>&nbsp;<span ng-if="pedido.dtRealEntrega == null"> Entregar</span>
+<!--                         <button type="submit" -->
+<!--                                 ui-sref="pedido.entrega.edit({id:pedido.id})" -->
+<!--                                 class="btn btn-primary btn-sm"> -->
+<!--                             <span class="fa fa-truck "></span>&nbsp;<span ng-if="pedido.dtRealEntrega == null"> Entregar</span> -->
+<!--                             <span ng-if="pedido.dtRealEntrega != null"> Saiu Para Entrega</span> -->
+<!--                         </button>                         -->
+                            <button class="btn btn-primary" type="submit" ui-sref="pedido.imprimir({id:pedido.id})"> 
+                            <i class="fa fa-truck "></i>
+                            &nbsp;
+                            <span ng-if="pedido.dtRealEntrega == null"> Entregar</span>
                             <span ng-if="pedido.dtRealEntrega != null"> Saiu Para Entrega</span>
-                        </button>                        
+                            </button>
                     </td>
                 </tr>
             </tbody>

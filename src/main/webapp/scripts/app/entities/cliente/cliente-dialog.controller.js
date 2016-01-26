@@ -11,6 +11,12 @@ angular.module('controlesApp').controller('ClienteDialogController',
             });
         };
 
+        $scope.puxarPedidos= function() {             	
+        	Cliente.get({id : id,size: 7000}, function(result) {
+                $scope.cliente = result;
+            });                        
+        }
+        
         var onSaveFinished = function (result) {
             $scope.$emit('controlesApp:clienteUpdate', result);
             $modalInstance.close(result);

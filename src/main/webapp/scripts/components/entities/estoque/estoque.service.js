@@ -22,7 +22,6 @@ angular.module('controlesApp')
             'save': {
                 method: 'POST',
                 transformRequest: function (data) {
-                	console.log(data.quantidade);
                     data.dataAtual = DateUtils.convertLocaleDateToServer(data.dataAtual);
                     return angular.toJson(data);
                 }

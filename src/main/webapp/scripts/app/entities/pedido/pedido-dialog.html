@@ -57,63 +57,73 @@
                      {{pedido.dataPedido | date:'longDate'}}
         </div>
         <br>
-        <div class="form-group" ng-if="pedido.cliente_pedido">
-<!--         <input type="text" class="form-control" placeholder="Procurar Produtos" ng-model="searchKeyword"> -->
-
-           <table class="table table-striped">
-            <thead>
-                <tr>
-                	<th>Selecionar</th>
-                    <th>Produto</th>
-                    <th>Unidade de Medida</th>
-                    <th>Quantidade</th>                    
-                    <th>Valor</th>
-
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody >
-                <tr ng-repeat="produto in produtos | filter: searchKeyword track by $index" ng-class="{'selected':selection.indexOf($index) != -1}">
-                	<td><button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button></td>
-                    <td>{{produto.nome}}</td>
-                        <td>{{produto.unidadeMedida}}</td>
-                        <td>
-                        <div class="form-group">
-                        	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3"  ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >
-                        	<button type="button" class="btn btn-success" ng-if="selection.indexOf($index) != -1" ng-click="somar($index,produto);calculaTotal(produtos)"><i class="fa glyphicon-plus" ></i></button>                        	
-                        	<button type="button" class="btn btn-danger" ng-if="selection.indexOf($index) != -1" ng-click="subtrair($index,produto);calculaTotal(produtos)"><i class="fa glyphicon-minus" ></i></button>
-                        	</div>                        	
-                        </td>
-                        <td>{{produto.precoVenda  |  currency}}</td>                                            	
-                    	<td></td>
-                </tr>
-            </tbody>
-        </table>        
-        </div>  
-<!--         <div class="form-group" ng-if="pedido.cliente_pedido"> -->
-<!--         	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label>  -->
-<!-- 	        <ul> -->
-<!-- 	            <li ng-repeat="produto in produtos" ng-class="{'selected':selection.indexOf($index) != -1}"> -->
-	            		
-<!-- 	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		 -->
-<!-- 	                		<label>{{produto.nome}}</label> -->
-	                	
-<!-- 	                	<label ng-if="selection.indexOf($index) != -1"> - Quantidade: </label> -->
-<!-- 	                	<input ng-if="selection.indexOf($index) != -1" type="number"  size="3"  ng-model="produto.quantidade" ng-blur="setQuantidade($index, produto)"  ng-keyup="calculaTotal(produtos)" >	                		                  -->
-<!-- 	            </li> -->
-<!-- 	        </ul> -->
-<!--         </div> -->
-        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
-        	<label>Valor Total Pedido: </label>
-        	<label>{{pedido.total |  currency}}</label>
-        	<button type="button" 
-                                 ng-click="ShowHide()"
-                                class="btn btn-primary btn-sm">
-        	<span class="glyphicon glyphicon-pencil" ></span>
-        	</button>
-        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden">
-        	
-        </div>
+        
+        <div class="panel panel-default" ng-if="pedido.cliente_pedido">
+        <div class="panel-heading"><label>Produtos</label></div>
+	        <div class="panel-body" >
+<!-- 		        <pre> -->
+		        <div style="overflow: auto;white-space: nowrap; " align="center">	    
+				<div ng-repeat="categoria in categorias track by $index" class="col-lg-4">
+					<button ng-class="isActive[$index] ? 'btn btn-lg btn-warning' : 'btn btn-lg btn-info'""  name="filter_categoria" type="button" ng-click="filtrarCategoria(categoria, $index)">
+	              		<span class="fa fa-filter"></span> <span>{{categoria}}</span>
+	        		</button>        			
+				</div>				
+				</div>
+				<br>
+		        <div align="center">
+		  		<input type="text" class="form-control" placeholder="Pesquisar Produtos" ng-model="searchKeyword" >
+<!-- 		  		<button class="btn btn-danger" type="button" ng-click="searchKeyword = null" style="width: 100%"> -->
+<!-- 		              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span> -->
+<!-- 		        </button> -->
+	        	</div>        	        
+<!-- 			</pre>     -->
+			
+	        <table class="table table-responsive">
+	            <thead >
+	                <tr>
+	                	<th>Selecionar</th>
+	                    <th>Produto</th>
+	                    <th>Categoria</th>
+<!-- 	                    <th>Unidade de Medida</th> -->
+	                    <th>Quantidade</th>                    
+	                    <th>Valor</th>
+	                    <th></th>
+	                </tr>
+	            </thead>
+	            <tbody >
+	                <tr ng-repeat="produto in produtos | filter: searchKeyword | filter: category | orderBy:'nome'" ng-class="{'selected':selection.indexOf(produto.id) != -1}" >
+	                	<td><button type="button" ng-click="toggle(produto.id, produto);"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf(produto.id) != -1"></i> </button></td>
+	                    <td>{{produto.nome}}</td>
+	                        <td>{{produto.categoriaProduto.nome}}</td>
+<!-- 	                        <td>{{produto.unidadeMedida}}</td> -->
+	                        <td>
+	                        <div class="form-group">
+	                        	<input ng-show="selection.indexOf(produto.id) != -1"  min="0" type="number" focus-on-show  size="3" name="qnt_{{produto.id}}"  ng-model="produto.quantidade" ng-blur="setQuantidade(produto)"  ng-keyup="calculaTotal(produtos)" >
+	<!--                         	<button type="button" class="btn btn-success" ng-if="selection.indexOf(produto.id) != -1" ng-click="somar(produto);calculaTotal(produtos)"><i class="fa glyphicon-plus" ></i></button>                        	 -->
+	<!--                         	<button type="button" class="btn btn-danger" ng-if="selection.indexOf(produto.id) != -1" ng-click="subtrair(produto);calculaTotal(produtos)"><i class="fa glyphicon-minus" ></i></button> -->
+	                        	</div>                        	
+	                        </td>
+	                        <td>{{produto.precoVenda  |  currency}}</td>                                            	
+	                    	<td></td>
+	                </tr>
+	            </tbody>
+	        </table>        
+	        </div>  
+	    		
+	        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
+	        	<label>SubTotal Pedido: </label>
+	        	<label>{{pedido.total |  currency}}</label>
+	        </div>	
+	        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
+	        	<label>Desconto: </label>
+	        	<input  type="number" size="3" style="width: 70px" ng-model="pedido.desconto" has-authority="ROLE_ADMIN" ng-change="calcularDesconto(pedido);">	        	
+	        </div>	
+	        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
+	        	<label>Valor Total Pedido: </label>
+	        	<label>{{pedido.totalDesconto |  currency}}</label>
+	        </div>
+	    </div>
+    </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

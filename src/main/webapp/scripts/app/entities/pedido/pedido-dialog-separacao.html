@@ -6,11 +6,16 @@
         <h4 class="modal-title" id="myPedidoLabel">Separar Pedido</h4>
     </div>
     <div class="modal-body">
+     	<button type="button"  class="btn btn-success" ng-click="iniciarSeparacao()" ng-if="pedido.user_pedido_separacao == null">
+            <span class="fa fa-inbox fa-3x"></span>&nbsp;<span>Clique Aqui Para Iniciar Separação</span>
+        </button>
+        <br>
         <jh-alert-error></jh-alert-error>
+        
         <div class="form-group" ng-show="pedido.id">
             <label for="id" translate="global.field.id">ID</label>
             {{pedido.id}}
-        </div>
+        </div>        
         <div class="form-group">
             <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
             {{pedido.cliente_pedido.nome}}
@@ -30,26 +35,63 @@
         
         
         <br>
-        <div class="form-group">
-        	<label translate="controlesApp.pedido.produto_has_pedido" for="field_produto_has_pedido">produto_has_pedido</label> 
-	        <ul>
-	            <li ng-repeat="produto in separados" ng-class="{'selected':selection.indexOf($index) != -1}">
-	            		
-	            		<button type="button" ng-click="toggle($index, produto)"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf($index) != -1"></i> </button>	            		
-	                	
-	                	<label>{{produto.nome}}</label>	                	
-	                	<label> - Quantidade: </label>
-	                	<label> {{produto.quantidade}} </label>
-	                	<label ng-if="selection.indexOf($index) != -1" style="color: #66CD00;"> SEPARADO! </label>	                		                 
-	            </li>
-	        </ul>
-        </div>
-        <div class="form-group" ng-if="pedido.total != 0">
-        	<label>Valor Total: </label>
-        	<label>{{pedido.total |  currency}}</label>        	
-        	<input  type="number" size="3" ng-model="pedido.total" ng-if="IsHidden" has-authority="ROLE_ADMIN">
-        	
-        </div>
+        <div class="row">
+	        <div class="col-md-6" ng-if="mostrarLegumes" style="background-color: #C8E6C9;">
+		    	<label for="field_produto_has_pedido">Legumes</label>    
+			    <table class="table table-responsive" ng-init="category = 'Legumes'">
+			        
+		            <thead >
+		                <tr>
+		                	<th>Selecionar</th>
+		                    <th>Produto</th>	            
+		                    <th>Quantidade</th>                    
+		                    <th></th>
+		                </tr>
+		            </thead>
+		            <tbody >
+		                <tr ng-repeat="produto in separados | filter: category | orderBy:'nome'" ng-class="{'selected':selection.indexOf(produto.id) != -1, 'selectionFirst':selection.indexOf(produto.id) == -1 && selectionFirst.indexOf(produto.id) != -1 }" >
+		                	<td>
+			                	<button type="button" ng-click="toggle(produto.id, produto);"  class="btn btn-danger btn-circle">
+										<i ng-class="{'fa fa-check':selection.indexOf(produto.id) != -1, 'fa fa-asterisk':selection.indexOf(produto.id) == -1 && selectionFirst.indexOf(produto.id) != -1}"> </i> 
+			                	</button>
+		                	</td>
+		                    <td>{{produto.nome}}</td>
+		                        <td>{{produto.quantidade}}</td>                                            	
+		                    	<td></td>
+		                </tr>
+		            </tbody>
+		        </table>        
+	        </div>
+	        <div class="col-md-6" ng-if="mostrarVerdura" style="background-color: #F0F4C3;">
+	        	<label  for="field_produto_has_pedido">Verduras</label> 
+		        <table class="table table-responsive" ng-init="categoryV = 'Verduras'">
+			        
+		            <thead >
+		                <tr>
+		                	<th>Selecionar</th>
+		                    <th>Produto</th>	            
+		                    <th>Quantidade</th>                    
+		                    <th></th>
+		                </tr>
+		            </thead>
+		            <tbody >
+		                <tr ng-repeat="produto in separados | filter: categoryV | orderBy:'nome'" ng-class="{'selected':selection.indexOf(produto.id) != -1, 'selectionFirst':selection.indexOf(produto.id) == -1 && selectionFirst.indexOf(produto.id) != -1 }" >
+		                	<td>
+			                	<button type="button" ng-click="toggle(produto.id, produto);"  class="btn btn-danger btn-circle">
+			                		<i ng-class="{'fa fa-check':selection.indexOf(produto.id) != -1, 'fa fa-asterisk':selection.indexOf(produto.id) == -1 && selectionFirst.indexOf(produto.id) != -1}"> </i>
+			                		
+			                	</button>
+		                	</td>
+		                    <td>
+		                    	{{produto.nome}}
+		                    </td>
+		                        <td>{{produto.quantidade}}</td>                                            	
+		                    	<td></td>
+		                </tr>
+		            </tbody>
+		        </table>
+	        </div>
+       </div>
     </div>       
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -58,9 +100,6 @@
         <button type="submit"  class="btn btn-info" >
             <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Enviar Para Entrega</span>
         </button>                
-        <button type="button"  class="btn btn-success" ng-click="iniciarSeparacao()" ng-if="pedido.user_pedido_separacao == null">
-            <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Iniciar Separação</span>
-        </button>
         
     </div>
     

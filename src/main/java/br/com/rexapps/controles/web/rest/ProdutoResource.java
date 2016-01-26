@@ -117,7 +117,7 @@ public class ProdutoResource {
     @Timed
     public ResponseEntity<List<Produto>> getAllProdutos(Pageable pageable)
         throws URISyntaxException {
-        Page<Produto> page = produtoRepository.findAllOrderByName(pageable);
+        Page<Produto> page = produtoRepository.findAllOrderByCategoria(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/produtos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

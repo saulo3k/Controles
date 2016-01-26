@@ -1,0 +1,95 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()">
+<jh-alert-error></jh-alert-error>
+<button class="btn btn-primary" type="button" onclick="window.history.back()"><i class="fa fa-chevron-left"></i> Voltar </button>
+<button class="btn btn-warning" type="button" print-btn><i class="fa fa-print"></i> Imprimir </button>
+<button type="submit"  class="btn btn-info" ng-disabled="pedido.dtRealEntrega">
+            <span class="fa fa-arrow-circle-right"></span>&nbsp;<span>Sair para entrega</span>
+</button>        
+<div print-section>
+    <div align="center">
+    	<h1><b>D'Folhas</b></h1>
+    	
+		Telefone: (11) 4640-3923
+    </div>
+    
+    <div>
+        <h3>
+        	<label for="id">Pedido</label>
+         	#{{pedido.id}}          	 
+         	<div>
+        	<label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido" >cliente_pedido</label>
+        	{{pedido.cliente_pedido.nome}}
+        	</div>
+        </h3>             
+    </div>
+    <div>
+    	<div  ng-if="pedido.cliente_pedido.nomeContato">
+         <label translate="controlesApp.pedido.cliente_contato" for="field_cliente_contato" >cliente_contato</label>
+         {{pedido.cliente_pedido.nomeContato}}
+         <label translate="controlesApp.pedido.cliente_telefone" for="field_cliente_telefone" ng-if="pedido.cliente_pedido.telefone">cliente_telefone</label>
+         {{pedido.cliente_pedido.telefone}}
+     </div>
+     <div>
+         <label translate="controlesApp.pedido.cliente_endereco" for="field_cliente_endereco" ng-if="pedido.cliente_pedido.endereco">cliente_endereco</label>
+         {{pedido.cliente_pedido.endereco}}     
+          <label translate="controlesApp.pedido.cliente_numero" for="field_cliente_numero" ng-if="pedido.cliente_pedido.numero">cliente_numero</label>
+          {{pedido.cliente_pedido.numero}}
+          <label translate="controlesApp.pedido.cliente_complemento" for="field_cliente_complemento" ng-if="pedido.cliente_pedido.complemento">cliente_numero</label>
+          {{pedido.cliente_pedido.complemento}}    
+     </div>
+     <div>
+         <label translate="controlesApp.pedido.cliente_cidade" for="field_cliente_cidade" ng-if="pedido.cliente_pedido.cidade">cliente_cidade</label>
+         {{pedido.cliente_pedido.cidade}}
+         <label translate="controlesApp.pedido.cliente_estado" for="field_cliente_estado" ng-if="pedido.cliente_pedido.estado">cliente_estado</label>
+         {{pedido.cliente_pedido.estado}}
+         <label translate="controlesApp.pedido.cliente_cep" for="field_cliente_cep" ng-if="pedido.cliente_pedido.cep">cliente_endereco</label>
+         {{pedido.cliente_pedido.cep}}
+         
+     </div>	        
+     <div>
+         <label translate="controlesApp.pedido.dtPrevistaEntrega" for="field_dtPrevistaEntrega">DtPrevistaEntrega</label>
+         {{pedido.dtPrevistaEntrega | date:'fullDate'}}
+     </div>
+    </div>
+    
+    <br>
+     <div class="table-responsive">
+       <table class="table table-striped" style="font-size:10px">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Unidade de Medida</th>
+                <th>Quantidade</th>                    
+                <th>Valor</th>
+                <th>Valor total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr ng-repeat="produto in separados track by produto.id"  >
+                	<td>{{produto.nome}}</td>             
+                    <td>{{produto.unidadeMedida}}</td>
+                    <td>{{produto.quantidade}}</td>
+                    <td>{{produto.precoVenda  |  currency}}</td>                        
+                	<td>{{produto.precoVenda * produto.quantidade  |  currency}}</td>
+                	<td></td>
+            </tr>
+        </tbody>
+    </table>        
+    </div>  
+    
+       <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
+       	<label>SubTotal Pedido: </label>
+       	<label>{{pedido.total |  currency}}</label>
+       </div>	
+       <div class="form-group" ng-if="pedido.desconto != null" has-authority="ROLE_ADMIN" align="right">
+       	<label>Desconto: </label>
+       	<label>{{pedido.desconto |  currency}}</label>       	
+       </div>	
+       <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
+       	<label>Valor Total Pedido: </label>
+       	<label>{{pedido.totalDesconto |  currency}}</label>
+       </div>
+</div>       
+</form>

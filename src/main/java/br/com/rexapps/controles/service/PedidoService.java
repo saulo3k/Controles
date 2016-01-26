@@ -78,13 +78,13 @@ public class PedidoService {
 			produtosPedidos.add(prodPedidoSave);
 		}
 
-		pedido.setProdutosPedidos(produtosPedidos);
-		
-		if(pedido.getStatusPedido().equals(StatusPedido.EmSeparacao) && !pedido.isPedidoModelo()) {
-			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido_separacao());
-		}
+		pedido.setProdutosPedidos(produtosPedidos);	
 
 		pedidoRepository.save(pedido);
+		
+		if(pedido.getStatusPedido().equals(StatusPedido.EmSeparacao) && !pedido.isPedidoModelo()) {
+			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido());
+		}
 
 		return pedido;
 	}
@@ -166,9 +166,9 @@ public class PedidoService {
 		}
 
 		pedido.setProdutosPedidos(produtosPedidos);
-		
+		pedido.setUser_pedido(userRepository.findOne(SecurityUtils.getCurrentUserId()));
 		if(pedido.getStatusPedido().equals(StatusPedido.EmSeparacao) && !pedido.isPedidoModelo()) {
-			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido_separacao());
+			estoqueService.removerProdutosEstoque(pedido.getProdutosPedidos(), pedido.getUser_pedido());
 		}
 		pedidoRepository.save(pedido);
 		pedidoRepository.flush();

@@ -6,14 +6,29 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
     	$scope.diasSemanas = DiasSemana.query();
         $scope.pedido = entity;
         $scope.produtos = Produto.query({page: $scope.page, size: 9000});
-//        $scope.users = User.query();
+        $scope.categorias = [];        
+        $scope.isActive =[];
         $scope.clientes = Cliente.query({page: $scope.page, size: 9000, sort: "nome" + ',' + 'asc'});
                  
         $scope.load = function(id) {
         	PedidoModelo.get({id : id}, function(result) {            	
                 $scope.pedido = result;
             });                         
-        };                  
+        };
+        $scope.calcularDesconto = function (pedido) {
+        	if(typeof pedido.desconto == "undefined"){        		
+        		pedido.totalDesconto =  pedido.total;
+        	}else{
+        		pedido.totalDesconto =  pedido.total - pedido.desconto;
+        	}  
+        };
+        
+        $scope.puxarPedidos= function() {        	
+        	PedidoModelo.get({id : id, size: 3000}, function(result) {            	
+                $scope.pedido = result;
+            });
+        }
+        
         $scope.clienteProdutos = [];
         $scope.buscarPrecosExclusivos = function(id){			
         	ClienteProduto.get({id : id}, function(result, headers) {
@@ -38,8 +53,7 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
         $scope.selection = [];
         $scope.produtosSelecionadosPedidos = [];        
         
-
-        $scope.somar = function (idx, produto) {        
+        $scope.somar = function (produto) {        
         	for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
         		if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
         			if(produto.quantidade == null){
@@ -53,7 +67,7 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
         	}        	        	  
         }
         
-        $scope.subtrair = function (idx, produto) {
+        $scope.subtrair = function (produto) {
         	
         	for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
         		if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
@@ -82,7 +96,7 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
                 
                 for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
                 	if($scope.pedido.produtosPedidos[i].produto.id == produto.id){
-                		produto.quantidade = 0;
+                		produto.quantidade = null;
                 		$scope.pedido.produtosPedidos.splice(i, 1);
                 	}	
                 }
@@ -92,17 +106,21 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
         };
         
         $scope.pedido.total = 0;
-        $scope.setQuantidade = function (idx, produto) {        			
-    			for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
-    				
-    				if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
-    					$scope.pedido.produtosPedidos[i].quantidade = produto.quantidade;        					
-    				}        			
-    			}        	
+        $scope.setQuantidade = function (produto) {        	
+        	console.log(produto);
+        	if(typeof produto.quantidade == "undefined") {
+        		produto.quantidade = null;
+        		return false;
+        	}
+			for (var i=0; i < $scope.pedido.produtosPedidos.length; i++) {
+				
+				if($scope.pedido.produtosPedidos[i].produto.id == produto.id) {
+					$scope.pedido.produtosPedidos[i].quantidade = produto.quantidade;        					
+				}        			
+			}        	
         };
         
         $scope.calculaTotal = function (produtos) {
-        	console.log("calculatotal");
         	$scope.pedido.total = Number(0);
         	angular.forEach(produtos, function(valueProduto, keyProduto) {
         		var precoVenda = Number(valueProduto.precoVenda || 0);
@@ -129,23 +147,45 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
         $scope.save = function () {        	
         	$scope.pedido.statusPedido = $scope.status;
         	if($scope.produtosSelecionadosPedidos.length <= 0) {
-//        	      $location.hash('top');
-//        	      $anchorScroll();
-//        		  $('#pedidoSemProduto').modal('show');
         		alert('Deve existir no minimo um produto selecionado !');
         		$scope.editForm.$submitted = false;
         	}else{        		        	
-        	    if ($scope.pedido.id != null) {            	
-                	PedidoModelo.update($scope.pedido, onSaveFinished);
-                } else {            	
-                	PedidoModelo.save($scope.pedido, onSaveFinished);
-                }
+       		var salvar = true;
+        		for (var i = 0; i < $scope.produtosSelecionadosPedidos.length; i++) {        
+        			 if($scope.produtosSelecionadosPedidos[i].quantidade < 1 || $scope.produtosSelecionadosPedidos[i].quantidade == null){
+        				 alert('Existem produtos sem informar a quantidade !');		 
+        				 $scope.editForm.$submitted = false;
+        				 salvar = false;
+        			 }
+        		}
+        		if($scope.pedido.desconto == null || isNaN($scope.pedido.desconto) || typeof $scope.pedido.desconto == "undefined"){
+        			$scope.pedido.totalDesconto =  $scope.pedido.total;
+        		}
+        		if(salvar){
+		            if ($scope.pedido.id != null) {            	
+		                PedidoModelo.update($scope.pedido, onSaveFinished);
+		            } else {            	
+		                PedidoModelo.save($scope.pedido, onSaveFinished)		                
+		            }		            		            
+        		}        	
         	} 
         };
         
         $scope.clear = function() {
             $modalInstance.dismiss('cancel');
         };
+        
+        $scope.filtrarCategoria = function (categoria, ind) {        	
+        	
+        	if(categoria == "Todos os Produtos"){
+        		$scope.category = null;	
+        	}else{
+        		$scope.category = categoria;
+        	}
+        	for(var i=0; i < $scope.isActive.length; i++){
+      		  $scope.isActive[i] = i===ind;        	      
+        	}
+        }
         
         $scope.carregarPedido = function () {        		
         	
@@ -157,6 +197,17 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
 		            
 		        	angular.forEach(dataProd, function(valueProduto, keyProduto) {
 		        		
+		        		
+		        		if($scope.categorias.length == 0){
+		        			$scope.categorias.push("Todos os Produtos");
+		        			$scope.isActive.push(true);
+		        		}
+		        		
+		        		if($scope.categorias.indexOf(valueProduto.categoriaProduto.nome) == -1){
+		        			$scope.categorias.push(valueProduto.categoriaProduto.nome);
+		        			$scope.isActive.push(false);
+		        		}
+		        		
 			        		if($scope.pedido.id != null) {
 				        		
 			        			if(entrada) {	        				
@@ -167,7 +218,7 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
 				        		$scope.pedido.$promise.then(function(data) {
 				    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
 				    						if(valueProduto.id == valuePedido.produto.id) {	    							  
-				    				              $scope.selection.push(keyProduto);    
+				    				              $scope.selection.push(valueProduto.id);    
 				    				              $scope.produtosSelecionadosPedidos.push(valuePedido);
 				    				              valueProduto.quantidade = valuePedido.quantidade;
 				    						}
@@ -181,3 +232,29 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
         $scope.carregarPedido();
 
 }]);
+angular.module('controlesApp').directive('focusOnShow', function($timeout) {
+    return {
+        restrict: 'A',
+        link: function($scope, $element, $attr) {
+            if ($attr.ngShow){
+                $scope.$watch($attr.ngShow, function(newValue){
+                    if(newValue){
+                        $timeout(function(){
+                            $element.focus();
+                        }, 0);
+                    }
+                })      
+            }
+            if ($attr.ngHide){
+                $scope.$watch($attr.ngHide, function(newValue){
+                    if(!newValue){
+                        $timeout(function(){
+                            $element.focus();
+                        }, 0);
+                    }
+                })      
+            }
+
+        }
+    };
+});

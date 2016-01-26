@@ -34,7 +34,8 @@ angular.module('controlesApp')
                     $modal.open({
                         templateUrl: 'scripts/app/entities/pedido/pedido-dialog-list-separacao.html',
                         controller: 'PedidoSeparacaoListDialogController',
-                        windowClass: 'app-modal-window',                        
+                        windowClass: 'app-modal-window',
+                        backdrop : 'static',
                         resolve: {
                             entity: function () {
                                 return {
@@ -123,28 +124,51 @@ angular.module('controlesApp')
                     }]
                 }
             })            
-            .state('pedido.entrega.edit', {
-            	parent: 'pedido.entrega',
-                url: '/{id}/edit-entrega',
+//            .state('pedido.entrega.edit', {
+//            	parent: 'pedido.entrega',
+//                url: '/{id}/edit-entrega',
+//                data: {
+//                    authorities: ['ROLE_USER'],
+//                },
+//                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+//                    $modal.open({
+//                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog-entrega.html',
+//                        controller: 'PedidoEntregaDialogController',
+//                        size: 'lg',
+//                        resolve: {
+//                            entity: ['Pedido', function(Pedido) {
+//                                return Pedido.get({id : $stateParams.id});
+//                            }]
+//                        }
+//                    }).result.then(function(result) {
+//                        $state.go('pedido.entrega', null, { reload: true });
+//                    }, function() {
+//                        $state.go('pedido.entrega');
+//                    })
+//                }]
+//            })
+            .state('pedido.imprimir', {
+            	parent: 'entity',
+                url: '/pedido-imprimir/{id}',
                 data: {
                     authorities: ['ROLE_USER'],
+                    pageTitle: 'controlesApp.pedido.home.titleEntrega'
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
-                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog-entrega.html',
-                        controller: 'PedidoEntregaDialogController',
-                        size: 'lg',
-                        resolve: {
-                            entity: ['Pedido', function(Pedido) {
-                                return Pedido.get({id : $stateParams.id});
-                            }]
-                        }
-                    }).result.then(function(result) {
-                        $state.go('pedido.entrega', null, { reload: true });
-                    }, function() {
-                        $state.go('pedido.entrega');
-                    })
-                }]
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/pedido/pedido-print.html',
+                        controller: 'PedidoEntregaDialogController'
+                    }
+                },
+                resolve: {                	
+                	translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('pedido');
+                        return $translate.refresh();
+                    }],
+                	entity: ['$stateParams', 'Pedido', function($stateParams, Pedido) {                		
+                			return $stateParams.id;
+                	}]
+                }
             })
             .state('pedido.detail', {
                 parent: 'entity',
@@ -183,16 +207,19 @@ angular.module('controlesApp')
                         backdrop : 'static',
                         resolve: {
                             entity: function () {
+                            	var dataHoje = new Date();
+                            	var dataAmanha = new Date();
+                            	dataAmanha.setDate(dataHoje.getDate() + 1);
                                 return {
-                                    dtPrevistaSeparacao: new Date(),
+                                    dtPrevistaSeparacao: dataHoje,
                                     dtRealSeparacao: null,
-                                    dtPrevistaEntrega: new Date(),
+                                    dtPrevistaEntrega: dataAmanha,
                                     dtRealEntrega: null,
                                     periodoPedidoInicio: null,
                                     periodoPedidoFim: null,
                                     dataPedido: null,
                                 	produtosPedidos: [],
-                                	dataPedido: new Date(),
+                                	dataPedido: dataHoje,
                                     id: null
                                 };
                             }
@@ -236,6 +263,7 @@ angular.module('controlesApp')
                         templateUrl: 'scripts/app/entities/pedido/pedido-dialog-model.html',
                         controller: 'PedidoDialogModelController',
                         size: 'lg',
+                        backdrop : 'static',
                         resolve: {
                             entity: function () {
                                 return {

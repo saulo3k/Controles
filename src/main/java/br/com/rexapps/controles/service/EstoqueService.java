@@ -106,7 +106,7 @@ public class EstoqueService {
 			estoque.setOperacao(OperacaoEstoque.Saida);
 			estoque.setDataAtual(LocalDate.now());
 			estoque.setEstoque_user(user);
-			estoque.setMotivo("Saída de Produto por Separação");					
+			estoque.setMotivo("Saída de Produto por Separação no Pedido: " + produtosPedidos.getPedido().getId());					
 			
 			Long quantidadeAtual = produtosPedidos.getProduto().getEstoque();
 			

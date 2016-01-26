@@ -6,7 +6,7 @@ angular.module('controlesApp')
         $scope.pedidos = [];
         $scope.page = 0;
         $scope.loadAll = function() {
-        	PedidoEntrega.query({page: $scope.page, size: 20}, function(result, headers) {
+        	PedidoEntrega.query({page: $scope.page, size: 20, sort: "dtPrevistaEntrega" + ',' + 'desc'}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
                     $scope.pedidos.push(result[i]);

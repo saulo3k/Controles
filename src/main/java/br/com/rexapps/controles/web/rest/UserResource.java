@@ -4,6 +4,7 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -91,22 +92,29 @@ public class UserResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<User> createUser(@RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<User> createUser(@RequestBody ManagedUserDTO user) throws URISyntaxException {
         log.debug("REST request to save User : {}", user);
         if (user.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new user cannot already have an ID").body(null);
         }
-        if (user.getPassword() == null) {
-            user.setPassword("123456");
-            user.setLangKey("pt-br");
+        if (userRepository.findOneByLogin(user.getLogin()).isPresent()) {
+            return ResponseEntity.badRequest()
+                .headers(HeaderUtil.createAlert("user-management", "Login already in use"))
+                .body(null);
+        } else if (userRepository.findOneByEmail(user.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest()
+                .headers(HeaderUtil.createAlert("user-management", "Email already in use"))
+                .body(null);
+        }else{
+        	User userSave = userService.createUserInformation(user.getLogin(), user.getPassword(),
+                    user.getFirstName(), user.getLastName(), user.getEmail().toLowerCase(),
+                    user.getLangKey(), user.getAuthorities());
+                    
+            return ResponseEntity.created(new URI("/api/users/" + userSave.getId()))
+                    .headers(HeaderUtil.createEntityCreationAlert("user-management", userSave.getId().toString()))
+                    .body(userSave);	
         }
-        User userSave = userService.createUserInformation(user.getLogin(), user.getPassword(),
-                user.getFirstName(), user.getLastName(), user.getEmail().toLowerCase(),
-                user.getLangKey());
-        User result = userRepository.save(userSave);
-        return ResponseEntity.created(new URI("/api/users/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert("user", result.getId().toString()))
-                .body(result);
+        
     }
 
     /**

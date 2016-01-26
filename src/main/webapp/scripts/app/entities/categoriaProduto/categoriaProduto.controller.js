@@ -12,6 +12,16 @@ angular.module('controlesApp')
                 }
             });
         };
+        
+        $scope.puxarPedidos= function() {             	
+        	CategoriaProduto.query({page: $scope.page, size: 200}, function(result, headers) {
+                $scope.links = ParseLinks.parse(headers('link'));
+                for (var i = 0; i < result.length; i++) {
+                    $scope.categoriaProdutos.push(result[i]);
+                }
+            });
+        }
+        
         $scope.reset = function() {
             $scope.page = 0;
             $scope.categoriaProdutos = [];

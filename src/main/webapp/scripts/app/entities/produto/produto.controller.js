@@ -5,7 +5,7 @@ angular.module('controlesApp')
         $scope.produtos = [];
         $scope.page = 0;
         $scope.loadAll = function() {
-            Produto.query({page: $scope.page, size: 20}, function(result, headers) {
+            Produto.query({page: $scope.page, size: 2000, sort: "nome" + ',' + 'asc'}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
                     $scope.produtos.push(result[i]);

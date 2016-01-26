@@ -8,7 +8,6 @@ angular.module('controlesApp')
             method: 'GET',
             transformResponse: function (data) {
                 data = angular.fromJson(data);
-//                console.log(data);
                 return data;
             }
         }

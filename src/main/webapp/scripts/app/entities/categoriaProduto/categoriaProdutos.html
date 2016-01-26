@@ -3,10 +3,10 @@
 	<div class="panel-heading"> 					   
 		  <div class="container">
 		    <div class="row">
-		        <div class="col-xs-6">
+		        <div class="col-md-4">
 					<h1 translate="controlesApp.categoriaProduto.home.title">CategoriaProdutos</h1>
 		        </div>
-		        <div class="col-xs-6">
+		        <div class="col-md-4">
 		            <i class="fa fa-cog fa-5x"/>
 		        </div>
 		    </div>
@@ -29,19 +29,27 @@
             <div class="col-md-4">
   
             </div>
-            <div class="col-md-4" style="height:84px">
-                <form name="searchForm" class="form-inline">
-                    <div class="form-group">
-                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" >
-                    </div>
-                    <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Buscar Categoria de Produto</span>
-                    </button>
-                </form>
-            </div>
+<!--             <div class="col-md-4" style="height:84px"> -->
+<!--                 <form name="searchForm" class="form-inline"> -->
+<!--                     <div class="form-group"> -->
+<!--                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" > -->
+<!--                     </div> -->
+<!--                     <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Buscar Categoria de Produto</span> -->
+<!--                     </button> -->
+<!--                 </form> -->
+<!--             </div> -->
         </div>
     </div>
 	<br>
-
+<div class="row">
+  		<div class=".col-xl-1">
+  		<label>Procurar</label>
+			<input type="text" class="form-control" placeholder="Procurar Clientes" ng-model="searchKeyword" style="width: 100%" ng-click="puxarPedidos()">
+			<button class="btn btn-danger"  type="button" ng-click="searchKeyword = null" style="width: 100%">
+              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span>
+        	</button>
+  		</div>
+	</div>
 <div>
         <div class="modal fade" id="deleteCategoriaProdutoConfirmation">
         <div class="modal-dialog">
@@ -69,6 +77,7 @@
     </div>
 
     <div class="table-responsive">
+    <h3>Categorias</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -79,7 +88,7 @@
                 </tr>
             </thead>
             <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                <tr ng-repeat="categoriaProduto in categoriaProdutos track by categoriaProduto.id">
+                <tr ng-repeat="categoriaProduto in categoriaProdutos | filter:searchKeyword track by categoriaProduto.id">
                     <td><a ui-sref="categoriaProduto.detail({id:categoriaProduto.id})">{{categoriaProduto.id}}</a></td>
                     <td>{{categoriaProduto.nome}}</td>
                     <td>{{categoriaProduto.descricao}}</td>

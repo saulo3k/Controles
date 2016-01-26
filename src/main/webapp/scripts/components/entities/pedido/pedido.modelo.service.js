@@ -38,7 +38,6 @@ angular.module('controlesApp')
                 data.periodoPedidoInicio = DateUtils.convertLocaleDateToServer(data.periodoPedidoInicio);
                 data.periodoPedidoFim = DateUtils.convertLocaleDateToServer(data.periodoPedidoFim);
                 data.dataPedido = DateUtils.convertLocaleDateToServer(data.dataPedido);
-                console.log(angular.toJson(data));
                 return angular.toJson(data);
             }
         }

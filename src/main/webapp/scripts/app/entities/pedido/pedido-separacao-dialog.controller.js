@@ -15,23 +15,37 @@ angular.module('controlesApp').controller('PedidoSeparacaoDialogController',
         };                       
         $scope.separados = [];           
         $scope.selection = [];
+        $scope.selectionFirst = [];
         $scope.produtosSelecionadosPedidos = [];        
                 
         $scope.toggle = function (idx, produto) {
-            var pos = $scope.selection.indexOf(idx);
-            if (pos == -1) {
-                $scope.selection.push(idx);                
-                $scope.produtosSelecionadosPedidos.push(produto);
-            } else {
-                $scope.selection.splice(pos, 1);
-                var remover = $scope.produtosSelecionadosPedidos.splice(pos, 1);
-                for (var i=0; i < $scope.pedido.produtosPedidos.length;i++){
-                	
-                	if(remover[0].id == $scope.pedido.produtosPedidos[i].produto.id){                		
-                		 $scope.pedido.produtosPedidos.splice(i, 1);
-                	}	
-                };
+            var pos = $scope.selection.indexOf(idx);                        
+            var posAux = $scope.selectionFirst.indexOf(produto.id);         
+            
+            if(posAux == -1){            	
+            	$scope.selectionFirst.push(produto.id);
+            	
+            	return false;
             }
+            if (posAux != -1 && pos == -1) {            	
+                $scope.selection.push(idx);
+                $scope.produtosSelecionadosPedidos.push(produto);
+                return false;
+                
+            } 
+            	
+        	$scope.selectionFirst.splice(posAux, 1);
+	        	if (pos != -1) {	
+	        		$scope.selection.splice(pos, 1);
+	            var remover = $scope.produtosSelecionadosPedidos.splice(pos, 1);
+	            for (var i=0; i < $scope.pedido.produtosPedidos.length;i++){
+	            	
+	            	if(remover[0].id == $scope.pedido.produtosPedidos[i].produto.id){                		
+	            		 $scope.pedido.produtosPedidos.splice(i, 1);
+	            	}	
+	            };
+        	}
+            
         };
 
         var onSaveFinished = function (result) {
@@ -62,7 +76,8 @@ angular.module('controlesApp').controller('PedidoSeparacaoDialogController',
         $scope.fecharAlerta = function() {
         	$('#restantePedidoConfirmation').modal('hide');
         };
-        
+        $scope.mostrarVerdura = false;
+        $scope.mostrarLegumes = false;
         $scope.carregarPedido = function () {        		
 
         	$scope.separados = [];                	
@@ -71,10 +86,15 @@ angular.module('controlesApp').controller('PedidoSeparacaoDialogController',
 	        	angular.forEach(dataProd, function(valueProduto, keyProduto) {	        		
 	        		$scope.pedido.$promise.then(function(data) {
 	    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
-	    						console.log('valuePedido',valuePedido);
 	    						if(valueProduto.id == valuePedido.produto.id && $scope.separados.indexOf(valueProduto) == -1) {	    												
 	    				              valueProduto.quantidade = valuePedido.quantidade;	    				              
 	    				              $scope.separados.push(valueProduto);
+	    				              if(valueProduto.categoriaProduto.nome == 'Verduras'){
+	    				            	  $scope.mostrarVerdura = true;				            	  
+	    				              }
+	    				              if(valueProduto.categoriaProduto.nome == 'Legumes'){
+	    				            	  $scope.mostrarLegumes = true;
+	    				              }
 	    						}
 	    					});
 	    			});	        		
