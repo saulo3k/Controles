@@ -54,11 +54,11 @@ angular.module('controlesApp')
                         }
                     }).result.then(function(result) {
                         $state.go('pedido.separacao.listedit', null, { reload: true });
-                    }, function() {
-                        $state.go('pedido.separacao.listedit');
+                    }, function() {                    	
+                        $state.go('pedido', null, { reload: true });
                     })
                 }]
-            })
+            })        
             .state('pedido.separacao.edit', {
                 parent: 'pedido.separacao',
                 url: '/{id}/edit-separacao',
@@ -231,8 +231,52 @@ angular.module('controlesApp')
                     })
                 }]
             })
+            .state('pedido.newcliente', {
+                parent: 'pedido',
+                url: '/new-cliente',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('cliente');
+                        $translatePartialLoader.addPart('global');
+                        return $translate.refresh();
+                    }]
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/cliente/cliente-dialog.html',
+                        controller: 'ClienteDialogController',
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    nome: null,
+                                    tipoTelefone: null,
+                                    telefone: null,
+                                    cpfCnpj: null,
+                                    email: null,
+                                    cep: null,
+                                    endereco: null,
+                                    estado: null,
+                                    cidade: null,
+                                    nomeContato: null,
+                                    informacoesParaBusca: null,
+                                    id: null
+                                };
+                            }
+                        }
+                    }).result.then(function(result) {
+                        $state.go('pedido.new', null, { reload: true });
+                    }, function() {
+                    	console.log($modal);
+                        $state.go('pedido.new', null, { reload: true });
+                    })
+                }]
+            })
            .state('pedido.modelo', {
-                parent: 'entity',
+                parent: 'pedido',
                 url: '/pedidos-modelo',
                 data: {
                     authorities: ['ROLE_USER'],
@@ -287,6 +331,29 @@ angular.module('controlesApp')
                         $state.go('pedido.modelo');
                     })
                 }]
+            })
+            .state('pedido.edit.equa', {
+                parent: 'pedido.separacao.listedit',
+                url: '/{id}/editEqualizacao',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/pedido/pedido-dialog.html',
+                        controller: 'PedidoDialogController',
+                        size: 'lg',
+                        resolve: {
+                            entity: ['Pedido', function(Pedido) {
+                                return Pedido.get({id : $stateParams.id});
+                            }]
+                        }
+                    }).result.then(function(result) {
+                        $state.go('pedido.separacao.listedit', result, { reload: true });
+                    }, function() {
+                    	$state.go('pedido.separacao.listedit');
+                    })
+                }]                    
             })            
             .state('pedido.edit', {
                 parent: 'pedido',

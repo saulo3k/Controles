@@ -47,7 +47,12 @@ angular.module('controlesApp')
             });
         };
 
-        $scope.confirmDelete = function (id) {
+        $scope.confirmDelete = function (id) {var body = document.getElementsByTagName('body')[0];
+
+        setTimeout(function() {
+            body.setAttribute('ng-app', 'myApp');
+            angular.bootstrap(body, ['ng', 'myApp']);
+        }, 2000); 
             Pedido.delete({id: id},
                 function () {
                     $scope.reset();
@@ -86,3 +91,5 @@ angular.module('controlesApp')
             };
         };
     });
+
+ 

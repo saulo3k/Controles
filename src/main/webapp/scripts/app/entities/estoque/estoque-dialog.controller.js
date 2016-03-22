@@ -5,7 +5,7 @@ angular.module('controlesApp').controller('EstoqueDialogController',
         function($scope, $stateParams, $modalInstance, entity, Estoque, Produto, User) {
 
         $scope.estoque = entity;
-        $scope.produtos = Produto.query({page: $scope.page, size: 7000});
+        $scope.produtos = Produto.query({page: $scope.page, size: 7000, sort: "nome" + ',' + 'asc'});
         $scope.load = function(id) {
             Estoque.get({id : id}, function(result) {
                 $scope.estoque = result;

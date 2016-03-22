@@ -1,14 +1,18 @@
 'use strict';
 
 angular.module('controlesApp').controller('PedidoDialogModelController',
-    ['$scope', '$stateParams', '$modalInstance', '$filter', 'entity', 'PedidoModelo', 'Produto', 'User', 'Cliente', 'DiasSemana','ClienteProduto',
-        function($scope, $stateParams, $modalInstance, $filter, entity, PedidoModelo, Produto, User, Cliente, DiasSemana, ClienteProduto) {
+    ['$scope', '$stateParams', '$modalInstance', '$filter', 'entity', 'PedidoModelo', 'Produto', 'User', 'Cliente', 'DiasSemana','ClienteProduto','$q',
+        function($scope, $stateParams, $modalInstance, $filter, entity, PedidoModelo, Produto, User, Cliente, DiasSemana, ClienteProduto, $q) {
     	$scope.diasSemanas = DiasSemana.query();
         $scope.pedido = entity;
         $scope.produtos = Produto.query({page: $scope.page, size: 9000});
         $scope.categorias = [];        
         $scope.isActive =[];
         $scope.clientes = Cliente.query({page: $scope.page, size: 9000, sort: "nome" + ',' + 'asc'});
+        $scope.keyCode = "";
+        $scope.keyPressed = function(e) {
+          $scope.keyCode = e.which;
+        };
                  
         $scope.load = function(id) {
         	PedidoModelo.get({id : id}, function(result) {            	
@@ -28,6 +32,24 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
                 $scope.pedido = result;
             });
         }
+        
+        $scope.calculaTotal = function (produtos) {
+        	$scope.pedido.total = Number(0);
+        	angular.forEach(produtos, function(valueProduto, keyProduto) {
+        		var precoVenda = Number(valueProduto.precoVenda || 0);
+        		var quantidade = Number(valueProduto.quantidade || 0);
+        		$scope.pedido.total = $scope.pedido.total + (precoVenda  * quantidade);	
+        	});
+        	$scope.calcularDesconto($scope.pedido);
+//        	$scope.keyPressed = function(e) {        
+            if($scope.keyCode == 97){        	   
+                   $scope.viewValue = {};
+             	   $scope.focusInput=false;           	   
+             	   $( "#pesquisa" ).focus();
+             	   $scope.searchKeyword = '';
+            };        
+//             };
+        }     
         
         $scope.clienteProdutos = [];
         $scope.buscarPrecosExclusivos = function(id){			
@@ -90,6 +112,7 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
                 var produtoPedido = {produto: produto, pedido: {}, quantidade: produto.quantidade};                                     
                 $scope.produtosSelecionadosPedidos.push(produtoPedido);
                 $scope.pedido.produtosPedidos.push(produtoPedido);
+                $scope.focusInput = true;
             } else {
                 $scope.selection.splice(pos, 1);                                
                 var remover = $scope.produtosSelecionadosPedidos.splice(pos, 1);
@@ -188,73 +211,78 @@ angular.module('controlesApp').controller('PedidoDialogModelController',
         }
         
         $scope.carregarPedido = function () {        		
-        	
-        	$scope.produtosSelecionadosPedidos = [];   
-
+        	$scope.produtosSelecionadosPedidos = [];                	
         	var entrada = true;
         	
-		    $scope.produtos.$promise.then(function(dataProd) {
-		            
-		        	angular.forEach(dataProd, function(valueProduto, keyProduto) {
-		        		
-		        		
-		        		if($scope.categorias.length == 0){
-		        			$scope.categorias.push("Todos os Produtos");
-		        			$scope.isActive.push(true);
-		        		}
-		        		
-		        		if($scope.categorias.indexOf(valueProduto.categoriaProduto.nome) == -1){
-		        			$scope.categorias.push(valueProduto.categoriaProduto.nome);
-		        			$scope.isActive.push(false);
-		        		}
-		        		
-			        		if($scope.pedido.id != null) {
-				        		
-			        			if(entrada) {	        				
-				        			entrada = false;
-				        			$scope.buscarPrecosExclusivos($scope.pedido.cliente_pedido.id);
-				        		}
-				        		
-				        		$scope.pedido.$promise.then(function(data) {
-				    					angular.forEach(data.produtosPedidos, function(valuePedido, key) {
-				    						if(valueProduto.id == valuePedido.produto.id) {	    							  
-				    				              $scope.selection.push(valueProduto.id);    
-				    				              $scope.produtosSelecionadosPedidos.push(valuePedido);
-				    				              valueProduto.quantidade = valuePedido.quantidade;
-				    						}
-				    					});
-				    			});			        		
-			        		}		
-			         });		        	
-		        });
+        	// Multiple async call
+        	$q.all([
+             	   $scope.produtos.$promise,
+             	   $scope.pedido.$promise
+             	]).then(function(data) {
+             	   var dataProd = data[0];
+             	   var data = data[1];
+             	   
+	    	        	for (var i = 0; i < dataProd.length; i++) {    
+	    	        		var valueProduto = dataProd[i];
+	    	        		if($scope.categorias.length == 0){
+	    	        			$scope.categorias.push("Todos os Produtos");
+	    	        			$scope.isActive.push(true);
+	    	        		}
+	    	        		
+	    	        		if($scope.categorias.indexOf(valueProduto.categoriaProduto.nome) == -1){
+	    	        			$scope.categorias.push(valueProduto.categoriaProduto.nome);
+	    	        			$scope.isActive.push(false);
+	    	        		}
+	    	        		
+	    	        		if($scope.pedido.id != null) {
+	    	        			if(entrada) {	        				
+	    	        				entrada = false;	        				
+	    	        				$scope.buscarPrecosExclusivos($scope.pedido.cliente_pedido.id);
+	    	        			}
+	    	                	for (var j = 0; j < data.produtosPedidos.length; j++) {    
+	    		    					var valuePedido = data.produtosPedidos[j];	
+    		    						if(valueProduto.id == valuePedido.produto.id) {    		    							
+    		    				              $scope.selection.push(valueProduto.id);    
+    		    				              $scope.produtosSelecionadosPedidos.push(valuePedido);
+    		    				              valueProduto.quantidade = valuePedido.quantidade;
+    		    				              console.log('Chegou');
+    		    				              break;
+    		    						}
+	    		    			}; 
+	    	        		}
+	    	        		
+	    	            };         	
+             	   
+             	});	        	    		   
         };       
         
         $scope.carregarPedido();
-
 }]);
-angular.module('controlesApp').directive('focusOnShow', function($timeout) {
-    return {
-        restrict: 'A',
-        link: function($scope, $element, $attr) {
-            if ($attr.ngShow){
-                $scope.$watch($attr.ngShow, function(newValue){
-                    if(newValue){
-                        $timeout(function(){
-                            $element.focus();
-                        }, 0);
-                    }
-                })      
-            }
-            if ($attr.ngHide){
-                $scope.$watch($attr.ngHide, function(newValue){
-                    if(!newValue){
-                        $timeout(function(){
-                            $element.focus();
-                        }, 0);
-                    }
-                })      
-            }
 
-        }
-    };
+
+angular.module('controlesApp').directive('focusMe', function($timeout) {
+	  return {
+	    link: function(scope, element, attrs) {
+	      scope.$watch(attrs.focusMe, function(value) {
+	        if(value === true) { 	          
+	        	if(element[0].value == ""){
+	        		element[0].focus();
+		            scope[attrs.focusMe] = false;	
+	        	}	            
+	        }
+	      });
+	    }
+	  };
+	});
+angular.module('controlesApp').directive('shortcut', function() {
+	  return {
+		    restrict: 'E',
+		    replace: true,
+		    scope: true,
+		    link:    function postLink(scope, iElement, iAttrs){
+		      jQuery(document).on('keypress', function(e){
+		         scope.$apply(scope.keyPressed(e));
+		       });
+		    }
+		  };
 });

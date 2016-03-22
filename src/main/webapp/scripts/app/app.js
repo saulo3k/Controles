@@ -2,8 +2,13 @@
 
 angular.module('controlesApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate', 
                'ui.bootstrap', // for modal dialogs
-    'ngResource', 'ui.router', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'infinite-scroll', 'AngularPrint'])
-
+    'ngResource', 'ui.router', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload', 'infinite-scroll', 'AngularPrint', 'angular-loading-bar'])
+    .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+      cfpLoadingBarProvider.spinnerTemplate = '<div class="loading">'+
+    	  										'<div>'+
+    	  											'<i class="fa fa-spinner fa-spin fa-5x" style="color: #000;"></i>'+
+    	  											'</div></div>';
+    }])
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Language, Auth, Principal, ENV, VERSION) {
         $rootScope.ENV = ENV;
         $rootScope.VERSION = VERSION;
@@ -114,3 +119,6 @@ angular.module('controlesApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pasc
             pattern: /bool|true|0|1/
         });
     }]);;
+    
+
+    

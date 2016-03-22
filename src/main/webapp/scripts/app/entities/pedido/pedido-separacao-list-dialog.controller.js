@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
-    ['$scope', '$stateParams', '$modalInstance',  'entity', 'Pedido', 'Produto', 'User', 'Cliente','PedidoSeparacao', 'PedidoEqualizar', 'ClienteProduto', '$window', '$timeout',
-        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, PedidoSeparacao, PedidoEqualizar, ClienteProduto, $window, $timeout) {
+    ['$scope', '$stateParams', '$modalInstance',  'entity', 'Pedido', 'Produto', 'User', 'Cliente','PedidoSeparacao', 'PedidoEqualizar', 'ClienteProduto', '$window', '$timeout','$rootScope',
+        function($scope, $stateParams, $modalInstance, entity, Pedido, Produto, User, Cliente, PedidoSeparacao, PedidoEqualizar, ClienteProduto, $window, $timeout, $rootScope) {
+    	
     	$scope.pedidos = [];
     	$scope.Produtospedidos = []; 
         $scope.page = 0;
@@ -208,10 +209,13 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         $scope.separados = [];
         
         $scope.produtosSelecionadosPedidos = [];               
-             
+        
+        $scope.resultRefresh = {};
 
         var onSaveFinished = function (result) {
             $scope.$emit('controlesApp:pedidoUpdate', result);
+            $scope.resultRefresh = result
+//            $modalInstance.close(result);
         };
         
         
@@ -220,10 +224,18 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
         $scope.ShowHide = function () {            
             $scope.IsHidden = $scope.IsHidden ? false : true;
         }
+        
+        $scope.saveParam = function (acao, pedido) {
+        	if(acao == 0){
+        		pedido.statusPedido = 'EmProcessoPedido';	
+        	}else if(acao == 1){
+        		pedido.statusPedido = 'EmSeparacao';
+        	}
+        };
+
 
         $scope.save = function (pedido) {
             if (pedido.id != null) {
-            	pedido.statusPedido = 'EmSeparacao';
             	for(var i=0; i < pedido.produtosPedidos.length; i++) {
             		if(pedido.produtosPedidos[i].quantidadeNew != null){
             			pedido.produtosPedidos[i].quantidade = pedido.produtosPedidos[i].quantidadeNew;	
@@ -241,10 +253,17 @@ angular.module('controlesApp').controller('PedidoSeparacaoListDialogController',
                 }
             }
         };
+        
+        $scope.showProdutos = function () {
+            $('#showProdutos').modal('show');
+        };
+        $scope.clearProdutos = function() {    	        	          
+            $('#showProdutos').modal('hide');
+      }; 
 
-        $scope.clear = function() {    		
-            $modalInstance.dismiss('cancel');            
-            $window.location.href = '#/pedidos';
-            Pedido.query();
+        $scope.clear = function() {    	        	
+//            $window.location.href = '#/pedidos';
+        	$modalInstance.dismiss('cancel');
+            $modalInstance.close($scope.resultRefresh);
         };                                        
 }]);

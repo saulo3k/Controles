@@ -143,7 +143,9 @@ public class PedidoService {
 		Set<ProdutosPedidos> produtosPedidosSeremRemovidos = new HashSet<>();
 		
 		if(pedido.getStatusPedido().equals(StatusPedido.EmProcessoPedido) && 
-		   (pedidoAntigo.getStatusPedido().equals(StatusPedido.Separacao) || pedidoAntigo.getStatusPedido().equals(StatusPedido.EmSeparacao) || pedidoAntigo.getStatusPedido().equals(StatusPedido.Romaneio))){
+		   (pedidoAntigo.getStatusPedido().equals(StatusPedido.Separacao) || 
+			pedidoAntigo.getStatusPedido().equals(StatusPedido.EmSeparacao) || 
+			pedidoAntigo.getStatusPedido().equals(StatusPedido.Romaneio))){
 			//Devolver estoque
 			for (ProdutosPedidos produtosPedidos : pedidoAntigo.getProdutosPedidos()) {			
 				estoqueService.devolverProdutoEstoque(produtosPedidos.getProduto(), produtosPedidos.getQuantidade(), pedidoAntigo);
@@ -157,12 +159,18 @@ public class PedidoService {
 		}
 
 		Set<ProdutosPedidos> produtosPedidos = new HashSet<>();
+		
 		for (ProdutosPedidos prodPedidoFor : pedido.getProdutosPedidos()) {
-			ProdutosPedidos prodPedidoSave = new ProdutosPedidos();
-			prodPedidoSave.setPedido(pedido);
-			prodPedidoSave.setProduto(produtoRepository.findOne((prodPedidoFor.getProduto().getId())));
-			prodPedidoSave.setQuantidade(prodPedidoFor.getQuantidade());
-			produtosPedidos.add(prodPedidoSave);
+								
+			if(prodPedidoFor.getQuantidade() != 0){				
+				
+				ProdutosPedidos prodPedidoSave = new ProdutosPedidos();
+				prodPedidoSave.setPedido(pedido);
+				prodPedidoSave.setProduto(produtoRepository.findOne((prodPedidoFor.getProduto().getId())));
+				prodPedidoSave.setQuantidade(prodPedidoFor.getQuantidade());
+				produtosPedidos.add(prodPedidoSave);
+				
+			}			
 		}
 
 		pedido.setProdutosPedidos(produtosPedidos);

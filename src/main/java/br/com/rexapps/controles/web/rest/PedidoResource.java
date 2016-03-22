@@ -179,9 +179,11 @@ public class PedidoResource {
 	@Timed
 	public ResponseEntity<Pedido> getPedido(@PathVariable Long id) {
 		log.debug("REST request to get Pedido : {}", id);
+		
 		Pedido pedido2 = pedidoRepository.findOneWithEagerRelationshipsDaysOfWeek(id);
 		pedido2.setProdutosPedidos(pedidoProdutoRepository.findByIdPedidos(id));
 		pedido2.getDiasSemana();
+		
 		return Optional.ofNullable(pedido2).map(pedido -> new ResponseEntity<>(pedido, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}

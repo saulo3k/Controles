@@ -8,37 +8,34 @@
 	"buffers":
 	[
 		{
-			"contents": "	<!DOCTYPE html>\n<html>\n<head>\n<meta http-equiv=\"refresh\" content=\"0;url=pages/index.html\">\n<title>SB Admin 2</title>\n<script language=\"javascript\">\n    window.location.href = \"pages/index.html\"\n</script>\n</head>\n<body>\nGo to <a href=\"pages/index.html\">/pages/index.html</a>\n</body>\n</html>\n",
-			"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/index.html",
-			"file_size": 290,
-			"file_write_time": 130912925166418339,
+			"file": "src/main/webapp/scripts/app/entities/estoque/estoques.html",
 			"settings":
 			{
-				"buffer_size": 291,
+				"buffer_size": 5213,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages/index.html",
+			"file": "src/main/webapp/index.html",
 			"settings":
 			{
-				"buffer_size": 52573,
+				"buffer_size": 14602,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "produto.xmi",
+			"file": "src/main/webapp/scripts/app/main/main.html",
 			"settings":
 			{
-				"buffer_size": 1517,
+				"buffer_size": 9884,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/home/saulo3k/workspace/rexappssite/index.html",
+			"file": "src/main/webapp/assets/styles/proprio.css",
 			"settings":
 			{
-				"buffer_size": 28212,
+				"buffer_size": 7186,
 				"line_ending": "Unix"
 			}
 		}
@@ -75,12 +72,28 @@
 	},
 	"expanded_folders":
 	[
-		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages"
+		"/home/saulo3k/workspace/Controles/target"
 	],
 	"file_history":
 	[
-		"/home/saulo3k/workspace/Controles/package.json",
-		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/index.html"
+		"/home/saulo3k/workspace/Controles/target/controles-0.0.1-SNAPSHOT/scripts/app/entities/pedido/pedido-dialog-separacao.html",
+		"/home/saulo3k/workspace/Controles/src/main/webapp/scripts/app/entities/pedido/pedido-separacao-dialog.controller.js",
+		"/home/saulo3k/workspace/Controles/bower.json",
+		"/home/saulo3k/workspace/Controles/src/main/webapp/assets/styles/main.css",
+		"/home/saulo3k/workspace/Controles/target/controles-0.0.1-SNAPSHOT/assets/styles/proprio.css",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/service/PedidoService.java",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/web/rest/PedidoResource.java",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/web/rest/ProdutoResource.java",
+		"/home/saulo3k/workspace/Controles/src/main/webapp/scripts/app/entities/produto/produtos.html",
+		"/home/saulo3k/workspace/Controles/src/main/java/br/com/rexapps/controles/domain/Estoque.java",
+		"/home/saulo3k/workspace/Controles/target/classes/config/application-dev.yml",
+		"/home/saulo3k/workspace/Controles/target/controles-0.0.1-SNAPSHOT/scripts/app/entities/pedido/pedido-separacao-dialog.controller.js",
+		"/home/saulo3k/workspace/Controles/brandy/index.html",
+		"/home/saulo3k/workspace/rexappssite/index.html",
+		"/home/saulo3k/workspace/Controles/produto.xmi",
+		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages/index.html",
+		"/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/index.html",
+		"/home/saulo3k/workspace/Controles/package.json"
 	],
 	"find":
 	{
@@ -99,6 +112,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"panel-heading",
+			"wellWhite",
+			"col-lg-3 col-md-6",
+			"well",
+			"separacao",
+			"update",
 			"fa-comments",
 			"font-awesome",
 			"font"
@@ -109,6 +128,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"",
+			"col-lg-3 col-md-6 wellWhite"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -124,24 +145,26 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/index.html",
+					"file": "src/main/webapp/scripts/app/entities/estoque/estoques.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 291,
+						"buffer_size": 5213,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1,
-								1
+								158,
+								158
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -152,19 +175,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/home/saulo3k/workspace/startbootstrap/startbootstrap-sb-admin-2/pages/index.html",
+					"file": "src/main/webapp/index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 52573,
+						"buffer_size": 14602,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4412,
-								4412
+								1654,
+								1654
 							]
 						],
 						"settings":
@@ -174,32 +197,32 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1451.0,
+						"translation.y": 181.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "produto.xmi",
+					"file": "src/main/webapp/scripts/app/main/main.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1517,
+						"buffer_size": 9884,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1517,
-								1517
+								1229,
+								1229
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/XML/XML.tmLanguage",
+							"syntax": "Packages/HTML/HTML.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -207,35 +230,37 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/home/saulo3k/workspace/rexappssite/index.html",
+					"file": "src/main/webapp/assets/styles/proprio.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 28212,
+						"buffer_size": 7186,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								13888,
-								13888
+								7022,
+								7022
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 4867.0,
+						"translation.y": 6692.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -280,7 +305,7 @@
 	"project": "st.sublime-project",
 	"replace":
 	{
-		"height": 46.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -289,6 +314,66 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"main.html",
+				"src/main/webapp/scripts/app/main/main.html"
+			],
+			[
+				"index.html",
+				"src/main/webapp/index.html"
+			],
+			[
+				"proprio",
+				"src/main/webapp/assets/styles/proprio.css"
+			],
+			[
+				"main.css",
+				"src/main/webapp/assets/styles/main.css"
+			],
+			[
+				"pedidoser",
+				"src/main/java/br/com/rexapps/controles/service/PedidoService.java"
+			],
+			[
+				"pedidore",
+				"src/main/java/br/com/rexapps/controles/web/rest/PedidoResource.java"
+			],
+			[
+				"produtore",
+				"src/main/java/br/com/rexapps/controles/web/rest/ProdutoResource.java"
+			],
+			[
+				"pedidodialoghtml",
+				"target/controles-0.0.1-SNAPSHOT/scripts/app/entities/pedido/pedido-dialog-separacao.html"
+			],
+			[
+				"separacao",
+				"src/main/webapp/scripts/app/entities/pedido/pedido-separacao-dialog.controller.js"
+			],
+			[
+				"estoques.",
+				"src/main/webapp/scripts/app/entities/estoque/estoques.html"
+			],
+			[
+				"produtos.html",
+				"src/main/webapp/scripts/app/entities/produto/produtos.html"
+			],
+			[
+				"estoque.java",
+				"src/main/java/br/com/rexapps/controles/domain/Estoque.java"
+			],
+			[
+				"appli",
+				"target/classes/config/application-dev.yml"
+			],
+			[
+				"index",
+				"brandy/index.html"
+			],
+			[
+				"bower",
+				"bower.json"
+			]
 		],
 		"width": 0.0
 	},

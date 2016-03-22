@@ -1,7 +1,7 @@
 
 <form name="editForm" role="form" novalidate ng-submit="save()" class="ng-pristine">
 	<a id="top"></a> 
-    <div class="modal-header">
+    <div class="modal-header" >
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="clear()">&times;</button>
         <h4 class="modal-title" id="myPedidoLabel" translate="controlesApp.pedido.home.createOrEditLabel">Create or edit a Pedido</h4>
@@ -14,9 +14,18 @@
         </div>
         <div class="form-group">        	
             <label translate="controlesApp.pedido.cliente_pedido" for="field_cliente_pedido">cliente_pedido</label>
-            <select class="form-control" id="field_cliente_pedido" name="pedidoCliente" ng-change="buscarPrecosExclusivos(pedido.cliente_pedido.id)" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id" required>
-                <option value="">Selecione um Cliente</option>
-            </select>             
+            <div class="row">
+            	<div class="col-lg-11">
+		            <select class="form-control" id="field_cliente_pedido" name="pedidoCliente" ng-change="buscarPrecosExclusivos(pedido.cliente_pedido.id);" name="cliente_pedido" ng-model="pedido.cliente_pedido" ng-options="cliente as cliente.nome for cliente in clientes track by cliente.id" required>
+		                <option value="">Selecione um Cliente</option>
+		            </select>   
+	            </div>
+	            <div class="col-lg-1">
+		            <button class="btn btn-success"  ui-sref="pedido.newcliente">
+		                    <span class="fa fa-plus fa-1x"></span> 
+		            </button>        
+	            </div>
+            </div>  
             <div ng-show="editForm.pedidoCliente.$invalid">
       			<span ng-show="editForm.pedidoCliente.$error.required">Cliente é obrigatorio !</span>
       		</div>	           
@@ -56,32 +65,84 @@
                      />
                      {{pedido.dataPedido | date:'longDate'}}
         </div>
-        <br>
         
-        <div class="panel panel-default" ng-if="pedido.cliente_pedido">
-        <div class="panel-heading"><label>Produtos</label></div>
-	        <div class="panel-body" >
-<!-- 		        <pre> -->
-		        <div style="overflow: auto;white-space: nowrap; " align="center">	    
-				<div ng-repeat="categoria in categorias track by $index" class="col-lg-4">
-					<button ng-class="isActive[$index] ? 'btn btn-lg btn-warning' : 'btn btn-lg btn-info'""  name="filter_categoria" type="button" ng-click="filtrarCategoria(categoria, $index)">
-	              		<span class="fa fa-filter"></span> <span>{{categoria}}</span>
-	        		</button>        			
-				</div>				
+
+<div class="panel-group" id="accordion" ng-if="pedido.cliente_pedido">
+  <shortcut></shortcut>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  		Selecionar Produtos
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+      <div class="panel-body">
+      
+				<div style="overflow: auto;white-space: nowrap; " align="center">	    
+					<div ng-repeat="categoria in categorias track by $index" class="col-lg-4">
+						<button ng-class="isActive[$index] ? 'btn btn-lg btn-warning' : 'btn btn-lg btn-info'""  name="filter_categoria" type="button" ng-click="filtrarCategoria(categoria, $index)">
+		              		<span class="fa fa-filter fa-1x"></span> {{categoria}}
+		        		</button>        			
+					</div>
+				
 				</div>
-				<br>
+					<br>
 		        <div align="center">
-		  		<input type="text" class="form-control" placeholder="Pesquisar Produtos" ng-model="searchKeyword" >
-<!-- 		  		<button class="btn btn-danger" type="button" ng-click="searchKeyword = null" style="width: 100%"> -->
-<!-- 		              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span> -->
-<!-- 		        </button> -->
-	        	</div>        	        
-<!-- 			</pre>     -->
-			
+					<input type="text" id="pesquisa" class="form-control" focus-me="focusSearch" placeholder="Pesquisar Produtos" ng-model="searchKeyword" >
+					<span><b>Dica:</b> Clique a tecla A quando estiver no campo quantidade para retornar a pesquisa! </span> 
+	        	</div>     
+	        	
+	        					        	   	        
 	        <table class="table table-responsive">
 	            <thead >
 	                <tr>
 	                	<th>Selecionar</th>
+	                    <th>Produto</th>
+	                    <th>Categoria</th>
+	                    <th>Quantidade</th>                    
+	                    <th>Valor</th>
+	                    <th></th>
+	                </tr>
+	            </thead>
+	            <tbody >
+	                <tr ng-repeat="produto in produtos | filter: searchKeyword | filter: category | orderBy:'nome'" ng-class="{'selected':selection.indexOf(produto.id) != -1}" >
+	                	<td>
+	                		<button type="button" ng-click="toggle(produto.id, produto);"  
+	                		class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf(produto.id) != -1"></i> </button></td>
+	                    <td>{{produto.nome}}</td>
+	                        <td>{{produto.categoriaProduto.nome}}</td>
+	                        <td>
+	                        <div class="form-group">	                        	           
+	                        	<input ng-if="selection.indexOf(produto.id) != -1" class="form-control"  min="0"  type="number"  size="3"  
+	                        	name="qnt_{{produto.id}}" id="qnt_{{produto.id}}"  ng-model="produto.quantidade" 
+	                        	ng-blur="setQuantidade(produto)"  ng-keyup="calculaTotal(produtos)" focus-me="focusInput">
+	                        </div>                        	
+	                        </td>
+	                        <td>{{produto.precoVenda  |  currency}}</td>                                            	
+	                    	<td></td>
+	                </tr>
+	            </tbody>
+	        </table>        
+
+
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+          Ver Pedido
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse">
+      <div class="panel-body">
+        	<table class="table table-striped">
+	            <thead >
+	                <tr>
 	                    <th>Produto</th>
 	                    <th>Categoria</th>
 <!-- 	                    <th>Unidade de Medida</th> -->
@@ -91,39 +152,40 @@
 	                </tr>
 	            </thead>
 	            <tbody >
-	                <tr ng-repeat="produto in produtos | filter: searchKeyword | filter: category | orderBy:'nome'" ng-class="{'selected':selection.indexOf(produto.id) != -1}" >
-	                	<td><button type="button" ng-click="toggle(produto.id, produto);"  class="btn btn-danger btn-circle"><i class="fa fa-check" ng-if="selection.indexOf(produto.id) != -1"></i> </button></td>
-	                    <td>{{produto.nome}}</td>
-	                        <td>{{produto.categoriaProduto.nome}}</td>
-<!-- 	                        <td>{{produto.unidadeMedida}}</td> -->
+	                <tr ng-repeat="produtoPedido in produtosSelecionadosPedidos"  >
+	                    <td>{{produtoPedido.produto.nome}}</td>
+	                        <td>{{produtoPedido.produto.categoriaProduto.nome}}</td>
 	                        <td>
 	                        <div class="form-group">
-	                        	<input ng-show="selection.indexOf(produto.id) != -1"  min="0" type="number" focus-on-show  size="3" name="qnt_{{produto.id}}"  ng-model="produto.quantidade" ng-blur="setQuantidade(produto)"  ng-keyup="calculaTotal(produtos)" >
-	<!--                         	<button type="button" class="btn btn-success" ng-if="selection.indexOf(produto.id) != -1" ng-click="somar(produto);calculaTotal(produtos)"><i class="fa glyphicon-plus" ></i></button>                        	 -->
-	<!--                         	<button type="button" class="btn btn-danger" ng-if="selection.indexOf(produto.id) != -1" ng-click="subtrair(produto);calculaTotal(produtos)"><i class="fa glyphicon-minus" ></i></button> -->
-	                        	</div>                        	
+								{{produtoPedido.produto.quantidade}}
+	                        </div>                        	
 	                        </td>
-	                        <td>{{produto.precoVenda  |  currency}}</td>                                            	
+	                        <td>{{produtoPedido.produto.precoVenda  |  currency}}</td>                                            	
 	                    	<td></td>
 	                </tr>
 	            </tbody>
 	        </table>        
-	        </div>  
-	    		
-	        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
-	        	<label>SubTotal Pedido: </label>
-	        	<label>{{pedido.total |  currency}}</label>
-	        </div>	
-	        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
-	        	<label>Desconto: </label>
-	        	<input  type="number" size="3" style="width: 70px" ng-model="pedido.desconto" has-authority="ROLE_ADMIN" ng-change="calcularDesconto(pedido);">	        	
-	        </div>	
-	        <div class="form-group" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN" align="right">
-	        	<label>Valor Total Pedido: </label>
-	        	<label>{{pedido.totalDesconto |  currency}}</label>
-	        </div>
-	    </div>
+	        <br>	
+	        <div class="row">
+		        <div class="col-md-3 pull-right" style="font-size: 14px" ng-if="pedido.total != 0" has-authority="ROLE_ADMIN">
+		        	<label>SubTotal Pedido: </label><br>		        	
+		        	<label>{{pedido.total |  currency}}</label>
+					<br>		        	
+	                 <label>Desconto:</label>       
+	                 <input type="text" class="form-control" style="width: 70px"  ng-model="pedido.desconto" has-authority="ROLE_ADMIN" ng-change="calcularDesconto(pedido);"> 
+	                                                      
+
+		        	<label>Valor Total Pedido: </label><br>		        	
+		        	<label>{{pedido.totalDesconto |  currency}}</label>
+		        </div>
+			</div>
+      </div>
     </div>
+  </div>
+  
+</div>	    	   	    	    
+	    
+</div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>

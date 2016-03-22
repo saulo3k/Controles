@@ -3,10 +3,10 @@
 		<div class="panel-heading"> 					   
 			  <div class="container">
 			    <div class="row">
-			        <div class="col-md-4">
+			        <div class="col-lg-10">
 					    <h1 translate="controlesApp.estoque.home.title">Estoques </h1>                        
 			        </div>
-			        <div class="col-md-4">
+			        <div class="col-lg-2">
 			            <i class="fa fa-cubes fa-5x"/>
 			        </div>
 			    </div>
@@ -19,37 +19,30 @@
     <jh-alert></jh-alert>
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
-                 <button class="btn btn-success"  ui-sref="home">
-                    <span class="fa fa-chevron-left fa-3x"></span> <span >Voltar</span>
-                </button>   
+            <div class="col-md-4">   
                 <button class="btn btn-info"  ui-sref="estoque.newin">
                     <span class="fa fa-plus fa-3x"></span> <span translate="controlesApp.estoque.home.createLabelEntrada"></span>
                 </button>
                 <button class="btn btn-danger"  ui-sref="estoque.newout" >
                     <span class="fa fa-minus fa-3x"></span> <span translate="controlesApp.estoque.home.createLabelSaida"></span>
                 </button>     
+                <button class="btn btn-primary"  ui-sref="home">
+                    <span class="fa fa-chevron-left fa-3x"></span> <span >Voltar</span>
+                </button>
             </div>            
         </div>
     </div>
 <br>
 
 <br>
-<div class="panel panel-default">    
-    <div class="panel-heading" style="background-color: #DEDCDC">  
-        <div>      
-            <h3><i class="fa fa-expand"> </i> Movimentações de estoque</h3>
-        </div>
-    </div>
-    <div class="panel-body">
-    <div class="row">
-        <div class="col-sm-6">
-            
-        </div>
-        <div class="col-sm-6">            
-            <input type="text" class="form-control" placeholder="Procurar Estoque" ng-model="searchKeyword"  ng-click="puxarPedidos()">      
-        </div>
-    </div>
+    
+    <div class="panel-heading" style="background-color: #DEDCDC">      
+	    <div class="row">
+	        <div class="col-lg-12">
+	            <input type="text" class="form-control" placeholder="Procurar Estoque" ng-model="searchKeyword"  ng-click="puxarPedidos()">
+	        </div>
+	    </div>    
+    </div>    
     <div class="table-responsive">
     
         <table class="table table-striped">
@@ -104,6 +97,5 @@
                 </tr>
             </tbody>
         </table>
-        </div>
-    </div>
-</div>
+</div>    
+

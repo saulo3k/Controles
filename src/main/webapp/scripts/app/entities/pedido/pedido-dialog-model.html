@@ -66,6 +66,7 @@
 		</div>
 		
         <div class="panel panel-default" ng-if="pedido.cliente_pedido">
+        <shortcut></shortcut>
         <div class="panel-heading"><label>Produtos</label></div>
 	        <div class="panel-body" >
 <!-- 		        <pre> -->
@@ -79,11 +80,9 @@
 				<br>
 		        <div align="center">
 		  		<input type="text" class="form-control" placeholder="Pesquisar Produtos" ng-model="searchKeyword" >
-<!-- 		  		<button class="btn btn-danger" type="button" ng-click="searchKeyword = null" style="width: 100%"> -->
-<!-- 		              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span> -->
-<!-- 		        </button> -->
+  
 	        	</div>        	        
-<!-- 			</pre>     -->
+
 			
 	        <table class="table table-responsive">
             <thead>
@@ -106,9 +105,9 @@
 
                         <td>
                         <div class="form-group">
-                        	<input ng-show="selection.indexOf(produto.id) != -1" type="number"   focus-on-show  min="0" name="qnt_{{produto.id}}" size="3"  ng-model="produto.quantidade" ng-blur="setQuantidade(produto)"  ng-keyup="calculaTotal(produtos)" >
-<!--                         	<button type="button" class="btn btn-success" ng-if="selection.indexOf(produto.id) != -1" ng-click="somar(produto);calculaTotal(produtos)"><i class="fa glyphicon-plus" ></i></button>                        	 -->
-<!--                         	<button type="button" class="btn btn-danger" ng-if="selection.indexOf(produto.id) != -1" ng-click="subtrair(produto);calculaTotal(produtos)"><i class="fa glyphicon-minus" ></i></button> -->
+	                        	<input ng-if="selection.indexOf(produto.id) != -1" class="form-control"  min="0"  type="number"  size="3"  
+	                        	name="qnt_{{produto.id}}" id="qnt_{{produto.id}}"  ng-model="produto.quantidade" 
+	                        	ng-blur="setQuantidade(produto)"  ng-keyup="calculaTotal(produtos)" focus-me="focusInput">
                         	</div>                        	
                         </td>
                         <td>{{produto.precoVenda  |  currency}}</td>                                            	

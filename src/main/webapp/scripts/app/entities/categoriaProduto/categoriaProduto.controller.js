@@ -50,13 +50,19 @@ angular.module('controlesApp')
         };
 
         $scope.search = function () {
-            CategoriaProdutoSearch.query({query: $scope.searchQuery}, function(result) {
-                $scope.categoriaProdutos = result;
-            }, function(response) {
-                if(response.status === 404) {
-                    $scope.loadAll();
-                }
-            });
+        	if($scope.searchQuery != ""){
+        		CategoriaProdutoSearch.query({query: $scope.searchQuery}, function(result) {
+                    $scope.categoriaProdutos = result;
+                }, function(response) {
+                    if(response.status === 404) {
+                        $scope.loadAll();
+                    }
+                });	
+        	}else{
+	       		 $scope.page = 0;
+	    		 $scope.categoriaProdutos = [];
+	    	     $scope.loadAll();
+        	}            
         };
 
         $scope.refresh = function () {

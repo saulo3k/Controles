@@ -3,10 +3,10 @@
 	<div class="panel-heading"> 					   
 		  <div class="container">
 		    <div class="row">
-		        <div class="col-md-4">
+		        <div class="col-lg-10">
 					<h1 translate="controlesApp.categoriaProduto.home.title">CategoriaProdutos</h1>
 		        </div>
-		        <div class="col-md-4">
+		        <div class="col-lg-2">
 		            <i class="fa fa-cog fa-5x"/>
 		        </div>
 		    </div>
@@ -20,38 +20,20 @@
         <div class="row">
             <div class="col-md-4">
                 <button class="btn btn-success" ui-sref="categoriaProduto.new">
-                    <span class="fa fa-plus fa-5x"></span> <span style="font-size: 15px" translate="controlesApp.categoriaProduto.home.createLabel">Create a new CategoriaProduto</span>
+                    <span class="fa fa-plus fa-3x"></span> <span style="font-size: 15px" translate="controlesApp.categoriaProduto.home.createLabel">Create a new CategoriaProduto</span>
                 </button>
                 <button class="btn btn-primary"  ui-sref="home">
-                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                    <span class="fa fa-chevron-left fa-3x"></span> <span >Voltar</span>
                 </button>    
             </div>            	
             <div class="col-md-4">
   
             </div>
-<!--             <div class="col-md-4" style="height:84px"> -->
-<!--                 <form name="searchForm" class="form-inline"> -->
-<!--                     <div class="form-group"> -->
-<!--                         <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" > -->
-<!--                     </div> -->
-<!--                     <button class="btn btn-info" ng-click="search()"><span class="glyphicon glyphicon-search"></span> <span>Buscar Categoria de Produto</span> -->
-<!--                     </button> -->
-<!--                 </form> -->
-<!--             </div> -->
         </div>
     </div>
 	<br>
-<div class="row">
-  		<div class=".col-xl-1">
-  		<label>Procurar</label>
-			<input type="text" class="form-control" placeholder="Procurar Clientes" ng-model="searchKeyword" style="width: 100%" ng-click="puxarPedidos()">
-			<button class="btn btn-danger"  type="button" ng-click="searchKeyword = null" style="width: 100%">
-              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span>
-        	</button>
-  		</div>
-	</div>
-<div>
-        <div class="modal fade" id="deleteCategoriaProdutoConfirmation">
+	
+	    <div class="modal fade" id="deleteCategoriaProdutoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form name="deleteForm" ng-submit="confirmDelete(categoriaProduto.id)">
@@ -75,9 +57,19 @@
             </div>
         </div>
     </div>
+	    
+    <div class="panel-heading" style="background-color: #DEDCDC">  
+	    <div class="row">
+	        <div class="col-lg-12">            
+				<input type="text" class="form-control" placeholder="Procurar Categorias de Produtos" class="form-control" ng-model="searchKeyword" id="searchQuery" style="width: 100%" ng-click="puxarPedidos()">      
+	        </div>
+	    </div>        
+    </div>
+	
 
+<div>    
     <div class="table-responsive">
-    <h3>Categorias</h3>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -92,10 +84,6 @@
                     <td><a ui-sref="categoriaProduto.detail({id:categoriaProduto.id})">{{categoriaProduto.id}}</a></td>
                     <td>{{categoriaProduto.nome}}</td>
                     <td>{{categoriaProduto.descricao}}</td>
-<!--                     <td> -->
-<!--                     	<button type="button" class="btn btn-success btn-circle" ng-show="{{categoriaProduto.ativa == true}}"></button> -->
-<!--                     	<button type="button" class="btn btn-danger btn-circle" ng-show="{{categoriaProduto.ativa == false}}"></button> -->
-<!--                     </td> -->
                     <td>
                         <button type="submit"
                                 ui-sref="categoriaProduto.detail({id:categoriaProduto.id})"

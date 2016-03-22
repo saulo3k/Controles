@@ -10,6 +10,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
+        <link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.css' />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
@@ -17,7 +18,8 @@
         <link rel="stylesheet" href="assets/styles/proprio.css">        
 		<link rel="stylesheet" href="assets/styles/morris.css">
 		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="bower_components/angularPrint/angularPrint.css">		
+		<link rel="stylesheet" href="bower_components/angularPrint/angularPrint.css">
+		<link rel='stylesheet' href='bower_components/angular-loading-bar/build/loading-bar.min.css' type='text/css' media='all' />		
  		<script src="assets/scripts/jquery.min.js"></script>
  		<script src="assets/scripts/raphael-min.js"></script>
  		<script src="assets/scripts/morris.min.js"></script> 		 		
@@ -29,13 +31,17 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
-        <div ui-view="navbar" ng-cloak=""></div>
-        <div class="container">
-            <div class="well" ui-view="content"></div>            
+        <div ui-view="navbar" ng-cloak="">
+        </div>
+        <div class="container" >        	
+            <div class="well" ui-view="content">
+
+            </div>            
 
             <div class="footer">
                 <p translate="footer">Developed for rexapps.com.br</p>
             </div>
+                
         </div>
 
         <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
@@ -72,6 +78,7 @@
         <script src="bower_components/json3/lib/json3.js"></script>
         <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+        <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -206,5 +213,7 @@
     <script src="scripts/components/entities/estoque/estoque.service.js"></script>
     <script src="scripts/components/entities/estoque/estoque.search.service.js"></script>    
     <!-- endbuild -->
+    <script src="bower_components/angular-i18n/angular-locale_pt.js"></script>
+    
 </body>
 </html>

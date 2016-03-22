@@ -347,6 +347,16 @@ table.dataTable thead .sorting:after {
     color: #fff;
     background-color: #f0ad4e;
 }
+.panel-heading a:after {
+    font-family:'Glyphicons Halflings';
+    content:"\e114";
+     bottom: 100px;
+    float: right;
+    color: grey;
+}
+.panel-heading a.collapsed:after {
+    content:"\e080";
+}
 
 .panel-yellow a {
     color: #f0ad4e;
@@ -430,3 +440,13 @@ ul
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05); }
+  
+
+
+.loading{
+  position: fixed;  
+  top: 50%;
+  left: 50%;
+  margin: -15px 0 0 -15px;  
+  z-index:9000;
+}

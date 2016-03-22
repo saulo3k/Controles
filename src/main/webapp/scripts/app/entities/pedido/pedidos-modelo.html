@@ -1,12 +1,12 @@
 
-<div class="panel panel-primary"> 
-	<div class="panel-heading"> 					   
+<div class="panel panel-primary" style="background-color: #d9534f !important;border-color: #d9534f !important;"> 
+	<div class="panel-heading" style="background-color: #d9534f;border-color: #d9534f !important;"> 					   
 		  <div class="container">
 		    <div class="row">
-		        <div class="col-xs-6">
+		        <div class="col-lg-10">
 		            <h1>Pedidos Modelo</h1>
 		        </div>
-		        <div class="col-xs-6">
+		        <div class="col-lg-2">
 		            <i class="fa fa-clock-o fa-5x"/>
 		        </div>
 		    </div>
@@ -21,26 +21,23 @@
         <div class="row">
             <div class="col-md-4">
                 <button class="btn btn-success"  ui-sref="pedido.modelo.new">
-                    <span class="fa fa-plus fa-5x"></span><span>Criar Pedido Modelo</span>
+                    <span class="fa fa-plus fa-3x"></span><span>Criar Pedido Modelo</span>
                 </button>
                 <button class="btn btn-primary"  ui-sref="pedido">
-                    <span class="fa fa-chevron-left fa-5x"></span> <span >Voltar</span>
+                    <span class="fa fa-chevron-left fa-3x"></span> <span >Voltar</span>
                 </button>                                                
             </div>            		
             
         </div>
     </div>
 	<br>
-		<div class="row">
-	  		<div class=".col-xl-1">
-	  		<label>Procurar</label>
-				<input type="text" class="form-control" placeholder="Procurar Pedidos" ng-model="searchKeyword" style="width: 100%" ng-click="puxarPedidos()">
-				<button class="btn btn-danger"  type="button" ng-click="searchKeyword = null" style="width: 100%">
-	              <span class="fa fa-times-circle"></span> <span>Apagar Pesquisa</span>
-	        	</button>
-	  		</div>
-		</div>
-			
+    <div class="panel-heading" style="background-color: #DEDCDC">  
+	   <div class="row">
+	        <div class="col-lg-12">
+	            <input type="text" class="form-control" placeholder="Procurar Pedidos Modelo" ng-model="searchKeyword" style="width: 100%" ng-click="puxarPedidos()">
+	        </div>	        
+	    </div>
+    </div>							
     <div class="modal fade" id="deletePedidoConfirmation">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -66,8 +63,7 @@
         </div>
     </div>
 
-    <div class="table-responsive">
-    <h3>Pedidos Modelo</h3>
+    <div class="table-responsive">    
         <table class="table table-striped">
             <thead>
                 <tr>
